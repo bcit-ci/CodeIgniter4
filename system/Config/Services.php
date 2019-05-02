@@ -493,6 +493,30 @@ class Services extends BaseService
 	//--------------------------------------------------------------------
 
 	/**
+	 * The Queue class.
+	 *
+	 * @param  mixed   $config
+	 * @param  boolean $getShared
+	 * @return CodeIgniter\Queue\Handlers\QueueHandlerInterface
+	 */
+	public static function queue($config = null, $getShared = true)
+	{
+		if ($getShared)
+		{
+			return self::getSharedInstance('queue', $config);
+		}
+
+		if (is_null($config))
+		{
+			$config = new \Config\Queue;
+		}
+
+		return (new \CodeIgniter\Queue\Queue($config))->connect();
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
 	 * The Renderer class is the class that actually displays a file to the user.
 	 * The default View class within CodeIgniter is intentionally simple, but this
 	 * service could easily be replaced by a template engine if the user needed to.
