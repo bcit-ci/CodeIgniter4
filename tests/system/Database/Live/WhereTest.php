@@ -128,10 +128,21 @@ class WhereTest extends CIDatabaseTestCase
 							 ->where('name', 'Developer')
 							 ->getCompiledSelect();
 
-		$jobs = $this->db->table('job')
-						 ->where('id not in (' . $subQuery . ')', null, false)
-						 ->get()
-						 ->getResult();
+		if ($this->db->DBDriver === 'OCI8')
+		{
+			$jobs = $this->db->table('job')
+							 ->where('"id" not in (' . $subQuery . ')', null, false)
+							 ->orderBy('id')
+							 ->get()
+							 ->getResult();
+		}
+		else
+		{
+			$jobs = $this->db->table('job')
+							 ->where('id not in (' . $subQuery . ')', null, false)
+							 ->get()
+							 ->getResult();
+		}
 
 		$this->assertCount(3, $jobs);
 		$this->assertEquals('Politician', $jobs[0]->name);
@@ -148,10 +159,20 @@ class WhereTest extends CIDatabaseTestCase
 							 ->where('name', 'Developer')
 							 ->getCompiledSelect();
 
-		$jobs = $this->db->table('job')
-						 ->where('id = (' . $subQuery . ')', null, false)
-						 ->get()
-						 ->getResult();
+		if ($this->db->DBDriver === 'OCI8')
+		{
+			$jobs = $this->db->table('job')
+							 ->where('"id" = (' . $subQuery . ')', null, false)
+							 ->get()
+							 ->getResult();
+		}
+		else
+		{
+			$jobs = $this->db->table('job')
+							 ->where('id = (' . $subQuery . ')', null, false)
+							 ->get()
+							 ->getResult();
+		}
 
 		$this->assertCount(1, $jobs);
 		$this->assertEquals('Developer', $jobs[0]->name);

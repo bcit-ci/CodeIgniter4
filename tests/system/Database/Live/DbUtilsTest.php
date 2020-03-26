@@ -70,6 +70,12 @@ class DbUtilsTest extends CIDatabaseTestCase
 
 			$this->assertTrue(in_array('test', $databases));
 		}
+		elseif ($this->db->DBDriver === 'OCI8')
+		{
+			$databases = $util->listDatabases();
+
+			$this->assertTrue(in_array('TEST', $databases));
+		}
 		elseif ($this->db->DBDriver === 'SQLite3')
 		{
 			$this->expectException(DatabaseException::class);
@@ -97,6 +103,12 @@ class DbUtilsTest extends CIDatabaseTestCase
 
 			$this->assertTrue($exist);
 		}
+		elseif ($this->db->DBDriver === 'OCI8')
+		{
+			$exist = $util->databaseExists('TEST');
+
+			$this->assertTrue($exist);
+		}
 		elseif ($this->db->DBDriver === 'SQLite3')
 		{
 			$this->expectException(DatabaseException::class);
@@ -111,6 +123,13 @@ class DbUtilsTest extends CIDatabaseTestCase
 	public function testUtilsOptimizeDatabase()
 	{
 		$util = (new Database())->loadUtils($this->db);
+
+		if ($this->db->DBDriver === 'OCI8')
+		{
+			$this->markTestSkipped(
+			  'Unsupported feature of the oracle database platform.'
+			);
+		}
 
 		$d = $util->optimizeDatabase();
 
@@ -136,6 +155,13 @@ class DbUtilsTest extends CIDatabaseTestCase
 	public function testUtilsOptimizeTable()
 	{
 		$util = (new Database())->loadUtils($this->db);
+
+		if ($this->db->DBDriver === 'OCI8')
+		{
+			$this->markTestSkipped(
+			  'Unsupported feature of the oracle database platform.'
+			);
+		}
 
 		$d = $util->optimizeTable('db_job');
 

@@ -279,13 +279,11 @@ class ModelTest extends CIDatabaseTestCase
 
 		$this->db->table('secondary')
 				 ->insert([
-					 'id'    => 1,
 					 'key'   => 'foo',
 					 'value' => 'bar',
 				 ]);
 		$this->db->table('secondary')
 				 ->insert([
-					 'id'    => 2,
 					 'key'   => 'bar',
 					 'value' => 'baz',
 				 ]);

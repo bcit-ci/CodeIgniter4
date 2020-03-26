@@ -36,6 +36,12 @@ class PreparedQueryTest extends CIDatabaseTestCase
 		}
 
 		$expected = "INSERT INTO {$ec}{$pre}user{$ec} ({$ec}name{$ec}, {$ec}email{$ec}) VALUES ({$placeholders})";
+
+		if ($this->db->DBDriver === 'OCI8')
+		{
+			$expected .= ' RETURNING ROWID INTO ?';
+		}
+
 		$this->assertEquals($expected, $query->getQueryString());
 
 		$query->close();

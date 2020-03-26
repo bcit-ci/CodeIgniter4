@@ -175,7 +175,7 @@ class LikeTest extends \CodeIgniter\Test\CIUnitTestCase
 
 		$builder->like('name', 'VELOPER', 'both', null, true);
 
-		$expectedSQL   = "SELECT * FROM \"job\" WHERE LOWER(name) LIKE '%veloper%' ESCAPE '!'";
+		$expectedSQL   = "SELECT * FROM \"job\" WHERE LOWER(\"name\") LIKE '%veloper%' ESCAPE '!'";
 		$expectedBinds = [
 			'name' => [
 				'%veloper%',

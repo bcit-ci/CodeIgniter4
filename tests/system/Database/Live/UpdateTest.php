@@ -225,6 +225,28 @@ class UpdateTest extends CIDatabaseTestCase
 	// @see https://codeigniter4.github.io/CodeIgniter4/database/query_builder.html#updating-data
 	public function testSetWithoutEscape()
 	{
+		if ($this->db->DBDriver === 'OCI8')
+		{
+			$forge = \Config\Database::forge($this->DBGroup);
+			$forge->modifyColumn('job', [
+				'description' => [
+					'name' => 'DESCRIPTION',
+				],
+				'name'        => [
+					'name' => 'NAME',
+				],
+			]);
+			$this->db->table('job')
+					 ->set('description', 'name', false)
+					 ->update();
+
+			$this->seeInDatabase('job', [
+				'NAME'        => 'Developer',
+				'DESCRIPTION' => 'Developer',
+			]);
+			return;
+		}
+
 		$this->db->table('job')
 				 ->set('description', 'name', false)
 				 ->update();

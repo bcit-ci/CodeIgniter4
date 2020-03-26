@@ -660,7 +660,7 @@ class Forge
 			$tableName = substr($tableName, strlen($this->db->DBPrefix));
 		}
 
-		if (($query = $this->_dropTable($this->db->DBPrefix . $tableName, $ifExists, $cascade)) === true)
+		if (($query = $this->_dropTable($this->db->DBPrefix . $tableName, $ifExists, $cascade)) === '')
 		{
 			return true;
 		}
@@ -708,7 +708,7 @@ class Forge
 			{
 				if (! $this->db->tableExists($table))
 				{
-					return true;
+					return '';
 				}
 			}
 			else
