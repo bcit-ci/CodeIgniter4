@@ -13,6 +13,7 @@ namespace CodeIgniter\CLI;
 
 use CodeIgniter\CLI\Exceptions\CLIException;
 use Config\Services;
+use InvalidArgumentException;
 use Throwable;
 
 /**
@@ -269,6 +270,64 @@ class CLI
 			while (! static::validate($field, $input, $validation))
 			{
 				$input = static::prompt($field, $options, $validation);
+			}
+		}
+
+		return empty($input) ? '' : $input;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Asks the user to select a options key.
+	 *
+	 * @param string            $text       Output "field" text
+	 * @param array             $options    a list of options (array(key => description)), the first option will be the default value
+	 * @param string|array|null $validation Validation rules
+	 *
+	 * @return string The selected key
+	 *
+	 * @codeCoverageIgnore
+	 */
+	public static function promptSelect(string $text, array $options, $validation = null): string
+	{
+		if ($validation && (! is_array($validation) && ! is_string($validation)))
+		{
+			throw new InvalidArgumentException('$rules can only be of type string|array');
+		}
+		if (! is_array($validation))
+		{
+			$validation = $validation ? explode('|', $validation) : [];
+		}
+
+		CLI::write($text);
+
+		if ($options)
+		{
+			$validation[] = 'in_list[' . implode(',', array_keys($options)) . ']';
+			reset($options);
+			$default = key($options);
+
+			$keyMaxLength = max(array_map('strlen', array_keys($options)));
+			foreach ($options as $key => $description)
+			{
+				$name    = '  ' . str_pad($key, $keyMaxLength + 2, ' ');
+				$output  = CLI::color($name, $default ? 'white' : 'light_gray');
+				$output .= CLI::wrap($description, 125, strlen($name));
+				CLI::write($output);
+			}
+		}
+
+		static::fwrite(STDOUT, PHP_EOL . 'selection: ');
+
+		// Read the input from keyboard.
+		$input = trim(static::input()) ?: $default ?? null;
+
+		if ($validation)
+		{
+			while (! static::validate($text, $input, $validation))
+			{
+				$input = static::promptSelect($text, $options, $validation);
 			}
 		}
 
