@@ -252,7 +252,7 @@ class CLI
 			}
 			else
 			{
-				$extraOutput = ' [' . $extraOutputDefault . ', ' . implode(', ', $opts) . ']';
+				$extraOutput = '[' . $extraOutputDefault . ', ' . implode(', ', $opts) . ']';
 				$validation .= '|in_list[' . implode(',', $options) . ']';
 				$validation  = trim($validation, '|');
 			}
@@ -260,7 +260,7 @@ class CLI
 			$default = $options[0];
 		}
 
-		static::fwrite(STDOUT, $field . $extraOutput . ': ');
+		static::fwrite(STDOUT, $field . (empty($field) ? ' ' : '') . $extraOutput . ': ');
 
 		// Read the input from keyboard.
 		$input = trim(static::input()) ?: $default;
@@ -273,13 +273,11 @@ class CLI
 			}
 		}
 
-		return empty($input) ? '' : $input;
+		return (string) $input;
 	}
 
-	//--------------------------------------------------------------------
-
 	/**
-	 * Asks the user to select a options key.
+	 * Asks the user to select a specific option out of a set of options based on the option's key
 	 *
 	 * @param string            $text       Output "field" text
 	 * @param array             $options    a list of options (array(key => description)), the first option will be the default value
@@ -291,47 +289,22 @@ class CLI
 	 */
 	public static function promptSelect(string $text, array $options, $validation = null): string
 	{
-		if ($validation && (! is_array($validation) && ! is_string($validation)))
-		{
-			throw new InvalidArgumentException('$rules can only be of type string|array');
-		}
-		if (! is_array($validation))
-		{
-			$validation = $validation ? explode('|', $validation) : [];
+		if (!$options) {
+			throw new InvalidArgumentException('No options to select from provided');
 		}
 
 		CLI::write($text);
 
-		if ($options)
-		{
-			$validation[] = 'in_list[' . implode(',', array_keys($options)) . ']';
-			reset($options);
-			$default = key($options);
+		$keyMaxLength = max(array_map('strlen', array_keys($options)));
+		$keys = [];
+		foreach ($options as $key => $description){
+			$keys[] = (string) $key;
+			$name = '  ' . str_pad($key, $keyMaxLength + 2, ' ');
 
-			$keyMaxLength = max(array_map('strlen', array_keys($options)));
-			foreach ($options as $key => $description)
-			{
-				$name    = '  ' . str_pad($key, $keyMaxLength + 2, ' ');
-				$output  = CLI::color($name, $default ? 'white' : 'light_gray');
-				$output .= CLI::wrap($description, 125, strlen($name));
-				CLI::write($output);
-			}
+			CLI::write($name . CLI::wrap($description, 125, strlen($name)));
 		}
 
-		static::fwrite(STDOUT, PHP_EOL . 'selection: ');
-
-		// Read the input from keyboard.
-		$input = trim(static::input()) ?: $default ?? null;
-
-		if ($validation)
-		{
-			while (! static::validate($text, $input, $validation))
-			{
-				$input = static::promptSelect($text, $options, $validation);
-			}
-		}
-
-		return empty($input) ? '' : $input;
+		return static::prompt(PHP_EOL, $keys, $validation);
 	}
 
 	//--------------------------------------------------------------------
