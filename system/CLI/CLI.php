@@ -295,16 +295,13 @@ class CLI
 
 		CLI::write($text);
 
-		$keyMaxLength = max(array_map('strlen', array_keys($options)));
-		$keys = [];
+		$keyMaxLength = max(array_map('mb_strlen', array_keys($options)));
 		foreach ($options as $key => $description){
-			$keys[] = (string) $key;
 			$name = '  ' . str_pad($key, $keyMaxLength + 2, ' ');
-
 			CLI::write($name . CLI::wrap($description, 125, strlen($name)));
 		}
 
-		return static::prompt(PHP_EOL, $keys, $validation);
+		return static::prompt(PHP_EOL, array_keys($options), $validation);
 	}
 
 	//--------------------------------------------------------------------
