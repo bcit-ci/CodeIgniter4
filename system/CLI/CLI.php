@@ -253,21 +253,21 @@ class CLI
 			else
 			{
 				$extraOutput = '[' . $extraOutputDefault . ', ' . implode(', ', $opts) . ']';
-				$validation .= '|in_list[' . implode(',', $options) . ']';
+				$validation .= '|in_list[' . implode(', ', $options) . ']';
 				$validation  = trim($validation, '|');
 			}
 
 			$default = $options[0];
 		}
 
-		static::fwrite(STDOUT, $field . (empty($field) ? ' ' : '') . $extraOutput . ': ');
+		static::fwrite(STDOUT, $field . (trim($field) ? ' ' : '') . $extraOutput . ': ');
 
 		// Read the input from keyboard.
 		$input = trim(static::input()) ?: $default;
 
 		if (isset($validation))
 		{
-			while (! static::validate($field, $input, $validation))
+			while (! static::validate(trim($field), $input, $validation))
 			{
 				$input = static::prompt($field, $options, $validation);
 			}
@@ -279,29 +279,44 @@ class CLI
 	/**
 	 * Asks the user to select a specific option out of a set of options based on the option's key
 	 *
-	 * @param string            $text       Output "field" text
-	 * @param array             $options    a list of options (array(key => description)), the first option will be the default value
+	 * @param string|array      $text       Output "field" text or an one or two value array where the first value is the text before listing the options
+	 *                                      and the second value the text before asking to select one option. Provide empty string to omit
+	 * @param array             $options    A list of options (array(key => description)), the first option will be the default value
 	 * @param string|array|null $validation Validation rules
 	 *
-	 * @return string The selected key
+	 * @return string The selected key of $options
 	 *
 	 * @codeCoverageIgnore
 	 */
-	public static function promptSelect(string $text, array $options, $validation = null): string
+	public static function promptSelect($text, array $options, $validation = null): string
 	{
-		if (!$options) {
-			throw new InvalidArgumentException('No options to select from provided');
+		if (is_string($text))
+		{
+			$text = [$text];
+		}
+		else if (!is_array($text))
+		{
+			throw new InvalidArgumentException('$text can only be of type string|array');
 		}
 
-		CLI::write($text);
-
-		$keyMaxLength = max(array_map('mb_strlen', array_keys($options)));
-		foreach ($options as $key => $description){
-			$name = '  ' . str_pad($key, $keyMaxLength + 2, ' ');
-			CLI::write($name . CLI::wrap($description, 125, strlen($name)));
+		if (!$options)
+		{
+			throw new InvalidArgumentException('No options to select from were provided');
 		}
 
-		return static::prompt(PHP_EOL, array_keys($options), $validation);
+		if($line = array_shift($text))
+		{
+			CLI::write($line);
+		}
+
+		$keyMaxLength = max(array_map('mb_strwidth', array_keys($options)));
+		foreach ($options as $key => $description)
+		{
+			$name = str_pad('  [' . $key . ']', $keyMaxLength + 6, ' ');
+			CLI::write(CLI::color($name, 'green') . CLI::wrap($description, 125, $keyMaxLength + 6));
+		}
+
+		return static::prompt(PHP_EOL . array_shift($text), array_keys($options), $validation);
 	}
 
 	//--------------------------------------------------------------------
