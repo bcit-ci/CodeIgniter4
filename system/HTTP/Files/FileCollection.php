@@ -21,7 +21,6 @@ use RecursiveIteratorIterator;
  */
 class FileCollection
 {
-
 	/**
 	 * An array of UploadedFile instances for any files
 	 * uploaded as part of this request.
@@ -47,8 +46,6 @@ class FileCollection
 
 		return $this->files;
 	}
-
-	//--------------------------------------------------------------------
 
 	/**
 	 * Attempts to get a single file from the collection of uploaded files.
@@ -183,8 +180,6 @@ class FileCollection
 		}
 	}
 
-	//--------------------------------------------------------------------
-
 	/**
 	 * Given a file array, will create UploadedFile instances. Will
 	 * loop over an array and create objects for each.
@@ -293,5 +288,4 @@ class FileCollection
 
 		return (isset($currentIndex) && isset($value[$currentIndex])) ? $value[$currentIndex] : null;
 	}
-
 }

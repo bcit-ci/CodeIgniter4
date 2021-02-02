@@ -113,27 +113,19 @@ class Autoloader
 	 */
 	public function register()
 	{
-		// Since the default file extensions are searched
-		// in order of .inc then .php, but we always use .php,
-		// put the .php extension first to eek out a bit
-		// better performance.
-		// http://php.net/manual/en/function.spl-autoload.php#78053
-		spl_autoload_extensions('.php,.inc');
-
 		// Prepend the PSR4  autoloader for maximum performance.
 		spl_autoload_register([$this, 'loadClass'], true, true); // @phpstan-ignore-line
 
 		// Now prepend another loader for the files in our class map.
-		$config = $this->classmap;
 
 		// @phpstan-ignore-next-line
-		spl_autoload_register(function ($class) use ($config) {
-			if (empty($config[$class]))
+		spl_autoload_register(function ($class) {
+			if (empty($this->classmap[$class]))
 			{
 				return false;
 			}
 
-			include_once $config[$class];
+			include_once $this->classmap[$class];
 		}, true, // Throw exception
 			true // Prepend
 		);
@@ -233,16 +225,7 @@ class Autoloader
 		$class = trim($class, '\\');
 		$class = str_ireplace('.php', '', $class);
 
-		$mapped_file = $this->loadInNamespace($class);
-
-		// Nothing? One last chance by looking
-		// in common CodeIgniter folders.
-		if (! $mapped_file)
-		{
-			$mapped_file = $this->loadLegacy($class);
-		}
-
-		return $mapped_file;
+		return $this->loadInNamespace($class);
 	}
 
 	//--------------------------------------------------------------------
@@ -290,45 +273,6 @@ class Autoloader
 		}
 
 		// never found a mapped file
-		return false;
-	}
-
-	//--------------------------------------------------------------------
-
-	/**
-	 * Attempts to load the class from common locations in previous
-	 * version of CodeIgniter, namely 'app/Libraries', and
-	 * 'app/Models'.
-	 *
-	 * @param string $class The class name. This typically should NOT have a namespace.
-	 *
-	 * @return mixed    The mapped file name on success, or boolean false on failure
-	 */
-	protected function loadLegacy(string $class)
-	{
-		// If there is a namespace on this class, then
-		// we cannot load it from traditional locations.
-		if (strpos($class, '\\') !== false)
-		{
-			return false;
-		}
-
-		$paths = [
-			APPPATH . 'Controllers/',
-			APPPATH . 'Libraries/',
-			APPPATH . 'Models/',
-		];
-
-		$class = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
-
-		foreach ($paths as $path)
-		{
-			if ($file = $this->includeFile($path . $class))
-			{
-				return $file;
-			}
-		}
-
 		return false;
 	}
 

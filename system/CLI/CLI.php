@@ -36,7 +36,6 @@ use Throwable;
  */
 class CLI
 {
-
 	/**
 	 * Is the readline library on the system?
 	 *
@@ -222,16 +221,26 @@ class CLI
 	 *
 	 * @param string       $field      Output "field" question
 	 * @param string|array $options    String to a default value, array to a list of options (the first option will be the default value)
-	 * @param string       $validation Validation rules
+	 * @param string|array $validation Validation rules
 	 *
 	 * @return string The user input
 	 *
 	 * @codeCoverageIgnore
 	 */
-	public static function prompt(string $field, $options = null, string $validation = null): string
+	public static function prompt(string $field, $options = null, $validation = null): string
 	{
 		$extraOutput = '';
 		$default     = '';
+
+		if ($validation && ! is_array($validation) && ! is_string($validation))
+		{
+			throw new InvalidArgumentException('$rules can only be of type string|array');
+		}
+
+		if (! is_array($validation))
+		{
+			$validation = $validation ? explode('|', $validation) : [];
+		}
 
 		if (is_string($options))
 		{
@@ -253,8 +262,7 @@ class CLI
 			else
 			{
 				$extraOutput = '[' . $extraOutputDefault . ', ' . implode(', ', $opts) . ']';
-				$validation .= '|in_list[' . implode(', ', $options) . ']';
-				$validation  = trim($validation, '|');
+				$validation[] = 'in_list[' . implode(', ', $options) . ']';
 			}
 
 			$default = $options[0];
@@ -265,7 +273,7 @@ class CLI
 		// Read the input from keyboard.
 		$input = trim(static::input()) ?: $default;
 
-		if (isset($validation))
+		if ($validation)
 		{
 			while (! static::validate(trim($field), $input, $validation))
 			{
@@ -324,20 +332,23 @@ class CLI
 	/**
 	 * Validate one prompt "field" at a time
 	 *
-	 * @param string $field Prompt "field" output
-	 * @param string $value Input value
-	 * @param string $rules Validation rules
+	 * @param string       $field Prompt "field" output
+	 * @param string       $value Input value
+	 * @param string|array $rules Validation rules
 	 *
 	 * @return boolean
 	 *
 	 * @codeCoverageIgnore
 	 */
-	protected static function validate(string $field, string $value, string $rules): bool
+	protected static function validate(string $field, string $value, $rules): bool
 	{
 		$label      = $field;
 		$field      = 'temp';
 		$validation = Services::validation(null, false);
-		$validation->setRule($field, $label, $rules);
+		$validation->setRules([$field => [
+			'label' => $label,
+			'rules' => $rules,
+		]]);
 		$validation->run([$field => $value]);
 
 		if ($validation->hasError($field))
@@ -625,7 +636,7 @@ class CLI
 
 		$string = strtr($string, ["\033[4m" => '', "\033[0m" => '']);
 
-		return mb_strlen($string);
+		return mb_strwidth($string);
 	}
 
 	//--------------------------------------------------------------------
@@ -913,7 +924,7 @@ class CLI
 	 */
 	protected static function parseCommandLine()
 	{
-		$args = $_SERVER['argv'];
+		$args = $_SERVER['argv'] ?? [];
 		array_shift($args); // scrap invoking program
 		$optionValue = false;
 

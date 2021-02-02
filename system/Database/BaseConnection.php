@@ -21,7 +21,6 @@ use Throwable;
  */
 abstract class BaseConnection implements ConnectionInterface
 {
-
 	/**
 	 * Data Source Name / Connect string
 	 *
@@ -290,6 +289,13 @@ abstract class BaseConnection implements ConnectionInterface
 	 */
 	protected $aliasedTables = [];
 
+	/**
+	 * Query Class
+	 *
+	 * @var string
+	 */
+	protected $queryClass = 'CodeIgniter\\Database\\Query';
+
 	//--------------------------------------------------------------------
 
 	/**
@@ -302,6 +308,13 @@ abstract class BaseConnection implements ConnectionInterface
 		foreach ($params as $key => $value)
 		{
 			$this->$key = $value;
+		}
+
+		$queryClass = str_replace('Connection', 'Query', static::class);
+
+		if (class_exists($queryClass))
+		{
+			$this->queryClass = $queryClass;
 		}
 	}
 
@@ -579,8 +592,6 @@ abstract class BaseConnection implements ConnectionInterface
 	 */
 	abstract protected function execute(string $sql);
 
-	//--------------------------------------------------------------------
-
 	/**
 	 * Orchestrates a query against the database. Queries must use
 	 * Database\Statement objects to store the query and build it.
@@ -595,9 +606,13 @@ abstract class BaseConnection implements ConnectionInterface
 	 * @param string  $queryClass
 	 *
 	 * @return BaseResult|Query|false
+	 *
+	 * @todo BC set $queryClass default as null in 4.1
 	 */
-	public function query(string $sql, $binds = null, bool $setEscapeFlags = true, string $queryClass = 'CodeIgniter\\Database\\Query')
+	public function query(string $sql, $binds = null, bool $setEscapeFlags = true, string $queryClass = '')
 	{
+		$queryClass = $queryClass ?: $this->queryClass;
+
 		if (empty($this->connID))
 		{
 			$this->initialize();

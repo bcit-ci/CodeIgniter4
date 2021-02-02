@@ -25,7 +25,6 @@ use stdClass;
  */
 class MigrationRunner
 {
-
 	/**
 	 * Whether or not migrations are allowed to run.
 	 *
@@ -120,8 +119,6 @@ class MigrationRunner
 	 */
 	protected $groupSkip = false;
 
-	//--------------------------------------------------------------------
-
 	/**
 	 * Constructor.
 	 *
@@ -154,6 +151,7 @@ class MigrationRunner
 	}
 
 	//--------------------------------------------------------------------
+
 	/**
 	 * Locate and run all new migrations
 	 *
@@ -190,7 +188,7 @@ class MigrationRunner
 		}
 
 		// Remove any migrations already in the history
-		foreach ($this->getHistory($this->group) as $history)
+		foreach ($this->getHistory((string) $group) as $history)
 		{
 			unset($migrations[$this->getObjectUid($history)]);
 		}
@@ -236,6 +234,7 @@ class MigrationRunner
 	}
 
 	//--------------------------------------------------------------------
+
 	/**
 	 * Migrate down to a previous batch
 	 *
@@ -789,18 +788,21 @@ class MigrationRunner
 	{
 		$this->ensureTable();
 
-		$criteria = ['group' => $group];
+		$builder = $this->db->table($this->table);
+
+		// If group was specified then use it
+		if (! empty($group))
+		{
+			$builder->where('group', $group);
+		}
 
 		// If a namespace was specified then use it
 		if ($this->namespace)
 		{
-			$criteria['namespace'] = $this->namespace;
+			$builder->where('namespace', $this->namespace);
 		}
 
-		$query = $this->db->table($this->table)
-						  ->where($criteria)
-						  ->orderBy('id', 'ASC')
-						  ->get();
+		$query = $builder->orderBy('id', 'ASC')->get();
 
 		return ! empty($query) ? $query->getResultObject() : [];
 	}
@@ -956,8 +958,9 @@ class MigrationRunner
 				'null'       => false,
 			],
 			'class'     => [
-				'type' => 'TEXT',
-				'null' => false,
+				'type'       => 'VARCHAR',
+				'constraint' => 255,
+				'null'       => false,
 			],
 			'group'     => [
 				'type'       => 'VARCHAR',

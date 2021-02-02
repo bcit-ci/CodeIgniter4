@@ -23,7 +23,6 @@ use InvalidArgumentException;
  */
 class Validation implements ValidationInterface
 {
-
 	/**
 	 * Files to load with validation functions.
 	 *
@@ -203,21 +202,27 @@ class Validation implements ValidationInterface
 	 * @param string|null  $label
 	 * @param string|array $value Value to be validated, can be a string or an array
 	 * @param array|null   $rules
-	 * @param array        $data  // All of the fields to check.
+	 * @param array        $data  All of the fields to check.
 	 *
 	 * @return boolean
 	 */
-	protected function processRules(string $field, string $label = null, $value, $rules = null, array $data): bool
+	protected function processRules(string $field, string $label = null, $value, $rules = null, array $data = null): bool
 	{
-		// If the if_exist rule is defined...
+		if (is_null($data))
+		{
+			throw new InvalidArgumentException('You must supply the parameter: data.');
+		}
+
 		if (in_array('if_exist', $rules, true))
 		{
-			// and the current field does not exists in the input data
-			// we can return true. Ignoring all other rules to this field.
-			if (! array_key_exists($field, $data))
+			// If the if_exist rule is defined
+			// and the current field does not exist in the input data
+			// we can return true, ignoring all other rules to this field.
+			if (! array_key_exists($field, array_flatten_with_dots($data)))
 			{
 				return true;
 			}
+
 			// Otherwise remove the if_exist rule and continue the process
 			$rules = array_diff($rules, ['if_exist']);
 		}
@@ -388,7 +393,8 @@ class Validation implements ValidationInterface
 			'label' => $label,
 			'rules' => $rules,
 		];
-		$this->customErrors  = array_merge($this->customErrors, [
+
+		$this->customErrors = array_merge($this->customErrors, [
 			$field => $errors,
 		]);
 
@@ -424,14 +430,16 @@ class Validation implements ValidationInterface
 
 		foreach ($rules as $field => &$rule)
 		{
-			if (is_array($rule))
+			if (! is_array($rule))
 			{
-				if (array_key_exists('errors', $rule))
-				{
-					$this->customErrors[$field] = $rule['errors'];
-					unset($rule['errors']);
-				}
+				continue;
 			}
+			if (! array_key_exists('errors', $rule))
+			{
+				continue;
+			}
+			$this->customErrors[$field] = $rule['errors'];
+			unset($rule['errors']);
 		}
 
 		$this->rules = $rules;
@@ -709,8 +717,7 @@ class Validation implements ValidationInterface
 	{
 		if ($field === null && count($this->rules) === 1)
 		{
-			reset($this->rules);
-			$field = key($this->rules);
+			$field = array_key_first($this->rules);
 		}
 
 		return array_key_exists($field, $this->getErrors()) ? $this->errors[$field] : '';

@@ -12,7 +12,9 @@ on:
       - 'tests/**'
       - composer.json
       - spark
+      - phpunit.xml.dist
       - '**.php'
+      - phpunit.xml.dist
       - .github/workflows/test-phpunit.yml
   pull_request:
     branches:
@@ -25,7 +27,9 @@ on:
       - 'tests/**'
       - composer.json
       - spark
+      - phpunit.xml.dist
       - '**.php'
+      - phpunit.xml.dist
       - .github/workflows/test-phpunit.yml
 
 jobs:
@@ -38,8 +42,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['7.2', '7.3', '7.4']
-        db-platforms: ['MySQLi', 'Postgre', 'SQLite3', 'Sqlsrv']
+        php-versions: ['7.3', '7.4', '8.0']
+        db-platforms: ['MySQLi', 'Postgre', 'SQLite3', 'SQLSRV']
 
     services:
       mysql:
@@ -75,7 +79,7 @@ jobs:
 
     steps:
       - name: Create database for MSSQL Server
-        if: ${{ matrix.db-platforms == 'Sqlsrv'}}
+        if: ${{ matrix.db-platforms == 'SQLSRV'}}
         run: sqlcmd -S localhost -U sa -P 1Secure*Password1 -Q "CREATE DATABASE test"
 
       - name: Checkout
@@ -86,7 +90,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           tools: composer, pecl
-          extensions: imagick, sqlsrv
+          extensions: imagick, sqlsrv-beta
           coverage: xdebug
         env:
           update: true

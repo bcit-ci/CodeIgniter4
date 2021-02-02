@@ -453,8 +453,6 @@ class Forge
 		return $this;
 	}
 
-	//--------------------------------------------------------------------
-
 	/**
 	 * Foreign Key Drop
 	 *
@@ -795,9 +793,9 @@ class Forge
 			return false;
 		}
 
-		for ($i = 0, $c = count($sqls); $i < $c; $i++)
+		foreach ($sqls as $i => $sql)
 		{
-			if ($this->db->query($sqls[$i]) === false)
+			if ($this->db->query($sql) === false)
 			{
 				return false;
 			}
@@ -873,9 +871,9 @@ class Forge
 
 		if ($sqls !== null)
 		{
-			for ($i = 0, $c = count($sqls); $i < $c; $i++)
+			foreach ($sqls as $i => $sql)
 			{
-				if ($this->db->query($sqls[$i]) === false)
+				if ($this->db->query($sql) === false)
 				{
 					return false;
 				}
@@ -1324,5 +1322,4 @@ class Forge
 	{
 		$this->fields = $this->keys = $this->uniqueKeys = $this->primaryKeys = $this->foreignKeys = [];
 	}
-
 }

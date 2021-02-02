@@ -27,7 +27,6 @@ use InvalidArgumentException;
  */
 class BaseBuilder
 {
-
 	/**
 	 * Reset DELETE data flag
 	 *
@@ -695,8 +694,9 @@ class BaseBuilder
 			foreach ($conditions as $i => $condition)
 			{
 				$operator = $this->getOperator($condition);
-				$cond    .= $joints[$i];
-				$cond    .= preg_match("/(\(*)?([\[\]\w\.'-]+)" . preg_quote($operator) . '(.*)/i', $condition, $match) ? $match[1] . $this->db->protectIdentifiers($match[2]) . $operator . $this->db->protectIdentifiers($match[3]) : $condition;
+
+				$cond .= $joints[$i];
+				$cond .= preg_match("/(\(*)?([\[\]\w\.'-]+)" . preg_quote($operator) . '(.*)/i', $condition, $match) ? $match[1] . $this->db->protectIdentifiers($match[2]) . $operator . $this->db->protectIdentifiers($match[3]) : $condition;
 			}
 		}
 
@@ -1319,15 +1319,15 @@ class BaseBuilder
 	/**
 	 * Platform independent LIKE statement builder.
 	 *
-	 * @param string  $prefix
-	 * @param string  $column
-	 * @param string  $not
-	 * @param string  $bind
-	 * @param boolean $insensitiveSearch
+	 * @param string|null $prefix
+	 * @param string      $column
+	 * @param string|null $not
+	 * @param string      $bind
+	 * @param boolean     $insensitiveSearch
 	 *
 	 * @return string     $like_statement
 	 */
-	protected function _like_statement(string $prefix = null, string $column, string $not = null, string $bind, bool $insensitiveSearch = false): string
+	protected function _like_statement(?string $prefix, string $column, ?string $not, string $bind, bool $insensitiveSearch = false): string
 	{
 		$likeStatement = "{$prefix} {$column} {$not} LIKE :{$bind}:";
 
@@ -1679,12 +1679,12 @@ class BaseBuilder
 	/**
 	 * LIMIT
 	 *
-	 * @param integer $value  LIMIT value
-	 * @param integer $offset OFFSET value
+	 * @param integer|null $value  LIMIT value
+	 * @param integer|null $offset OFFSET value
 	 *
 	 * @return $this
 	 */
-	public function limit(int $value = null, ?int $offset = 0)
+	public function limit(?int $value = null, ?int $offset = 0)
 	{
 		if (! is_null($value))
 		{
@@ -1882,7 +1882,7 @@ class BaseBuilder
 	 * "Count All" query
 	 *
 	 * Generates a platform-specific query string that counts all records in
-	 * the specified database
+	 * the particular table
 	 *
 	 * @param boolean $reset Are we want to clear query builder values?
 	 *
@@ -2003,6 +2003,7 @@ class BaseBuilder
 	{
 		return $this->QBWhere;
 	}
+
 	//--------------------------------------------------------------------
 
 	/**
@@ -2225,8 +2226,6 @@ class BaseBuilder
 		return $this->compileFinalQuery($sql);
 	}
 
-	//--------------------------------------------------------------------
-
 	/**
 	 * Insert
 	 *
@@ -2317,8 +2316,6 @@ class BaseBuilder
 	{
 		return 'INSERT ' . $this->compileIgnore('insert') . 'INTO ' . $table . ' (' . implode(', ', $keys) . ') VALUES (' . implode(', ', $unescapedKeys) . ')';
 	}
-
-	//--------------------------------------------------------------------
 
 	/**
 	 * Replace
@@ -2802,9 +2799,8 @@ class BaseBuilder
 	 */
 	public function getCompiledDelete(bool $reset = true): string
 	{
-		$table = $this->QBFrom[0];
-
-		$sql = $this->delete($table, null, $reset);
+		$sql = $this->testMode()->delete('', null, $reset);
+		$this->testMode(false);
 
 		return $this->compileFinalQuery($sql);
 	}
@@ -3168,8 +3164,9 @@ class BaseBuilder
 					continue;
 				}
 
-				$groupBy = ($groupBy['escape'] === false ||
-						$this->isLiteral($groupBy['field'])) ? $groupBy['field'] : $this->db->protectIdentifiers($groupBy['field']);
+				$groupBy = ($groupBy['escape'] === false || $this->isLiteral($groupBy['field']))
+					? $groupBy['field']
+					: $this->db->protectIdentifiers($groupBy['field']);
 			}
 
 			return "\nGROUP BY " . implode(', ', $this->QBGroupBy);
@@ -3300,8 +3297,10 @@ class BaseBuilder
 	{
 		$str = trim($str);
 
-		if (empty($str) || ctype_digit($str) || (string) (float) $str === $str ||
-				in_array(strtoupper($str), ['TRUE', 'FALSE'], true)
+		if (empty($str)
+			|| ctype_digit($str)
+			|| (string) (float) $str === $str
+			|| in_array(strtoupper($str), ['TRUE', 'FALSE'], true)
 		)
 		{
 			return true;

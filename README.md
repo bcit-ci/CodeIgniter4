@@ -11,7 +11,7 @@
 
 ## What is CodeIgniter?
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible, and secure.
+CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
 More information can be found at the [official site](http://codeigniter.com).
 
 This repository holds the source code for CodeIgniter 4 only.
@@ -81,7 +81,7 @@ Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/
 
 ## Server Requirements
 
-PHP version 7.2 or higher is required, with the following extensions installed:
+PHP version 7.3 or higher is required, with the following extensions installed:
 
 
 - [intl](http://php.net/manual/en/intl.requirements.php)

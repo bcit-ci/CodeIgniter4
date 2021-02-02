@@ -28,7 +28,7 @@ class Serve extends BaseCommand
 	 *
 	 * @var string
 	 */
-	protected $minPHPVersion = '7.2';
+	protected $minPHPVersion = '7.3';
 
 	/**
 	 * Group
@@ -99,15 +99,6 @@ class Serve extends BaseCommand
 	 */
 	public function run(array $params)
 	{
-		// Valid PHP Version?
-		if (version_compare(PHP_VERSION, $this->minPHPVersion, '<'))
-		{
-			// @codeCoverageIgnoreStart
-			die('Your PHP version must be ' . $this->minPHPVersion .
-				' or higher to run CodeIgniter. Current version: ' . PHP_VERSION);
-			// @codeCoverageIgnoreEnd
-		}
-
 		// Collect any user-supplied options and apply them.
 		$php  = escapeshellarg(CLI::getOption('php') ?? PHP_BINARY);
 		$host = CLI::getOption('host') ?? 'localhost';

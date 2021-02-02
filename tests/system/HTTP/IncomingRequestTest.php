@@ -39,7 +39,7 @@ class IncomingRequestTest extends \CodeIgniter\Test\CIUnitTestCase
 		$_GET['TEST'] = 5;
 
 		$this->assertEquals(5, $this->request->getGet('TEST'));
-		$this->assertNull($this->request->getGEt('TESTY'));
+		$this->assertNull($this->request->getGet('TESTY'));
 	}
 
 	public function testCanGrabPostVars()
@@ -296,6 +296,77 @@ class IncomingRequestTest extends \CodeIgniter\Test\CIUnitTestCase
 		$request = new IncomingRequest($config, new URI(), $json, new UserAgent());
 
 		$this->assertEquals($expected, $request->getJSON(true));
+	}
+
+	public function testCanGetAVariableFromJson()
+	{
+		$jsonObj = [
+			'foo' => 'bar',
+			'baz' => [
+				'fizz' => 'buzz',
+			],
+		];
+		$json    = json_encode($jsonObj);
+
+		$config          = new App();
+		$config->baseURL = 'http://example.com/';
+
+		$request = new IncomingRequest($config, new URI(), $json, new UserAgent());
+
+		$this->assertEquals('bar', $request->getJsonVar('foo'));
+		$jsonVar = $request->getJsonVar('baz');
+		$this->assertIsObject($jsonVar);
+		$this->assertEquals('buzz', $jsonVar->fizz);
+		$this->assertEquals('buzz', $request->getJsonVar('baz.fizz'));
+	}
+
+	public function testGetJsonVarAsArray()
+	{
+		$jsonObj = [
+			'baz' => [
+				'fizz' => 'buzz',
+				'foo'  => 'bar',
+			],
+		];
+		$json    = json_encode($jsonObj);
+
+		$config          = new App();
+		$config->baseURL = 'http://example.com/';
+
+		$request = new IncomingRequest($config, new URI(), $json, new UserAgent());
+
+		$jsonVar = $request->getJsonVar('baz', true);
+		$this->assertIsArray($jsonVar);
+		$this->assertEquals('buzz', $jsonVar['fizz']);
+		$this->assertEquals('bar', $jsonVar['foo']);
+	}
+
+	public function testGetVarWorksWithJson()
+	{
+		$jsonObj = [
+			'foo'  => 'bar',
+			'fizz' => 'buzz',
+		];
+		$json    = json_encode($jsonObj);
+
+		$config          = new App();
+		$config->baseURL = 'http://example.com/';
+
+		$request = new IncomingRequest($config, new URI(), $json, new UserAgent());
+		$request->setHeader('Content-Type', 'application/json');
+
+		$this->assertEquals('bar', $request->getVar('foo'));
+		$this->assertEquals('buzz', $request->getVar('fizz'));
+
+		$multiple = $request->getVar(['foo', 'fizz']);
+		$this->assertIsArray($multiple);
+		$this->assertEquals('bar', $multiple['foo']);
+		$this->assertEquals('buzz', $multiple['fizz']);
+
+		$all = $request->getVar();
+		$this->assertIsObject($all);
+		$this->assertEquals('bar', $all->foo);
+		$this->assertEquals('buzz', $all->fizz);
 	}
 
 	public function testCanGrabGetRawInput()

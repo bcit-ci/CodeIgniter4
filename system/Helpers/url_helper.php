@@ -132,7 +132,7 @@ if (! function_exists('current_url'))
 	 *
 	 * @param boolean $returnObject True to return an object instead of a strong
 	 *
-	 * @return string|\CodeIgniter\HTTP\URI
+	 * @return string|URI
 	 */
 	function current_url(bool $returnObject = false)
 	{
@@ -212,7 +212,7 @@ if (! function_exists('index_page'))
 	 *
 	 * Returns the "index_page" from your config file
 	 *
-	 * @param  \Config\App|null $altConfig Alternate configuration to use
+	 * @param  App|null $altConfig Alternate configuration to use
 	 * @return string
 	 */
 	function index_page(App $altConfig = null): string
@@ -447,9 +447,9 @@ if (! function_exists('safe_mailto'))
 		$output = '<script type="text/javascript">'
 				. 'var l=new Array();';
 
-		for ($i = 0, $c = count($x); $i < $c; $i ++)
+		foreach ($x as $i => $value)
 		{
-			$output .= 'l[' . $i . "] = '" . $x[$i] . "';";
+			$output .= 'l[' . $i . "] = '" . $value . "';";
 		}
 
 		return $output . ('for (var i = l.length-1; i >= 0; i=i-1) {'
@@ -522,26 +522,31 @@ if (! function_exists('auto_link'))
 if (! function_exists('prep_url'))
 {
 	/**
-	 * Prep URL - Simply adds the http:// part if no scheme is included.
+	 * Prep URL - Simply adds the http:// or https:// part if no scheme is included.
 	 *
 	 * Formerly used URI, but that does not play nicely with URIs missing
 	 * the scheme.
 	 *
-	 * @param  string $str the URL
+	 * @param  string  $str    the URL
+	 * @param  boolean $secure set true if you want to force https://
 	 * @return string
 	 */
-	function prep_url(string $str = ''): string
+	function prep_url(string $str = '', bool $secure = false): string
 	{
-		if ($str === 'http://' || $str === '')
+		if (in_array($str, ['http://', 'https://', '//', ''], true))
 		{
 			return '';
 		}
 
-		$url = parse_url($str);
-
-		if (! $url || ! isset($url['scheme']))
+		if (parse_url($str, PHP_URL_SCHEME) === null)
 		{
-			return 'http://' . $str;
+			$str = 'http://' . ltrim($str, '/');
+		}
+
+		// force replace http:// with https://
+		if ($secure)
+		{
+			$str = preg_replace('/^(?:http):/i', 'https:', $str);
 		}
 
 		return $str;
