@@ -373,6 +373,15 @@ class Entity implements JsonSerializable
 				$value = serialize($value);
 			}
 
+			if (strpos($castTo, 'class:') === 0)
+			{
+				$type = substr($castTo,6);
+
+				if(class_exists($type)) {
+					$value = serialize(new $type($value));
+				}
+			}
+
 			// JSON casting requires that we JSONize the value
 			// when setting it so that it can easily be stored
 			// back to the database.
@@ -542,6 +551,17 @@ class Entity implements JsonSerializable
 				return null;
 			}
 			$type = substr($type, 1);
+		}
+		
+		
+		if(strpos($type, 'class:') === 0)
+		{
+			$type = substr($type,6);
+
+			if(class_exists($type)) {
+				$value = is_array($value) ? new $type($value) : unserialize($value);
+			}
+			return $value;
 		}
 
 		switch($type)
