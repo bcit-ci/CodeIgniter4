@@ -329,42 +329,54 @@ class Filters
 	 * after the filter name, followed by a comma-separated list of arguments that
 	 * are passed to the filter when executed.
 	 *
-	 * @param string $name
-	 * @param string $when
+	 * @param string|array $filter
+	 * @param string       $when
 	 *
 	 * @return Filters
 	 */
-	public function enableFilter(string $name, string $when = 'before')
+	public function enableFilter($filter, string $when = 'before')
 	{
 		// Get parameters and clean name
-		if (strpos($name, ':') !== false)
+		if (! is_array($filter))
 		{
-			list($name, $params) = explode(':', $name);
+			$name = $filter;
 
-			$params = explode(',', $params);
-			array_walk($params, function (&$item) {
-				$item = trim($item);
-			});
+			if (strpos($name, ':') !== false)
+			{
+				list($name, $params) = explode(':', $name);
 
-			$this->arguments[$name] = $params;
+				$params = explode(',', $params);
+				array_walk($params, function (&$item) {
+					$item = trim($item);
+				});
+
+				$this->arguments[$name] = $params;
+			}
+
+			if (! array_key_exists($name, $this->config->aliases))
+			{
+				throw FilterException::forNoAlias($name);
+			}
+
+			$classNames = (array) $this->config->aliases[$name];
+
+			foreach ($classNames as $className)
+			{
+				$this->argumentsClass[$className] = $this->arguments[$name] ?? null;
+			}
+
+			if (! isset($this->filters[$when][$name]))
+			{
+				$this->filters[$when][]    = $name;
+				$this->filtersClass[$when] = array_merge($this->filtersClass[$when], $classNames);
+			}
+
+			return $this;
 		}
 
-		if (! array_key_exists($name, $this->config->aliases))
+		foreach ($filter as $filterItem)
 		{
-			throw FilterException::forNoAlias($name);
-		}
-
-		$classNames = (array) $this->config->aliases[$name];
-
-		foreach ($classNames as $className)
-		{
-			$this->argumentsClass[$className] = $this->arguments[$name] ?? null;
-		}
-
-		if (! isset($this->filters[$when][$name]))
-		{
-			$this->filters[$when][]    = $name;
-			$this->filtersClass[$when] = array_merge($this->filtersClass[$when], $classNames);
+			$this->enableFilter($filterItem, $when);
 		}
 
 		return $this;
