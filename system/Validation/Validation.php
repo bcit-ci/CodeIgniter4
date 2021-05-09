@@ -651,25 +651,39 @@ class Validation implements ValidationInterface
 
 		if (! empty($replacements))
 		{
-			foreach ($rules as &$rule)
+			foreach ($rules as &$validationSet)
 			{
-				if (is_array($rule))
+				// Blast $rule apart, unless it's already an array
+				$plainRules = $validationSet['rules'] ?? $validationSet;
+
+				if (is_array($plainRules))
 				{
-					foreach ($rule as &$row)
+					foreach ($plainRules as &$row)
 					{
-						// Should only be an `errors` array
-						// which doesn't take placeholders.
-						if (is_array($row))
+						//could be a named anonymous function or a callable
+						//both don't support placeholders
+						if (! is_string($row))
 						{
 							continue;
 						}
 
 						$row = strtr($row, $replacements);
 					}
-					continue;
+				}
+				else
+				{
+					$plainRules = strtr($plainRules, $replacements);
 				}
 
-				$rule = strtr($rule, $replacements);
+				//set rules together again
+				if (isset($validationSet['rules']))
+				{
+					$validationSet['rules'] = $plainRules;
+				}
+				else
+				{
+					$validationSet = $plainRules;
+				}
 			}
 		}
 
