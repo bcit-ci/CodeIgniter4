@@ -415,9 +415,9 @@ class Builder extends BaseBuilder
         $bingo  = [];
 
         foreach ($common as $v) {
-            $k = array_search($v, $escKeyFields, true);
+            $k = array_search($v, $keys, true);
 
-            $bingo[$keyFields[$k]] = $binds[trim($values[$k], ':')];
+            $bingo[$keys[$k]] = $binds[trim($values[$k], ':')];
         }
 
         // Querying existing data
