@@ -265,7 +265,11 @@ class BaseBuilder
 		 */
 		$this->db = $db;
 
-		$this->tableName = $tableName;
+		if (is_string($tableName))
+		{
+			$this->tableName = $tableName;
+		}
+
 		$this->from($tableName);
 
 		if (! empty($options))
@@ -584,8 +588,8 @@ class BaseBuilder
 	 *
 	 * Generates the FROM portion of the query
 	 *
-	 * @param mixed   $from      can be a string or array
-	 * @param boolean $overwrite Should we remove the first table existing?
+	 * @param string|array|null $from
+	 * @param boolean           $overwrite Should we remove the first table existing?
 	 *
 	 * @return $this
 	 */
@@ -3391,9 +3395,9 @@ class BaseBuilder
 		}
 
 		// Reset QBFrom part
-		if (! empty($this->QBFrom))
+		if (! empty($this->QBFrom) && is_string($this->tableName))
 		{
-			$this->from(array_shift($this->QBFrom), true);
+			$this->from($this->tableName, true);
 		}
 	}
 
