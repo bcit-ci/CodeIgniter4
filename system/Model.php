@@ -193,7 +193,7 @@ class Model extends BaseModel
 			$builder->where($this->table . '.' . $this->deletedField, null);
 		}
 
-		return $builder->limit($limit, $offset)
+		return $builder->limit($limit ?: null, $offset)
 			->get()
 			->getResult($this->tempReturnType);
 	}
