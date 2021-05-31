@@ -341,19 +341,56 @@ class Builder extends BaseBuilder
 	{
 		if (empty($this->QBOrderBy))
 		{
-			$sql .= ' ORDER BY (SELECT NULL) ';
+			$this->QBOrderBy	= ' ORDER BY (SELECT NULL) ';
+			$sql				.= $this->QBOrderBy;
 		}
 
-		if ($offsetIgnore)
+		if (version_compare($this->db->getVersion(), '11', '>='))
 		{
-			$sql .= ' OFFSET 0 ';
+			if ($offsetIgnore)
+			{
+				$sql .= ' OFFSET 0 ';
+			}
+			else
+			{
+				$sql .= is_int($this->QBOffset) ? ' OFFSET ' . $this->QBOffset : ' OFFSET 0 ';
+			}
+
+			return $sql .= ' ROWS FETCH NEXT ' . $this->QBLimit . ' ROWS ONLY ';
 		}
-		else
+		
+		$limit = $this->QBOffset + $this->QBLimit;
+
+		// An ORDER BY clause is required for ROW_NUMBER() to work
+		if ($this->QBOffset && ! empty($this->QBOrderBy))
 		{
-			$sql .= is_int($this->QBOffset) ? ' OFFSET ' . $this->QBOffset : ' OFFSET 0 ';
+			$orderBy = $this->compileOrderBy();
+
+			// We have to strip the ORDER BY clause
+			$sql = trim(substr($sql, 0, strrpos($sql, $orderBy)));
+
+			// Get the fields to select from our subquery, so that we can avoid CI_rownum appearing in the actual results
+			if (count($this->QBSelect) === 0 OR strpos(implode(',', $this->QBSelect), '*') !== FALSE)
+			{
+				$select			= '*'; // Inevitable
+			}
+			else
+			{
+				// Use only field names and their aliases, everything else is out of our scope.
+				$select			= [];
+				$fieldRegexp	= ($this->_quoted_identifier ? '("[^\"]+")' : '(\[[^\]]+\])');
+				
+				foreach ($this->QBSelect as $i => $singleQBSelect) {
+					$select[]	= (preg_match('/(?:\s|\.)' . $fieldRegexp . '$/i', $singleQBSelect, $m) ? $m[1] : $singleQBSelect);
+				}
+				
+				$select			= implode(', ', $select);
+			}
+
+			return 'SELECT ' . $select . " FROM (\n\n" . preg_replace('/^(SELECT( DISTINCT)?)/i', '\\1 ROW_NUMBER() OVER(' . trim($orderBy) . ') AS ' . $this->db->escapeIdentifiers('CI_rownum') . ', ', $sql) . "\n\n) " . $this->db->escapeIdentifiers('CI_subquery') . "\nWHERE " . $this->db->escapeIdentifiers('CI_rownum').' BETWEEN ' . ($this->QBOffset + 1) . ' AND ' . $limit;
 		}
 
-		return $sql .= ' ROWS FETCH NEXT ' . $this->QBLimit . ' ROWS ONLY ';
+		return preg_replace('/(^\SELECT (DISTINCT)?)/i','\\1 TOP ' . $limit . ' ', $sql);
 	}
 
 	/**
