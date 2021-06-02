@@ -67,10 +67,10 @@ class Pager implements PagerInterface
 	/**
 	 * Constructor.
 	 *
-	 * @param PagerConfig       $config
-	 * @param RendererInterface $view
+	 * @param PagerConfig            $config
+	 * @param RendererInterface|null $view
 	 */
-	public function __construct(PagerConfig $config, RendererInterface $view)
+	public function __construct(PagerConfig $config, ?RendererInterface $view = null)
 	{
 		$this->config = $config;
 		$this->view   = $view;
@@ -153,8 +153,13 @@ class Pager implements PagerInterface
 		}
 		$pager = new PagerRenderer($this->getDetails($group));
 
-		return $this->view->setVar('pager', $pager)
-						->render($this->config->templates[$template]);
+		if (isset($this->view))
+		{
+			return $this->view->setVar('pager', $pager)
+				->render($this->config->templates[$template]);
+		}
+
+		return view($this->config->templates[$template], ['pager' => $pager]);
 	}
 
 	//--------------------------------------------------------------------
@@ -229,6 +234,24 @@ class Pager implements PagerInterface
 
 		$this->groups[$group]['uri']->setPath($path);
 
+		return $this;
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Set the total number of items in data store.
+	 *
+	 * @param integer $total Total
+	 * @param string  $group Group
+	 *
+	 * @return $this
+	 */
+	public function setTotal(int $total, string $group = 'default'): self
+	{
+		$this->ensureGroup($group);
+		$this->groups[$group]['total']     = $total;
+		$this->groups[$group]['pageCount'] = (int) ceil($total / $this->groups[$group]['perPage']);
 		return $this;
 	}
 
@@ -538,19 +561,33 @@ class Pager implements PagerInterface
 	/**
 	 * Calculating the current page
 	 *
-	 * @param string $group
+	 * @param string $group Group
 	 */
 	protected function calculateCurrentPage(string $group)
+	{
+		$this->groups[$group]['currentPage'] = $this->getRawCurrentPage($group);
+	}
+
+	//--------------------------------------------------------------------
+
+	/**
+	 * Returns the raw Current Page value
+	 *
+	 * @param string $group Group
+	 *
+	 * @return integer
+	 */
+	public function getRawCurrentPage(string $group = 'default') : int
 	{
 		if (array_key_exists($group, $this->segment))
 		{
 			try
 			{
-				$this->groups[$group]['currentPage'] = (int) $this->groups[$group]['uri']->setSilent(false)->getSegment($this->segment[$group]);
+				return (int) $this->groups[$group]['uri']->setSilent(false)->getSegment($this->segment[$group]);
 			}
 			catch (HTTPException $e)
 			{
-				$this->groups[$group]['currentPage'] = 1;
+				return 1;
 			}
 		}
 		else
@@ -559,7 +596,7 @@ class Pager implements PagerInterface
 
 			$page = (int) ($_GET[$pageSelector] ?? 1);
 
-			$this->groups[$group]['currentPage'] = $page < 1 ? 1 : $page;
+			return $page < 1 ? 1 : $page;
 		}
 	}
 
