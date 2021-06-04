@@ -16,7 +16,9 @@ use CodeIgniter\HTTP\Files\FileCollection;
 use CodeIgniter\HTTP\Files\UploadedFile;
 use Config\App;
 use Config\Services;
+use Config\Exceptions;
 use InvalidArgumentException;
+use LengthException;
 use Locale;
 
 /**
@@ -150,11 +152,39 @@ class IncomingRequest extends Request
 		{
 			throw new InvalidArgumentException('You must supply the parameters: uri, userAgent.');
 		}
-
 		// Get our body from php://input
 		if ($body === 'php://input')
 		{
-			$body = file_get_contents('php://input');
+                    // Get Maximum avaible memory
+                    $memoryLimit = preg_split('/\d+\K/', ini_get('memory_limit'));
+                    // Get unit
+                    $unit = strtolower($memoryLimit[1] ?? "");
+                    // Get the exponent
+                    $possibleExponents = ["" ,"k" , "m", "g", "t"];
+                    $exponent = (int) array_search($unit, $possibleExponents, true) ?? 0;
+                    // Translate memory limit from human readible to bytes
+                    $memoryLimitBytes = ((int) $memoryLimit[0] ?? 0 ) * pow(1024, $exponent);
+                    // Load Exception config
+                    $configException = new Exceptions();
+                    // Get the request length of body
+                    $contentLength = (int) $this->fetchGlobal("server", "CONTENT_LENGTH") ?? 0;
+                    /* 
+		     * If the send content it's not too big, it wwill be load to the $body
+		     * If the content is bigger then the memory_limit - throw an exceptin if is set in config
+		     * otherwise send info to log
+		     */
+                    if($contentLength < $memoryLimitBytes)
+                    {
+                        $body = file_get_contents('php://input');
+                    }
+                    else if($configException->throwExceptionOnBigRequest ?? false )
+                    {
+                        throw new LengthException("The 'php://input' is too big for loading it into \$body");
+                    }
+                    else
+                    {
+                        log_message("debug", "The 'php://input' is too big for loading it into \$body");
+                    }
 		}
 
 		$this->config       = $config;
