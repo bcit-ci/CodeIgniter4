@@ -137,18 +137,16 @@ class Builder extends BaseBuilder
     //--------------------------------------------------------------------
 
     /**
-     * Replace
-     *
-     * Compiles an replace into string and runs the query.
+     * Compiles a replace into string and runs the query.
      * Because PostgreSQL doesn't support the replace into command,
      * we simply do a DELETE and an INSERT on the first key/value
      * combo, assuming that it's either the primary key or a unique key.
      *
      * @param array $set An associative array of insert values
      *
-     * @return   mixed
-     * @throws   DatabaseException
-     * @internal param true $bool returns the generated SQL, false executes the query.
+     * @return mixed
+     *
+     * @throws DatabaseException
      */
     public function replace(array $set = null)
     {
@@ -160,24 +158,32 @@ class Builder extends BaseBuilder
             if (CI_DEBUG) {
                 throw new DatabaseException('You must use the "set" method to update an entry.');
             }
-            // @codeCoverageIgnoreStart
-            return false;
-            // @codeCoverageIgnoreEnd
+
+            return false; // @codeCoverageIgnore
         }
 
         $table = $this->QBFrom[0];
+        $set   = $this->binds;
+
+        array_walk($set, static function (array &$item) {
+            $item = $item[0];
+        });
 
         $key   = array_key_first($set);
         $value = $set[$key];
 
         $builder = $this->db->table($table);
-        $exists  = $builder->where("$key = $value", null, false)->get()->getFirstRow();
+        $exists  = $builder->where($key, $value, true)->get()->getFirstRow();
 
-        if (empty($exists)) {
+        if (empty($exists) && $this->testMode) {
+            $result = $this->getCompiledInsert();
+        } elseif (empty($exists)) {
             $result = $builder->insert($set);
+        } elseif ($this->testMode) {
+            $result = $this->where($key, $value, true)->getCompiledUpdate();
         } else {
-            array_pop($set);
-            $result = $builder->update($set, "$key = $value");
+            array_shift($set);
+            $result = $builder->where($key, $value, true)->update($set);
         }
 
         unset($builder);

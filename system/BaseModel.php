@@ -1050,6 +1050,10 @@ abstract class BaseModel
             return false;
         }
 
+        if ($this->useTimestamps && $this->updatedField && ! array_key_exists($this->updatedField, (array) $data)) {
+            $data[$this->updatedField] = $this->setDate();
+        }
+
         return $this->doReplace($data, $returnSQL);
     }
 
