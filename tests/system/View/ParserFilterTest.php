@@ -6,6 +6,9 @@ use CodeIgniter\Config\Services;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\View\Parser;
 use Config\View;
+use function date;
+use function strtotime;
+use function time;
 
 /**
  * @internal

@@ -3,6 +3,8 @@
 namespace CodeIgniter\Files;
 
 use CodeIgniter\Test\CIUnitTestCase;
+use function filesize;
+use function number_format;
 
 /**
  * @internal

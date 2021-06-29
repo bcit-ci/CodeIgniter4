@@ -10,6 +10,7 @@ use Config\App;
 use Config\Services;
 use InvalidArgumentException;
 use Tests\Support\Controllers\Popcorn;
+use function json_decode;
 
 /**
  * Exercise our Controller class.

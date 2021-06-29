@@ -6,6 +6,7 @@ use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\Mock\MockCache;
 use CodeIgniter\View\Cell;
 use CodeIgniter\View\Exceptions\ViewException;
+use function implode;
 
 /**
  * @internal

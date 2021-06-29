@@ -4,6 +4,7 @@ namespace CodeIgniter\Database\Builder;
 
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\Mock\MockConnection;
+use function str_replace;
 
 /**
  * @internal

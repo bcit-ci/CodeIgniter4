@@ -7,6 +7,9 @@ use Encryption;
 use RegistrarConfig;
 use RuntimeException;
 use SimpleConfig;
+use function base64_encode;
+use function bin2hex;
+use function class_exists;
 
 /**
  * @internal

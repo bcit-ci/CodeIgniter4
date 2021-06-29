@@ -8,6 +8,15 @@ use org\bovigo\vfs\vfsStream;
 
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\visitor\vfsStreamStructureVisitor;
+use function array_diff;
+use function array_keys;
+use function array_merge;
+use function chmod;
+use function file_get_contents;
+use function function_exists;
+use function realpath;
+use function rtrim;
+use const DIRECTORY_SEPARATOR;
 
 /**
  * @internal

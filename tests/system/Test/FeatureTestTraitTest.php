@@ -7,6 +7,7 @@ use CodeIgniter\HTTP\Response;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\FeatureTestTrait;
 use CodeIgniter\Test\TestResponse;
+use function json_encode;
 
 /**
  * @group                       DatabaseLive

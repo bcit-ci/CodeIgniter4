@@ -5,6 +5,7 @@ namespace CodeIgniter\Database\Live;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use Config\Database;
+use function array_values;
 
 /**
  * @group DatabaseLive

@@ -14,6 +14,12 @@ namespace CodeIgniter\Test\Mock;
 use Closure;
 use CodeIgniter\Cache\CacheInterface;
 use CodeIgniter\Cache\Handlers\BaseHandler;
+use function array_key_exists;
+use function array_keys;
+use function fnmatch;
+use function is_int;
+use function is_null;
+use function time;
 
 class MockCache extends BaseHandler implements CacheInterface
 {

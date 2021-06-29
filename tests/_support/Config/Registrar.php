@@ -2,6 +2,8 @@
 
 namespace Tests\Support\Config;
 
+use function getenv;
+
 /**
  * Class Registrar
  *

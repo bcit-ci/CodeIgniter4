@@ -5,6 +5,7 @@ namespace CodeIgniter\Images;
 use CodeIgniter\Images\Exceptions\ImageException;
 use CodeIgniter\Test\CIUnitTestCase;
 use org\bovigo\vfs\vfsStream;
+use const IMAGETYPE_PNG;
 
 /**
  * @internal

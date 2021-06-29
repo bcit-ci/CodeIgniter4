@@ -3,6 +3,8 @@
 namespace CodeIgniter\Debug;
 
 use CodeIgniter\Test\CIUnitTestCase;
+use function sleep;
+use function strtotime;
 
 /**
  * @internal

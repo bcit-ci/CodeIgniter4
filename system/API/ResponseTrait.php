@@ -15,6 +15,15 @@ use CodeIgniter\Format\FormatterInterface;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\Response;
 use Config\Services;
+use function in_array;
+use function is_array;
+use function is_null;
+use function is_numeric;
+use function is_string;
+use function json_decode;
+use function json_encode;
+use function str_replace;
+use function strtolower;
 
 /**
  * Response trait.

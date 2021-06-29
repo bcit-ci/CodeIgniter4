@@ -19,6 +19,24 @@ use Config\Toolbar;
 use Config\View as ViewConfig;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
+use function array_key_exists;
+use function array_merge;
+use function array_pop;
+use function extract;
+use function in_array;
+use function is_file;
+use function is_null;
+use function microtime;
+use function ob_get_clean;
+use function ob_start;
+use function pathinfo;
+use function rtrim;
+use function str_replace;
+use function strlen;
+use function substr;
+use const DIRECTORY_SEPARATOR;
+use const PATHINFO_EXTENSION;
+use const PHP_EOL;
 
 /**
  * Class View
@@ -336,7 +354,7 @@ class View implements RendererInterface
     public function setData(array $data = [], string $context = null): RendererInterface
     {
         if ($context) {
-            $data = \esc($data, $context);
+            $data = esc($data, $context);
         }
 
         $this->tempData = $this->tempData ?? $this->data;
@@ -358,7 +376,7 @@ class View implements RendererInterface
     public function setVar(string $name, $value = null, string $context = null): RendererInterface
     {
         if ($context) {
-            $value = \esc($value, $context);
+            $value = esc($value, $context);
         }
 
         $this->tempData        = $this->tempData ?? $this->data;

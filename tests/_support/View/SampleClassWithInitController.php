@@ -5,6 +5,7 @@ namespace Tests\Support\View;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use function get_class;
 
 /**
  * Class SampleClassWithInitController

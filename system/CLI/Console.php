@@ -16,6 +16,8 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\Response;
 use CodeIgniter\HTTP\ResponseInterface;
 use Exception;
+use function date;
+use function sprintf;
 
 /**
  * Console

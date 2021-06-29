@@ -4,6 +4,7 @@ namespace CodeIgniter\I18n;
 
 use CodeIgniter\Test\CIUnitTestCase;
 use Locale;
+use function round;
 
 /**
  * @internal

@@ -4,6 +4,10 @@ namespace CodeIgniter\Commands;
 
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\Filters\CITestStreamFilter;
+use function stream_filter_append;
+use function stream_filter_remove;
+use const STDERR;
+use const STDOUT;
 
 /**
  * @internal

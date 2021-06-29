@@ -5,6 +5,7 @@ namespace CodeIgniter;
 use CodeIgniter\Exceptions\DebugTraceableTrait;
 use CodeIgniter\Exceptions\FrameworkException;
 use CodeIgniter\Test\CIUnitTestCase;
+use function class_uses;
 
 /**
  * @covers \CodeIgniter\Exceptions\DebugTraceableTrait

@@ -4,6 +4,8 @@ namespace CodeIgniter;
 
 use CIUnitTestCase;
 use Config\Services as ConfigServices;
+use function method_exists;
+use function strtolower;
 
 /**
  * Services class for testing.

@@ -12,6 +12,7 @@
 namespace CodeIgniter\Pager;
 
 use CodeIgniter\HTTP\URI;
+use function is_null;
 
 /**
  * Class PagerRenderer

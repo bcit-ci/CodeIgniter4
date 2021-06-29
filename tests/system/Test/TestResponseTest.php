@@ -9,6 +9,9 @@ use CodeIgniter\Test\CIUnitTestCase;
 use Config\App;
 use Config\Services;
 use PHPUnit\Framework\AssertionFailedError;
+use function method_exists;
+use function strtotime;
+use function ucfirst;
 
 /**
  * @internal

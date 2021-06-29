@@ -13,6 +13,8 @@ use CodeIgniter\Test\Mock\MockAppConfig;
 use CodeIgniter\Test\Mock\MockSecurity;
 use Config\Cookie as CookieConfig;
 use Config\Security as SecurityConfig;
+use function count;
+use function strlen;
 
 /**
  * @backupGlobals enabled
