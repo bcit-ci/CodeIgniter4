@@ -12,6 +12,7 @@
 namespace CodeIgniter\Database;
 
 use Config\Database;
+use function is_null;
 
 /**
  * Class Migration

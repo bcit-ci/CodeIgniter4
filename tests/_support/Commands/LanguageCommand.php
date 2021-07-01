@@ -4,6 +4,7 @@ namespace Tests\Support\Commands;
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\GeneratorTrait;
+use function file_get_contents;
 
 class LanguageCommand extends BaseCommand
 {

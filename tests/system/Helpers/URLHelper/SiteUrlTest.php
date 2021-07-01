@@ -8,6 +8,8 @@ use CodeIgniter\HTTP\URI;
 use CodeIgniter\Router\Exceptions\RouterException;
 use CodeIgniter\Test\CIUnitTestCase;
 use Config\App;
+use function rtrim;
+use function str_replace;
 
 /**
  * Since base_url() only slightly modifies

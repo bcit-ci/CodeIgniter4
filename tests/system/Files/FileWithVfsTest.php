@@ -4,6 +4,7 @@ namespace CodeIgniter\Files;
 
 use CodeIgniter\Test\CIUnitTestCase;
 use org\bovigo\vfs\vfsStream;
+use function chmod;
 
 /**
  * @internal

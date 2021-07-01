@@ -5,6 +5,8 @@ namespace CodeIgniter\Events;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\Mock\MockEvents;
 use Config\Modules;
+use function count;
+use const DIRECTORY_SEPARATOR;
 
 /**
  * @internal

@@ -5,6 +5,7 @@ namespace CodeIgniter\Autoloader;
 use CodeIgniter\Test\CIUnitTestCase;
 use Config\Autoload;
 use Config\Modules;
+use function in_array;
 
 /**
  * @internal

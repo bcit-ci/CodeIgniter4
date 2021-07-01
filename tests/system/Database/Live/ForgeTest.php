@@ -9,6 +9,10 @@ use CodeIgniter\Test\DatabaseTestTrait;
 use Config\Database;
 use InvalidArgumentException;
 use RuntimeException;
+use function in_array;
+use function sprintf;
+use function strtolower;
+use function version_compare;
 
 /**
  * @group DatabaseLive

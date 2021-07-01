@@ -7,6 +7,7 @@ use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\Mock\MockConnection;
 use InvalidArgumentException;
 use stdClass;
+use function str_replace;
 
 /**
  * @internal

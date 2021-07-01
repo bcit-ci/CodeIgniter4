@@ -17,6 +17,10 @@ use ReflectionException;
 use ReflectionMethod;
 use ReflectionObject;
 use ReflectionProperty;
+use function func_get_args;
+use function gettype;
+use function is_object;
+use function is_string;
 
 /**
  * Testing helper.

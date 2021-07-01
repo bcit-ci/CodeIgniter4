@@ -9,6 +9,12 @@ use CodeIgniter\View\Exceptions\ViewException;
 use Config\Services;
 use Config\View as ViewConfig;
 use stdClass;
+use function date;
+use function implode;
+use function opendir;
+use function str_replace;
+use function time;
+use function trim;
 
 /**
  * @internal
@@ -419,7 +425,7 @@ final class ParserTest extends CIUnitTestCase
         if ($expected === null) {
             $expected = $value;
         }
-        $this->assertSame($expected, \esc($value));
+        $this->assertSame($expected, esc($value));
     }
 
     //------------------------------------------------------------------------

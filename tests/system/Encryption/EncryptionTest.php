@@ -6,6 +6,7 @@ use CodeIgniter\Encryption\Encryption;
 use CodeIgniter\Test\CIUnitTestCase;
 use Config\Encryption as EncryptionConfig;
 use Config\Services;
+use function strlen;
 
 /**
  * @internal

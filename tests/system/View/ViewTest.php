@@ -8,6 +8,8 @@ use CodeIgniter\View\Exceptions\ViewException;
 use CodeIgniter\View\View;
 use Config;
 use RuntimeException;
+use function strpos;
+use function substr_count;
 
 /**
  * @internal

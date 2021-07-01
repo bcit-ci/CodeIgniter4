@@ -12,6 +12,16 @@
 namespace CodeIgniter\View;
 
 use CodeIgniter\Database\BaseResult;
+use function array_shift;
+use function array_splice;
+use function call_user_func;
+use function count;
+use function fmod;
+use function func_get_args;
+use function is_array;
+use function is_callable;
+use function is_int;
+use function str_replace;
 
 /**
  * HTML Table Generating Class

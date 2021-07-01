@@ -5,6 +5,7 @@ namespace CodeIgniter\View;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Validation\Validation;
 use Config\Services;
+use function preg_replace;
 
 /**
  * @internal

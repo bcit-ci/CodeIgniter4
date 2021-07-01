@@ -2,6 +2,9 @@
 
 namespace Tests\Support\Log\Handlers;
 
+use function date;
+use function strtoupper;
+
 /**
  * Class TestHandler
  *

@@ -4,6 +4,7 @@ namespace CodeIgniter\Helpers;
 
 use CodeIgniter\Test\CIUnitTestCase;
 use DateTime;
+use function time;
 
 /**
  * @internal
