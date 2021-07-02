@@ -157,7 +157,7 @@ class FileHandler extends BaseHandler
             }
 
             // Needed by write() to detect session_regenerate_id() calls
-            if (is_null($this->sessionID)) { // @phpstan-ignore-line
+            if (\is_null($this->sessionID)) { // @phpstan-ignore-line
                 $this->sessionID = $sessionID;
             }
 
@@ -174,7 +174,7 @@ class FileHandler extends BaseHandler
         $sessionData = '';
         clearstatcache();    // Address https://github.com/codeigniter4/CodeIgniter4/issues/2056
 
-        for ($read = 0, $length = filesize($this->filePath . $sessionID); $read < $length; $read += strlen($buffer)) {
+        for ($read = 0, $length = filesize($this->filePath . $sessionID); $read < $length; $read += \strlen($buffer)) {
             if (($buffer = fread($this->fileHandle, $length - $read)) === false) {
                 break;
             }
@@ -206,7 +206,7 @@ class FileHandler extends BaseHandler
             $this->sessionID = $sessionID;
         }
 
-        if (! is_resource($this->fileHandle)) {
+        if (! \is_resource($this->fileHandle)) {
             return false;
         }
 
@@ -219,7 +219,7 @@ class FileHandler extends BaseHandler
             rewind($this->fileHandle);
         }
 
-        if (($length = strlen($sessionData)) > 0) {
+        if (($length = \strlen($sessionData)) > 0) {
             $result = null;
 
             for ($written = 0; $written < $length; $written += $result) {
@@ -228,7 +228,7 @@ class FileHandler extends BaseHandler
                 }
             }
 
-            if (! is_int($result)) {
+            if (! \is_int($result)) {
                 $this->fingerprint = md5(substr($sessionData, 0, $written));
                 $this->logger->error('Session: Unable to write data.');
 
@@ -252,7 +252,7 @@ class FileHandler extends BaseHandler
      */
     public function close(): bool
     {
-        if (is_resource($this->fileHandle)) {
+        if (\is_resource($this->fileHandle)) {
             flock($this->fileHandle, LOCK_UN);
             fclose($this->fileHandle);
 
@@ -326,14 +326,14 @@ class FileHandler extends BaseHandler
         while (($file = readdir($directory)) !== false) {
             // If the filename doesn't match this pattern, it's either not a session file or is not ours
             if (! preg_match($pattern, $file)
-                || ! is_file($this->savePath . DIRECTORY_SEPARATOR . $file)
-                || ($mtime = filemtime($this->savePath . DIRECTORY_SEPARATOR . $file)) === false
+                || ! is_file($this->savePath . \DIRECTORY_SEPARATOR . $file)
+                || ($mtime = filemtime($this->savePath . \DIRECTORY_SEPARATOR . $file)) === false
                 || $mtime > $ts
             ) {
                 continue;
             }
 
-            unlink($this->savePath . DIRECTORY_SEPARATOR . $file);
+            unlink($this->savePath . \DIRECTORY_SEPARATOR . $file);
         }
 
         closedir($directory);

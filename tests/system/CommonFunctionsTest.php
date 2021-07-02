@@ -233,7 +233,7 @@ final class CommonFunctionsTest extends CIUnitTestCase
 
     public function testHash()
     {
-        $this->assertSame(32, strlen(csrf_hash()));
+        $this->assertSame(32, \strlen(csrf_hash()));
     }
 
     public function testCSRFField()
@@ -438,7 +438,7 @@ final class CommonFunctionsTest extends CIUnitTestCase
 
     public function dirtyPathsProvider()
     {
-        $ds = DIRECTORY_SEPARATOR;
+        $ds = \DIRECTORY_SEPARATOR;
 
         return [
             [

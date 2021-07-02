@@ -110,7 +110,7 @@ class MemcachedHandler extends BaseHandler
 
         foreach ($matches as $match) {
             // If Memcached already has this server (or if the port is invalid), skip it
-            if (in_array($match[1] . ':' . $match[2], $serverList, true)) {
+            if (\in_array($match[1] . ':' . $match[2], $serverList, true)) {
                 $this->logger->debug('Session: Memcached server pool already has ' . $match[1] . ':' . $match[2]);
 
                 continue;
@@ -147,7 +147,7 @@ class MemcachedHandler extends BaseHandler
     {
         if (isset($this->memcached) && $this->lockSession($sessionID)) {
             // Needed by write() to detect session_regenerate_id() calls
-            if (is_null($this->sessionID)) { // @phpstan-ignore-line
+            if (\is_null($this->sessionID)) { // @phpstan-ignore-line
                 $this->sessionID = $sessionID;
             }
 

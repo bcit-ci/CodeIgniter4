@@ -96,7 +96,7 @@ class MigrateStatus extends BaseCommand
                 $this->ignoredNamespaces[] = 'Tests\Support'; // @codeCoverageIgnore
             }
 
-            if (in_array($namespace, $this->ignoredNamespaces, true)) {
+            if (\in_array($namespace, $this->ignoredNamespaces, true)) {
                 continue;
             }
 

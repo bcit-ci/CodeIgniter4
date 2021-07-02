@@ -43,7 +43,7 @@ class Filters
      */
     public static function date($value, string $format): string
     {
-        if (is_string($value) && ! is_numeric($value)) {
+        if (\is_string($value) && ! is_numeric($value)) {
             $value = strtotime($value);
         }
 

@@ -134,7 +134,7 @@ final class ComposerScripts
 
         @mkdir($targetDir, 0755, true);
 
-        $dirLen = strlen($originDir);
+        $dirLen = \strlen($originDir);
 
         /** @var SplFileInfo $file */
         foreach (new RecursiveIteratorIterator(

@@ -82,7 +82,7 @@ class Time extends DateTime
         $this->locale = ! empty($locale) ? $locale : Locale::getDefault();
 
         // If a test instance has been provided, use it instead.
-        if (is_null($time) && static::$testNow instanceof Time) {
+        if (\is_null($time) && static::$testNow instanceof Time) {
             if (empty($timezone)) {
                 $timezone = static::$testNow->getTimezone();
             }
@@ -96,7 +96,7 @@ class Time extends DateTime
         // If the time string was a relative string (i.e. 'next Tuesday')
         // then we need to adjust the time going in so that we have a current
         // timezone to work with.
-        if (! empty($time) && (is_string($time) && static::hasRelativeKeywords($time))) {
+        if (! empty($time) && (\is_string($time) && static::hasRelativeKeywords($time))) {
             $instance = new DateTime('now', $this->timezone);
             $instance->modify($time);
             $time = $instance->format('Y-m-d H:i:s');
@@ -255,9 +255,9 @@ class Time extends DateTime
      */
     public static function create(int $year = null, int $month = null, int $day = null, int $hour = null, int $minutes = null, int $seconds = null, $timezone = null, string $locale = null)
     {
-        $year    = is_null($year) ? date('Y') : $year;
-        $month   = is_null($month) ? date('m') : $month;
-        $day     = is_null($day) ? date('d') : $day;
+        $year    = \is_null($year) ? date('Y') : $year;
+        $month   = \is_null($month) ? date('m') : $month;
+        $day     = \is_null($day) ? date('d') : $day;
         $hour    = empty($hour) ? 0 : $hour;
         $minutes = empty($minutes) ? 0 : $minutes;
         $seconds = empty($seconds) ? 0 : $seconds;
@@ -380,14 +380,14 @@ class Time extends DateTime
     public static function setTestNow($datetime = null, $timezone = null, string $locale = null)
     {
         // Reset the test instance
-        if (is_null($datetime)) {
+        if (\is_null($datetime)) {
             static::$testNow = null;
 
             return;
         }
 
         // Convert to a Time instance
-        if (is_string($datetime)) {
+        if (\is_string($datetime)) {
             $datetime = new Time($datetime, $timezone, $locale);
         } elseif ($datetime instanceof DateTimeInterface && ! $datetime instanceof Time) {
             $datetime = new Time($datetime->format('Y-m-d H:i:s'), $timezone);
@@ -405,7 +405,7 @@ class Time extends DateTime
      */
     public static function hasTestNow(): bool
     {
-        return ! is_null(static::$testNow);
+        return ! \is_null(static::$testNow);
     }
 
     //--------------------------------------------------------------------
@@ -679,7 +679,7 @@ class Time extends DateTime
             throw I18nException::forInvalidMonth($value);
         }
 
-        if (is_string($value) && ! is_numeric($value)) {
+        if (\is_string($value) && ! is_numeric($value)) {
             $value = date('m', strtotime("{$value} 1 2017"));
         }
 
@@ -1119,7 +1119,7 @@ class Time extends DateTime
     {
         if ($testTime instanceof DateTimeInterface) {
             $testTime = $testTime->format('Y-m-d H:i:s');
-        } elseif (is_string($testTime)) {
+        } elseif (\is_string($testTime)) {
             $timezone = $timezone ?: $this->timezone;
             $timezone = $timezone instanceof DateTimeZone ? $timezone : new DateTimeZone($timezone);
             $testTime = new DateTime($testTime, $timezone);
@@ -1269,7 +1269,7 @@ class Time extends DateTime
     {
         if ($time instanceof Time) {
             $time = $time->toDateTime();
-        } elseif (is_string($time)) {
+        } elseif (\is_string($time)) {
             $timezone = $timezone ?: $this->timezone;
             $timezone = $timezone instanceof DateTimeZone ? $timezone : new DateTimeZone($timezone);
             $time     = new DateTime($time, $timezone);

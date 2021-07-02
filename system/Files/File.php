@@ -114,7 +114,7 @@ class File extends SplFileInfo
      */
     public function getMimeType(): string
     {
-        if (! function_exists('finfo_open')) {
+        if (! \function_exists('finfo_open')) {
             // @codeCoverageIgnoreStart
             return $this->originalMimeType ?? 'application/octet-stream';
             // @codeCoverageIgnoreEnd

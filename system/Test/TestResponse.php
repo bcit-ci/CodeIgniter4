@@ -93,7 +93,7 @@ class TestResponse extends TestCase
         $this->domParser = new DOMParser();
 
         $body = $response->getBody();
-        if (is_string($body) && $body !== '') {
+        if (\is_string($body) && $body !== '') {
             $this->domParser->withString($body);
         }
 
@@ -271,7 +271,7 @@ class TestResponse extends TestCase
     {
         $this->assertArrayHasKey($key, $_SESSION, "'{$key}' is not in the current \$_SESSION");
 
-        if (is_null($value)) {
+        if (\is_null($value)) {
             return;
         }
 
@@ -382,7 +382,7 @@ class TestResponse extends TestCase
     {
         $response = $this->response->getJSON();
 
-        if (is_null($response)) {
+        if (\is_null($response)) {
             return false;
         }
 
@@ -422,11 +422,11 @@ class TestResponse extends TestCase
     {
         $json = $this->getJSON();
 
-        if (is_object($test)) {
+        if (\is_object($test)) {
             $test = method_exists($test, 'toArray') ? $test->toArray() : (array) $test;
         }
 
-        if (is_array($test)) {
+        if (\is_array($test)) {
             $test = Services::format()->getFormatter('application/json')->format($test);
         }
 

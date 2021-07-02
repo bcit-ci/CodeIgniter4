@@ -51,7 +51,7 @@ class ImageMagickHandler extends BaseHandler
 
         // We should never see this, so can't test it
         // @codeCoverageIgnoreStart
-        if (! (extension_loaded('imagick') || class_exists('Imagick'))) {
+        if (! (\extension_loaded('imagick') || class_exists('Imagick'))) {
             throw ImageException::forMissingExtension('IMAGICK');
         }
         // @codeCoverageIgnoreEnd
@@ -321,7 +321,7 @@ class ImageMagickHandler extends BaseHandler
      */
     protected function getResourcePath()
     {
-        if (! is_null($this->resource)) {
+        if (! \is_null($this->resource)) {
             return $this->resource;
         }
 
@@ -358,7 +358,7 @@ class ImageMagickHandler extends BaseHandler
     {
         switch ($this->image()->imageType) {
             case IMAGETYPE_WEBP:
-                if (! in_array('WEBP', Imagick::queryFormats(), true)) {
+                if (! \in_array('WEBP', Imagick::queryFormats(), true)) {
                     throw ImageException::forInvalidImageCreate(lang('images.webpNotSupported'));
                 }
                 break;

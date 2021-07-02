@@ -24,7 +24,7 @@ class SampleClass
 
     public function echobox($params)
     {
-        if (is_array($params)) {
+        if (\is_array($params)) {
             $params = implode(',', $params);
         }
 
@@ -35,7 +35,7 @@ class SampleClass
 
     public static function staticEcho($params)
     {
-        if (is_array($params)) {
+        if (\is_array($params)) {
             $params = implode(',', $params);
         }
 

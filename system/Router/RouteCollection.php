@@ -241,7 +241,7 @@ class RouteCollection implements RouteCollectionInterface
      */
     public function addPlaceholder($placeholder, string $pattern = null): RouteCollectionInterface
     {
-        if (! is_array($placeholder)) {
+        if (! \is_array($placeholder)) {
             $placeholder = [$placeholder => $pattern];
         }
 
@@ -420,7 +420,7 @@ class RouteCollection implements RouteCollectionInterface
      */
     public function setDefaultConstraint(string $placeholder): RouteCollectionInterface
     {
-        if (array_key_exists($placeholder, $this->placeholders)) {
+        if (\array_key_exists($placeholder, $this->placeholders)) {
             $this->defaultPlaceholder = $placeholder;
         }
 
@@ -643,9 +643,9 @@ class RouteCollection implements RouteCollectionInterface
     public function addRedirect(string $from, string $to, int $status = 302)
     {
         // Use the named route's pattern if this is a named route.
-        if (array_key_exists($to, $this->routes['*'])) {
+        if (\array_key_exists($to, $this->routes['*'])) {
             $to = $this->routes['*'][$to]['route'];
-        } elseif (array_key_exists($to, $this->routes['get'])) {
+        } elseif (\array_key_exists($to, $this->routes['get'])) {
             $to = $this->routes['get'][$to]['route'];
         }
 
@@ -728,11 +728,11 @@ class RouteCollection implements RouteCollectionInterface
 
         $callback = array_pop($params);
 
-        if ($params && is_array($params[0])) {
+        if ($params && \is_array($params[0])) {
             $this->currentOptions = array_shift($params);
         }
 
-        if (is_callable($callback)) {
+        if (\is_callable($callback)) {
             $callback($this);
         }
 
@@ -805,47 +805,47 @@ class RouteCollection implements RouteCollectionInterface
         // Make sure we capture back-references
         $id = '(' . trim($id, '()') . ')';
 
-        $methods = isset($options['only']) ? (is_string($options['only']) ? explode(',', $options['only']) : $options['only']) : ['index', 'show', 'create', 'update', 'delete', 'new', 'edit'];
+        $methods = isset($options['only']) ? (\is_string($options['only']) ? explode(',', $options['only']) : $options['only']) : ['index', 'show', 'create', 'update', 'delete', 'new', 'edit'];
 
         if (isset($options['except'])) {
-            $options['except'] = is_array($options['except']) ? $options['except'] : explode(',', $options['except']);
+            $options['except'] = \is_array($options['except']) ? $options['except'] : explode(',', $options['except']);
 
             foreach ($methods as $i => $method) {
-                if (in_array($method, $options['except'], true)) {
+                if (\in_array($method, $options['except'], true)) {
                     unset($methods[$i]);
                 }
             }
         }
 
-        if (in_array('index', $methods, true)) {
+        if (\in_array('index', $methods, true)) {
             $this->get($name, $newName . '::index', $options);
         }
-        if (in_array('new', $methods, true)) {
+        if (\in_array('new', $methods, true)) {
             $this->get($name . '/new', $newName . '::new', $options);
         }
-        if (in_array('edit', $methods, true)) {
+        if (\in_array('edit', $methods, true)) {
             $this->get($name . '/' . $id . '/edit', $newName . '::edit/$1', $options);
         }
-        if (in_array('show', $methods, true)) {
+        if (\in_array('show', $methods, true)) {
             $this->get($name . '/' . $id, $newName . '::show/$1', $options);
         }
-        if (in_array('create', $methods, true)) {
+        if (\in_array('create', $methods, true)) {
             $this->post($name, $newName . '::create', $options);
         }
-        if (in_array('update', $methods, true)) {
+        if (\in_array('update', $methods, true)) {
             $this->put($name . '/' . $id, $newName . '::update/$1', $options);
             $this->patch($name . '/' . $id, $newName . '::update/$1', $options);
         }
-        if (in_array('delete', $methods, true)) {
+        if (\in_array('delete', $methods, true)) {
             $this->delete($name . '/' . $id, $newName . '::delete/$1', $options);
         }
 
         // Web Safe? delete needs checking before update because of method name
         if (isset($options['websafe'])) {
-            if (in_array('delete', $methods, true)) {
+            if (\in_array('delete', $methods, true)) {
                 $this->post($name . '/' . $id . '/delete', $newName . '::delete/$1', $options);
             }
-            if (in_array('update', $methods, true)) {
+            if (\in_array('update', $methods, true)) {
                 $this->post($name . '/' . $id, $newName . '::update/$1', $options);
             }
         }
@@ -900,46 +900,46 @@ class RouteCollection implements RouteCollectionInterface
         // Make sure we capture back-references
         $id = '(' . trim($id, '()') . ')';
 
-        $methods = isset($options['only']) ? (is_string($options['only']) ? explode(',', $options['only']) : $options['only']) : ['index', 'show', 'new', 'create', 'edit', 'update', 'remove', 'delete'];
+        $methods = isset($options['only']) ? (\is_string($options['only']) ? explode(',', $options['only']) : $options['only']) : ['index', 'show', 'new', 'create', 'edit', 'update', 'remove', 'delete'];
 
         if (isset($options['except'])) {
-            $options['except'] = is_array($options['except']) ? $options['except'] : explode(',', $options['except']);
+            $options['except'] = \is_array($options['except']) ? $options['except'] : explode(',', $options['except']);
 
             foreach ($methods as $i => $method) {
-                if (in_array($method, $options['except'], true)) {
+                if (\in_array($method, $options['except'], true)) {
                     unset($methods[$i]);
                 }
             }
         }
 
-        if (in_array('index', $methods, true)) {
+        if (\in_array('index', $methods, true)) {
             $this->get($name, $newName . '::index', $options);
         }
-        if (in_array('show', $methods, true)) {
+        if (\in_array('show', $methods, true)) {
             $this->get($name . '/show/' . $id, $newName . '::show/$1', $options);
         }
-        if (in_array('new', $methods, true)) {
+        if (\in_array('new', $methods, true)) {
             $this->get($name . '/new', $newName . '::new', $options);
         }
-        if (in_array('create', $methods, true)) {
+        if (\in_array('create', $methods, true)) {
             $this->post($name . '/create', $newName . '::create', $options);
         }
-        if (in_array('edit', $methods, true)) {
+        if (\in_array('edit', $methods, true)) {
             $this->get($name . '/edit/' . $id, $newName . '::edit/$1', $options);
         }
-        if (in_array('update', $methods, true)) {
+        if (\in_array('update', $methods, true)) {
             $this->post($name . '/update/' . $id, $newName . '::update/$1', $options);
         }
-        if (in_array('remove', $methods, true)) {
+        if (\in_array('remove', $methods, true)) {
             $this->get($name . '/remove/' . $id, $newName . '::remove/$1', $options);
         }
-        if (in_array('delete', $methods, true)) {
+        if (\in_array('delete', $methods, true)) {
             $this->post($name . '/delete/' . $id, $newName . '::delete/$1', $options);
         }
-        if (in_array('show', $methods, true)) {
+        if (\in_array('show', $methods, true)) {
             $this->get($name . '/' . $id, $newName . '::show/$1', $options);
         }
-        if (in_array('create', $methods, true)) {
+        if (\in_array('create', $methods, true)) {
             $this->post($name, $newName . '::create', $options);
         }
 
@@ -1163,7 +1163,7 @@ class RouteCollection implements RouteCollectionInterface
     {
         // Named routes get higher priority.
         foreach ($this->routes as $collection) {
-            if (array_key_exists($search, $collection)) {
+            if (\array_key_exists($search, $collection)) {
                 $route = $this->fillRouteParams(key($collection[$search]['route']), $params);
 
                 return $this->localizeRoute($route);
@@ -1178,7 +1178,7 @@ class RouteCollection implements RouteCollectionInterface
                 $to   = $route['route'][$from];
 
                 // ignore closures
-                if (! is_string($to)) {
+                if (! \is_string($to)) {
                     continue;
                 }
 
@@ -1195,7 +1195,7 @@ class RouteCollection implements RouteCollectionInterface
 
                 // Ensure that the number of $params given here
                 // matches the number of back-references in the route
-                if (substr_count($to, '$') !== count($params)) {
+                if (substr_count($to, '$') !== \count($params)) {
                     continue;
                 }
 
@@ -1295,7 +1295,7 @@ class RouteCollection implements RouteCollectionInterface
             // Ensure that the param we're inserting matches
             // the expected param type.
             $pos  = strpos($from, $pattern);
-            $from = substr_replace($from, $params[$index], $pos, strlen($pattern));
+            $from = substr_replace($from, $params[$index], $pos, \strlen($pattern));
         }
 
         return '/' . ltrim($from, '/');
@@ -1316,7 +1316,7 @@ class RouteCollection implements RouteCollectionInterface
     protected function create(string $verb, string $from, $to, array $options = null)
     {
         $overwrite = false;
-        $prefix    = is_null($this->group) ? '' : $this->group . '/';
+        $prefix    = \is_null($this->group) ? '' : $this->group . '/';
 
         $from = filter_var($prefix . $from, FILTER_SANITIZE_STRING);
 
@@ -1361,7 +1361,7 @@ class RouteCollection implements RouteCollectionInterface
         // Are we offsetting the binds?
         // If so, take care of them here in one
         // fell swoop.
-        if (isset($options['offset']) && is_string($to)) {
+        if (isset($options['offset']) && \is_string($to)) {
             // Get a constant string to work with.
             $to = preg_replace('/(\$\d+)/', '$X', $to);
 
@@ -1384,7 +1384,7 @@ class RouteCollection implements RouteCollectionInterface
         }
 
         //If is redirect, No processing
-        if (! isset($options['redirect']) && is_string($to)) {
+        if (! isset($options['redirect']) && \is_string($to)) {
             // If no namespace found, add the default namespace
             if (strpos($to, '\\') === false || strpos($to, '\\') > 0) {
                 $namespace = $options['namespace'] ?? $this->defaultNamespace;
@@ -1435,21 +1435,21 @@ class RouteCollection implements RouteCollectionInterface
             return false;
         }
 
-        if (is_null($this->currentSubdomain)) {
+        if (\is_null($this->currentSubdomain)) {
             $this->currentSubdomain = $this->determineCurrentSubdomain();
         }
 
-        if (! is_array($subdomains)) {
+        if (! \is_array($subdomains)) {
             $subdomains = [$subdomains];
         }
 
         // Routes can be limited to any sub-domain. In that case, though,
         // it does require a sub-domain to be present.
-        if (! empty($this->currentSubdomain) && in_array('*', $subdomains, true)) {
+        if (! empty($this->currentSubdomain) && \in_array('*', $subdomains, true)) {
             return true;
         }
 
-        return in_array($this->currentSubdomain, $subdomains, true);
+        return \in_array($this->currentSubdomain, $subdomains, true);
     }
 
     //--------------------------------------------------------------------
@@ -1482,15 +1482,15 @@ class RouteCollection implements RouteCollectionInterface
         }
 
         // Get rid of any domains, which will be the last
-        unset($host[count($host)]);
+        unset($host[\count($host)]);
 
         // Account for .co.uk, .co.nz, etc. domains
         if (end($host) === 'co') {
-            $host = array_slice($host, 0, -1);
+            $host = \array_slice($host, 0, -1);
         }
 
         // If we only have 1 part left, then we don't have a sub-domain.
-        if (count($host) === 1) {
+        if (\count($host) === 1) {
             // Set it to false so we don't make it back here again.
             return false;
         }

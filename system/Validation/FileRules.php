@@ -36,7 +36,7 @@ class FileRules
      */
     public function __construct(RequestInterface $request = null)
     {
-        if (is_null($request)) {
+        if (\is_null($request)) {
             $request = Services::request();
         }
 
@@ -60,7 +60,7 @@ class FileRules
         }
 
         foreach ($files as $file) {
-            if (is_null($file)) {
+            if (\is_null($file)) {
                 return false;
             }
 
@@ -103,7 +103,7 @@ class FileRules
         }
 
         foreach ($files as $file) {
-            if (is_null($file)) {
+            if (\is_null($file)) {
                 return false;
             }
 
@@ -146,7 +146,7 @@ class FileRules
         }
 
         foreach ($files as $file) {
-            if (is_null($file)) {
+            if (\is_null($file)) {
                 return false;
             }
 
@@ -188,7 +188,7 @@ class FileRules
         }
 
         foreach ($files as $file) {
-            if (is_null($file)) {
+            if (\is_null($file)) {
                 return false;
             }
 
@@ -196,7 +196,7 @@ class FileRules
                 return true;
             }
 
-            if (! in_array($file->getMimeType(), $params, true)) {
+            if (! \in_array($file->getMimeType(), $params, true)) {
                 return false;
             }
         }
@@ -226,7 +226,7 @@ class FileRules
         }
 
         foreach ($files as $file) {
-            if (is_null($file)) {
+            if (\is_null($file)) {
                 return false;
             }
 
@@ -234,7 +234,7 @@ class FileRules
                 return true;
             }
 
-            if (! in_array($file->guessExtension(), $params, true)) {
+            if (! \in_array($file->guessExtension(), $params, true)) {
                 return false;
             }
         }
@@ -265,7 +265,7 @@ class FileRules
         }
 
         foreach ($files as $file) {
-            if (is_null($file)) {
+            if (\is_null($file)) {
                 return false;
             }
 

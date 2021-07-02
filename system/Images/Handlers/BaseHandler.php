@@ -203,7 +203,7 @@ abstract class BaseHandler implements ImageHandlerInterface
         }
 
         // File::__construct has verified the file exists - make sure it is an image
-        if (! is_int($this->image->imageType)) {
+        if (! \is_int($this->image->imageType)) {
             throw ImageException::forFileNotSupported();
         }
 
@@ -346,7 +346,7 @@ abstract class BaseHandler implements ImageHandlerInterface
             270.0,
         ];
 
-        if (! in_array($angle, $degs, true)) {
+        if (! \in_array($angle, $degs, true)) {
             throw ImageException::forMissingAngle();
         }
 
@@ -584,7 +584,7 @@ abstract class BaseHandler implements ImageHandlerInterface
      */
     public function getEXIF(string $key = null, bool $silent = false)
     {
-        if (! function_exists('exif_read_data')) {
+        if (! \function_exists('exif_read_data')) {
             if ($silent) {
                 return null;
             }
@@ -598,7 +598,7 @@ abstract class BaseHandler implements ImageHandlerInterface
             case IMAGETYPE_JPEG:
             case IMAGETYPE_TIFF_II:
                 $exif = @exif_read_data($this->image()->getPathname());
-                if (! is_null($key) && is_array($exif)) {
+                if (! \is_null($key) && \is_array($exif)) {
                     $exif = $exif[$key] ?? false;
                 }
         }
@@ -635,7 +635,7 @@ abstract class BaseHandler implements ImageHandlerInterface
 
         [$cropWidth, $cropHeight] = $this->calcAspectRatio($width, $height, $origWidth, $origHeight);
 
-        if (is_null($height)) {
+        if (\is_null($height)) {
             $height = ceil(($width / $cropWidth) * $cropHeight);
         }
 
@@ -664,7 +664,7 @@ abstract class BaseHandler implements ImageHandlerInterface
 
         // If $height is null, then we have it easy.
         // Calc based on full image size and be done.
-        if (is_null($height)) {
+        if (\is_null($height)) {
             $height = ($width / $origWidth) * $origHeight;
 
             return [

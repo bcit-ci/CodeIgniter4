@@ -74,7 +74,7 @@ class MigrateRollback extends BaseCommand
     {
         if (ENVIRONMENT === 'production') {
             // @codeCoverageIgnoreStart
-            $force = array_key_exists('f', $params) || CLI::getOption('f');
+            $force = \array_key_exists('f', $params) || CLI::getOption('f');
 
             if (! $force && CLI::prompt(lang('Migrations.rollBackConfirm'), ['y', 'n']) === 'n') {
                 return;
@@ -85,7 +85,7 @@ class MigrateRollback extends BaseCommand
         $runner = Services::migrations();
         $group  = $params['g'] ?? CLI::getOption('g');
 
-        if (is_string($group)) {
+        if (\is_string($group)) {
             $runner->setGroup($group);
         }
 

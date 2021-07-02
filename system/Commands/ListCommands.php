@@ -80,7 +80,7 @@ class ListCommands extends BaseCommand
         ksort($commands);
 
         // Check for 'simple' format
-        return array_key_exists('simple', $params) || CLI::getOption('simple')
+        return \array_key_exists('simple', $params) || CLI::getOption('simple')
             ? $this->listSimple($commands)
             : $this->listFull($commands);
     }
@@ -116,7 +116,7 @@ class ListCommands extends BaseCommand
                 $output = CLI::color($name, 'green');
 
                 if (isset($command['description'])) {
-                    $output .= CLI::wrap($command['description'], 125, strlen($name));
+                    $output .= CLI::wrap($command['description'], 125, \strlen($name));
                 }
 
                 CLI::write($output);

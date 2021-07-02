@@ -200,7 +200,7 @@ class UserAgent
                 $this->referrer = false;
             } else {
                 $refererHost = @parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
-                $ownHost     = parse_url(\base_url(), PHP_URL_HOST);
+                $ownHost     = parse_url(base_url(), PHP_URL_HOST);
 
                 $this->referrer = ($refererHost && $refererHost !== $ownHost);
             }
@@ -348,7 +348,7 @@ class UserAgent
      */
     protected function setPlatform(): bool
     {
-        if (is_array($this->config->platforms) && $this->config->platforms) {
+        if (\is_array($this->config->platforms) && $this->config->platforms) {
             foreach ($this->config->platforms as $key => $val) {
                 if (preg_match('|' . preg_quote($key, '|') . '|i', $this->agent)) {
                     $this->platform = $val;
@@ -372,7 +372,7 @@ class UserAgent
      */
     protected function setBrowser(): bool
     {
-        if (is_array($this->config->browsers) && $this->config->browsers) {
+        if (\is_array($this->config->browsers) && $this->config->browsers) {
             foreach ($this->config->browsers as $key => $val) {
                 if (preg_match('|' . $key . '.*?([0-9\.]+)|i', $this->agent, $match)) {
                     $this->isBrowser = true;
@@ -397,7 +397,7 @@ class UserAgent
      */
     protected function setRobot(): bool
     {
-        if (is_array($this->config->robots) && $this->config->robots) {
+        if (\is_array($this->config->robots) && $this->config->robots) {
             foreach ($this->config->robots as $key => $val) {
                 if (preg_match('|' . preg_quote($key, '|') . '|i', $this->agent)) {
                     $this->isRobot = true;
@@ -421,7 +421,7 @@ class UserAgent
      */
     protected function setMobile(): bool
     {
-        if (is_array($this->config->mobiles) && $this->config->mobiles) {
+        if (\is_array($this->config->mobiles) && $this->config->mobiles) {
             foreach ($this->config->mobiles as $key => $val) {
                 if (false !== (stripos($this->agent, $key))) {
                     $this->isMobile = true;

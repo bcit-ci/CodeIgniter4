@@ -36,7 +36,7 @@ class DOMParser
      */
     public function __construct()
     {
-        if (! extension_loaded('DOM')) {
+        if (! \extension_loaded('DOM')) {
             // always there in travis-ci
             // @codeCoverageIgnoreStart
             throw new BadMethodCallException('DOM extension is required, but not currently loaded.');
@@ -116,7 +116,7 @@ class DOMParser
     public function see(string $search = null, string $element = null): bool
     {
         // If Element is null, we're just scanning for text
-        if (is_null($element)) {
+        if (\is_null($element)) {
             $content = $this->dom->saveHTML($this->dom->documentElement);
 
             return mb_strpos($content, $search) !== false;
@@ -255,13 +255,13 @@ class DOMParser
 
         // $paths might contain a number of different
         // ready to go xpath portions to tack on.
-        if (! empty($paths) && is_array($paths)) {
+        if (! empty($paths) && \is_array($paths)) {
             foreach ($paths as $extra) {
                 $path .= $extra;
             }
         }
 
-        if (! is_null($search)) {
+        if (! \is_null($search)) {
             $path .= "[contains(., \"{$search}\")]";
         }
 

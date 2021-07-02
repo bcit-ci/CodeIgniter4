@@ -93,7 +93,7 @@ class Parser extends View
     public function render(string $view, array $options = null, bool $saveData = null): string
     {
         $start = microtime(true);
-        if (is_null($saveData)) {
+        if (\is_null($saveData)) {
             $saveData = $this->config->saveData;
         }
 
@@ -121,7 +121,7 @@ class Parser extends View
             }
         }
 
-        if (is_null($this->tempData)) {
+        if (\is_null($this->tempData)) {
             $this->tempData = $this->data;
         }
 
@@ -158,11 +158,11 @@ class Parser extends View
     public function renderString(string $template, array $options = null, bool $saveData = null): string
     {
         $start = microtime(true);
-        if (is_null($saveData)) {
+        if (\is_null($saveData)) {
             $saveData = $this->config->saveData;
         }
 
-        if (is_null($this->tempData)) {
+        if (\is_null($this->tempData)) {
             $this->tempData = $this->data;
         }
 
@@ -197,7 +197,7 @@ class Parser extends View
     {
         if (! empty($context)) {
             foreach ($data as $key => &$value) {
-                if (is_array($value)) {
+                if (\is_array($value)) {
                     foreach ($value as &$obj) {
                         $obj = $this->objectToArray($obj);
                     }
@@ -254,7 +254,7 @@ class Parser extends View
         foreach ($data as $key => $val) {
             $escape = true;
 
-            if (is_array($val)) {
+            if (\is_array($val)) {
                 $escape  = false;
                 $replace = $this->parsePair($key, $val, $template);
             } else {
@@ -329,11 +329,11 @@ class Parser extends View
             foreach ($data as $row) {
                 // Objects that have a `toArray()` method should be
                 // converted with that method (i.e. Entities)
-                if (is_object($row) && method_exists($row, 'toArray')) {
+                if (\is_object($row) && method_exists($row, 'toArray')) {
                     $row = $row->toArray();
                 }
                 // Otherwise, cast as an array and it will grab public properties.
-                elseif (is_object($row)) {
+                elseif (\is_object($row)) {
                     $row = (array) $row;
                 }
 
@@ -343,7 +343,7 @@ class Parser extends View
 
                 foreach ($row as $key => $val) {
                     // For nested data, send us back through this method...
-                    if (is_array($val)) {
+                    if (\is_array($val)) {
                         $pair = $this->parsePair($key, $val, $match[1]);
 
                         if (! empty($pair)) {
@@ -355,9 +355,9 @@ class Parser extends View
                         continue;
                     }
 
-                    if (is_object($val)) {
-                        $val = 'Class: ' . get_class($val);
-                    } elseif (is_resource($val)) {
+                    if (\is_object($val)) {
+                        $val = 'Class: ' . \get_class($val);
+                    } elseif (\is_resource($val)) {
                         $val = 'Resource';
                     }
 
@@ -488,7 +488,7 @@ class Parser extends View
         // Parse the PHP itself, or insert an error so they can debug
         ob_start();
 
-        if (is_null($this->tempData)) {
+        if (\is_null($this->tempData)) {
             $this->tempData = $this->data;
         }
 
@@ -602,7 +602,7 @@ class Parser extends View
 
         // If the key has a context stored (from setData)
         // we need to respect that.
-        if (array_key_exists($key, $this->dataContexts)) {
+        if (\array_key_exists($key, $this->dataContexts)) {
             if ($this->dataContexts[$key] !== 'raw') {
                 return $this->dataContexts[$key];
             }
@@ -659,7 +659,7 @@ class Parser extends View
             // Get our filter name
             $filter = ! empty($param) ? trim(strtolower(substr($filter, 0, strpos($filter, '(')))) : trim($filter);
 
-            if (! array_key_exists($filter, $this->config->filters)) {
+            if (! \array_key_exists($filter, $this->config->filters)) {
                 continue;
             }
 
@@ -686,7 +686,7 @@ class Parser extends View
     {
         foreach ($this->plugins as $plugin => $callable) {
             // Paired tags are enclosed in an array in the config array.
-            $isPair   = is_array($callable);
+            $isPair   = \is_array($callable);
             $callable = $isPair ? array_shift($callable) : $callable;
 
             // See https://regex101.com/r/BCBBKB/1
@@ -714,7 +714,7 @@ class Parser extends View
                 foreach ($matchesParams[0] as $item) {
                     $keyVal = explode('=', $item);
 
-                    if (count($keyVal) === 2) {
+                    if (\count($keyVal) === 2) {
                         $params[$keyVal[0]] = str_replace('"', '', $keyVal[1]);
                     } else {
                         $params[] = str_replace('"', '', $item);
@@ -774,11 +774,11 @@ class Parser extends View
     {
         // Objects that have a `toArray()` method should be
         // converted with that method (i.e. Entities)
-        if (is_object($value) && method_exists($value, 'toArray')) {
+        if (\is_object($value) && method_exists($value, 'toArray')) {
             $value = $value->toArray();
         }
         // Otherwise, cast as an array and it will grab public properties.
-        elseif (is_object($value)) {
+        elseif (\is_object($value)) {
             $value = (array) $value;
         }
 

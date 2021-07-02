@@ -32,7 +32,7 @@ class Config
         return [
             'ciVersion'   => CodeIgniter::CI_VERSION,
             'phpVersion'  => PHP_VERSION,
-            'phpSAPI'     => PHP_SAPI,
+            'phpSAPI'     => \PHP_SAPI,
             'environment' => ENVIRONMENT,
             'baseURL'     => $config->baseURL,
             'timezone'    => app_timezone(),

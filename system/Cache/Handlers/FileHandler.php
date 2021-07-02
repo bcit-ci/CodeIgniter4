@@ -94,7 +94,7 @@ class FileHandler extends BaseHandler
         $key  = static::validateKey($key, $this->prefix);
         $data = $this->getItem($key);
 
-        return is_array($data) ? $data['data'] : null;
+        return \is_array($data) ? $data['data'] : null;
     }
 
     //--------------------------------------------------------------------
@@ -192,7 +192,7 @@ class FileHandler extends BaseHandler
                 'data' => 0,
                 'ttl'  => 60,
             ];
-        } elseif (! is_int($data['data'])) {
+        } elseif (! \is_int($data['data'])) {
             return false;
         }
 
@@ -221,7 +221,7 @@ class FileHandler extends BaseHandler
                 'data' => 0,
                 'ttl'  => 60,
             ];
-        } elseif (! is_int($data['data'])) {
+        } elseif (! \is_int($data['data'])) {
             return false;
         }
 
@@ -313,7 +313,7 @@ class FileHandler extends BaseHandler
         }
 
         $data = @unserialize(file_get_contents($this->path . $filename));
-        if (! is_array($data) || ! isset($data['ttl'])) {
+        if (! \is_array($data) || ! isset($data['ttl'])) {
             return false;
         }
 
@@ -352,7 +352,7 @@ class FileHandler extends BaseHandler
 
         flock($fp, LOCK_EX);
 
-        for ($result = $written = 0, $length = strlen($data); $written < $length; $written += $result) {
+        for ($result = $written = 0, $length = \strlen($data); $written < $length; $written += $result) {
             if (($result = fwrite($fp, substr($data, $written))) === false) {
                 break;
             }
@@ -361,7 +361,7 @@ class FileHandler extends BaseHandler
         flock($fp, LOCK_UN);
         fclose($fp);
 
-        return is_int($result);
+        return \is_int($result);
     }
 
     //--------------------------------------------------------------------
@@ -392,10 +392,10 @@ class FileHandler extends BaseHandler
 
         while (false !== ($filename = @readdir($currentDir))) {
             if ($filename !== '.' && $filename !== '..') {
-                if (is_dir($path . DIRECTORY_SEPARATOR . $filename) && $filename[0] !== '.') {
-                    $this->deleteFiles($path . DIRECTORY_SEPARATOR . $filename, $delDir, $htdocs, $_level + 1);
+                if (is_dir($path . \DIRECTORY_SEPARATOR . $filename) && $filename[0] !== '.') {
+                    $this->deleteFiles($path . \DIRECTORY_SEPARATOR . $filename, $delDir, $htdocs, $_level + 1);
                 } elseif ($htdocs !== true || ! preg_match('/^(\.htaccess|index\.(html|htm|php)|web\.config)$/i', $filename)) {
-                    @unlink($path . DIRECTORY_SEPARATOR . $filename);
+                    @unlink($path . \DIRECTORY_SEPARATOR . $filename);
                 }
             }
         }
@@ -430,13 +430,13 @@ class FileHandler extends BaseHandler
             // reset the array and make sure $source_dir has a trailing slash on the initial call
             if ($_recursion === false) {
                 $_filedata = [];
-                $sourceDir = rtrim(realpath($sourceDir) ?: $sourceDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+                $sourceDir = rtrim(realpath($sourceDir) ?: $sourceDir, \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR;
             }
 
             // Used to be foreach (scandir($source_dir, 1) as $file), but scandir() is simply not as fast
             while (false !== ($file = readdir($fp))) {
                 if (is_dir($sourceDir . $file) && $file[0] !== '.' && $topLevelOnly === false) {
-                    $this->getDirFileInfo($sourceDir . $file . DIRECTORY_SEPARATOR, $topLevelOnly, true);
+                    $this->getDirFileInfo($sourceDir . $file . \DIRECTORY_SEPARATOR, $topLevelOnly, true);
                 } elseif ($file[0] !== '.') {
                     $_filedata[$file]                  = $this->getFileInfo($sourceDir . $file);
                     $_filedata[$file]['relative_path'] = $relativePath;
@@ -472,7 +472,7 @@ class FileHandler extends BaseHandler
             return false;
         }
 
-        if (is_string($returnedValues)) {
+        if (\is_string($returnedValues)) {
             $returnedValues = explode(',', $returnedValues);
         }
 

@@ -107,8 +107,8 @@ class Query implements QueryInterface
     {
         $this->originalQueryString = $sql;
 
-        if (! is_null($binds)) {
-            if (! is_array($binds)) {
+        if (! \is_null($binds)) {
+            if (! \is_array($binds)) {
                 $binds = [$binds];
             }
 
@@ -181,7 +181,7 @@ class Query implements QueryInterface
     {
         $this->startTime = $start;
 
-        if (is_null($end)) {
+        if (\is_null($end)) {
             $end = microtime(true);
         }
 
@@ -323,22 +323,22 @@ class Query implements QueryInterface
             return;
         }
 
-        if (! is_array($this->binds)) {
+        if (! \is_array($this->binds)) {
             $binds     = [$this->binds];
             $bindCount = 1;
         } else {
             $binds     = $this->binds;
-            $bindCount = count($binds);
+            $bindCount = \count($binds);
         }
 
         // Reverse the binds so that duplicate named binds
         // will be processed prior to the original binds.
-        if (! is_numeric(key(array_slice($binds, 0, 1)))) {
+        if (! is_numeric(key(\array_slice($binds, 0, 1)))) {
             $binds = array_reverse($binds);
         }
 
         // We'll need marker length later
-        $ml = strlen($this->bindMarker);
+        $ml = \strlen($this->bindMarker);
 
         $sql = $hasNamedBinds ? $this->matchNamedBinds($sql, $binds) : $this->matchSimpleBinds($sql, $binds, $bindCount, $ml);
 
@@ -364,7 +364,7 @@ class Query implements QueryInterface
             // In order to correctly handle backlashes in saved strings
             // we will need to preg_quote, so remove the wrapping escape characters
             // otherwise it will get escaped.
-            if (is_array($value[0])) {
+            if (\is_array($value[0])) {
                 $escapedValue = '(' . implode(',', $escapedValue) . ')';
             }
 
@@ -403,7 +403,7 @@ class Query implements QueryInterface
         do {
             $c--;
             $escapedValue = $binds[$c][1] ? $this->db->escape($binds[$c][0]) : $binds[$c][0];
-            if (is_array($escapedValue)) {
+            if (\is_array($escapedValue)) {
                 $escapedValue = '(' . implode(',', $escapedValue) . ')';
             }
             $sql = substr_replace($sql, $escapedValue, $matches[0][$c][1], $ml);

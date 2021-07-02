@@ -126,7 +126,7 @@ class Autoloader
 
         // Load our non-class files
         foreach ($this->files as $file) {
-            if (is_string($file)) {
+            if (\is_string($file)) {
                 $this->includeFile($file);
             }
         }
@@ -142,22 +142,22 @@ class Autoloader
      */
     public function addNamespace($namespace, string $path = null)
     {
-        if (is_array($namespace)) {
+        if (\is_array($namespace)) {
             foreach ($namespace as $prefix => $namespacedPath) {
                 $prefix = trim($prefix, '\\');
 
-                if (is_array($namespacedPath)) {
+                if (\is_array($namespacedPath)) {
                     foreach ($namespacedPath as $dir) {
-                        $this->prefixes[$prefix][] = rtrim($dir, '\\/') . DIRECTORY_SEPARATOR;
+                        $this->prefixes[$prefix][] = rtrim($dir, '\\/') . \DIRECTORY_SEPARATOR;
                     }
 
                     continue;
                 }
 
-                $this->prefixes[$prefix][] = rtrim($namespacedPath, '\\/') . DIRECTORY_SEPARATOR;
+                $this->prefixes[$prefix][] = rtrim($namespacedPath, '\\/') . \DIRECTORY_SEPARATOR;
             }
         } else {
-            $this->prefixes[trim($namespace, '\\')][] = rtrim($path, '\\/') . DIRECTORY_SEPARATOR;
+            $this->prefixes[trim($namespace, '\\')][] = rtrim($path, '\\/') . \DIRECTORY_SEPARATOR;
         }
 
         return $this;
@@ -208,7 +208,7 @@ class Autoloader
     {
         $file = $this->classmap[$class] ?? '';
 
-        if (is_string($file) && $file !== '') {
+        if (\is_string($file) && $file !== '') {
             return $this->includeFile($file);
         }
 
@@ -249,7 +249,7 @@ class Autoloader
                 $directory = rtrim($directory, '\\/');
 
                 if (strpos($class, $namespace) === 0) {
-                    $filePath = $directory . str_replace('\\', DIRECTORY_SEPARATOR, substr($class, strlen($namespace))) . '.php';
+                    $filePath = $directory . str_replace('\\', \DIRECTORY_SEPARATOR, substr($class, \strlen($namespace))) . '.php';
                     $filename = $this->includeFile($filePath);
 
                     if ($filename) {

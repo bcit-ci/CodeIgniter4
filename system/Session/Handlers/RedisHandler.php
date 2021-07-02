@@ -152,12 +152,12 @@ class RedisHandler extends BaseHandler
     {
         if (isset($this->redis) && $this->lockSession($sessionID)) {
             // Needed by write() to detect session_regenerate_id() calls
-            if (is_null($this->sessionID)) { // @phpstan-ignore-line
+            if (\is_null($this->sessionID)) { // @phpstan-ignore-line
                 $this->sessionID = $sessionID;
             }
 
-            $sessionData                               = $this->redis->get($this->keyPrefix . $sessionID);
-            is_string($sessionData) ? $this->keyExists = true : $sessionData = '';
+            $sessionData                                = $this->redis->get($this->keyPrefix . $sessionID);
+            \is_string($sessionData) ? $this->keyExists = true : $sessionData = '';
 
             $this->fingerprint = md5($sessionData);
 

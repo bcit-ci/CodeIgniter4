@@ -516,7 +516,7 @@ abstract class BaseModel
      */
     public function find($id = null)
     {
-        $singleton = is_numeric($id) || is_string($id);
+        $singleton = is_numeric($id) || \is_string($id);
 
         if ($this->tempAllowCallbacks) {
             // Call the before event and check for a return
@@ -738,11 +738,11 @@ abstract class BaseModel
         // Set created_at and updated_at with same time
         $date = $this->setDate();
 
-        if ($this->useTimestamps && $this->createdField && ! array_key_exists($this->createdField, $data)) {
+        if ($this->useTimestamps && $this->createdField && ! \array_key_exists($this->createdField, $data)) {
             $data[$this->createdField] = $date;
         }
 
-        if ($this->useTimestamps && $this->updatedField && ! array_key_exists($this->updatedField, $data)) {
+        if ($this->useTimestamps && $this->updatedField && ! \array_key_exists($this->updatedField, $data)) {
             $data[$this->updatedField] = $date;
         }
 
@@ -790,19 +790,19 @@ abstract class BaseModel
      */
     public function insertBatch(?array $set = null, ?bool $escape = null, int $batchSize = 100, bool $testing = false)
     {
-        if (is_array($set)) {
+        if (\is_array($set)) {
             foreach ($set as &$row) {
                 // If $data is using a custom class with public or protected
                 // properties representing the collection elements, we need to grab
                 // them as an array.
-                if (is_object($row) && ! $row instanceof stdClass) {
+                if (\is_object($row) && ! $row instanceof stdClass) {
                     $row = $this->objectToArray($row, false, true);
                 }
 
                 // If it's still a stdClass, go ahead and convert to
                 // an array so doProtectFields and other model methods
                 // don't have to do special checks.
-                if (is_object($row)) {
+                if (\is_object($row)) {
                     $row = (array) $row;
                 }
 
@@ -818,11 +818,11 @@ abstract class BaseModel
                 // Set created_at and updated_at with same time
                 $date = $this->setDate();
 
-                if ($this->useTimestamps && $this->createdField && ! array_key_exists($this->createdField, $row)) {
+                if ($this->useTimestamps && $this->createdField && ! \array_key_exists($this->createdField, $row)) {
                     $row[$this->createdField] = $date;
                 }
 
-                if ($this->useTimestamps && $this->updatedField && ! array_key_exists($this->updatedField, $row)) {
+                if ($this->useTimestamps && $this->updatedField && ! \array_key_exists($this->updatedField, $row)) {
                     $row[$this->updatedField] = $date;
                 }
             }
@@ -844,7 +844,7 @@ abstract class BaseModel
      */
     public function update($id = null, $data = null): bool
     {
-        if (is_numeric($id) || is_string($id)) {
+        if (is_numeric($id) || \is_string($id)) {
             $id = [$id];
         }
 
@@ -865,7 +865,7 @@ abstract class BaseModel
             throw DataException::forEmptyDataset('update');
         }
 
-        if ($this->useTimestamps && $this->updatedField && ! array_key_exists($this->updatedField, $data)) {
+        if ($this->useTimestamps && $this->updatedField && ! \array_key_exists($this->updatedField, $data)) {
             $data[$this->updatedField] = $this->setDate();
         }
 
@@ -908,19 +908,19 @@ abstract class BaseModel
      */
     public function updateBatch(array $set = null, string $index = null, int $batchSize = 100, bool $returnSQL = false)
     {
-        if (is_array($set)) {
+        if (\is_array($set)) {
             foreach ($set as &$row) {
                 // If $data is using a custom class with public or protected
                 // properties representing the collection elements, we need to grab
                 // them as an array.
-                if (is_object($row) && ! $row instanceof stdClass) {
+                if (\is_object($row) && ! $row instanceof stdClass) {
                     $row = $this->objectToArray($row, true, true);
                 }
 
                 // If it's still a stdClass, go ahead and convert to
                 // an array so doProtectFields and other model methods
                 // don't have to do special checks.
-                if (is_object($row)) {
+                if (\is_object($row)) {
                     $row = (array) $row;
                 }
 
@@ -941,7 +941,7 @@ abstract class BaseModel
                     $row[$index] = $updateIndex;
                 }
 
-                if ($this->useTimestamps && $this->updatedField && ! array_key_exists($this->updatedField, $row)) {
+                if ($this->useTimestamps && $this->updatedField && ! \array_key_exists($this->updatedField, $row)) {
                     $row[$this->updatedField] = $this->setDate();
                 }
             }
@@ -962,7 +962,7 @@ abstract class BaseModel
      */
     public function delete($id = null, bool $purge = false)
     {
-        if ($id && (is_numeric($id) || is_string($id))) {
+        if ($id && (is_numeric($id) || \is_string($id))) {
             $id = [$id];
         }
 
@@ -1156,7 +1156,7 @@ abstract class BaseModel
         }
 
         foreach (array_keys($data) as $key) {
-            if (! in_array($key, $this->allowedFields, true)) {
+            if (! \in_array($key, $this->allowedFields, true)) {
                 unset($data[$key]);
             }
         }
@@ -1351,7 +1351,7 @@ abstract class BaseModel
         }
 
         //Validation requires array, so cast away.
-        if (is_object($data)) {
+        if (\is_object($data)) {
             $data = (array) $data;
         }
 
@@ -1380,7 +1380,7 @@ abstract class BaseModel
 
         // ValidationRules can be either a string, which is the group name,
         // or an array of rules.
-        if (is_string($rules)) {
+        if (\is_string($rules)) {
             $rules = $this->validation->loadRuleGroup($rules);
         }
 
@@ -1421,7 +1421,7 @@ abstract class BaseModel
         }
 
         foreach (array_keys($rules) as $field) {
-            if (! array_key_exists($field, $data)) {
+            if (! \array_key_exists($field, $data)) {
                 unset($rules[$field]);
             }
         }
@@ -1593,7 +1593,7 @@ abstract class BaseModel
      */
     protected function transformDataToArray($data, string $type): array
     {
-        if (! in_array($type, ['insert', 'update'], true)) {
+        if (! \in_array($type, ['insert', 'update'], true)) {
             throw new InvalidArgumentException(sprintf('Invalid type "%s" used upon transforming data to array.', $type));
         }
 
@@ -1604,14 +1604,14 @@ abstract class BaseModel
         // If $data is using a custom class with public or protected
         // properties representing the collection elements, we need to grab
         // them as an array.
-        if (is_object($data) && ! $data instanceof stdClass) {
+        if (\is_object($data) && ! $data instanceof stdClass) {
             $data = $this->objectToArray($data, true, true);
         }
 
         // If it's still a stdClass, go ahead and convert to
         // an array so doProtectFields and other model methods
         // don't have to do special checks.
-        if (is_object($data)) {
+        if (\is_object($data)) {
             $data = (array) $data;
         }
 
@@ -1706,11 +1706,11 @@ abstract class BaseModel
 
         if (! empty($replacements)) {
             foreach ($rules as &$rule) {
-                if (is_array($rule)) {
+                if (\is_array($rule)) {
                     foreach ($rule as &$row) {
                         // Should only be an `errors` array
                         // which doesn't take placeholders.
-                        if (is_array($row)) {
+                        if (\is_array($row)) {
                             continue;
                         }
 

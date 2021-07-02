@@ -4,6 +4,7 @@ namespace Tests\Support\Controllers;
 
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\Controller;
+use RuntimeException;
 
 /**
  * This is a testing only controller, intended to blow up in multiple
@@ -25,7 +26,7 @@ class Popcorn extends Controller
 
     public function popper()
     {
-        throw new \RuntimeException('Surprise', 500);
+        throw new RuntimeException('Surprise', 500);
     }
 
     public function weasel()

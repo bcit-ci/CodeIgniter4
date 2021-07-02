@@ -95,7 +95,7 @@ class Connection extends BaseConnection
 
         // This is only supported as of SQLSRV 3.0
         if ($this->scrollable === null) {
-            $this->scrollable = defined('SQLSRV_CURSOR_CLIENT_BUFFERED') ? SQLSRV_CURSOR_CLIENT_BUFFERED : false;
+            $this->scrollable = \defined('SQLSRV_CURSOR_CLIENT_BUFFERED') ? SQLSRV_CURSOR_CLIENT_BUFFERED : false;
         }
     }
 
@@ -110,7 +110,7 @@ class Connection extends BaseConnection
      */
     public function connect(bool $persistent = false)
     {
-        $charset = in_array(strtolower($this->charset), ['utf-8', 'utf8'], true) ? 'UTF-8' : SQLSRV_ENC_CHAR;
+        $charset = \in_array(strtolower($this->charset), ['utf-8', 'utf8'], true) ? 'UTF-8' : SQLSRV_ENC_CHAR;
 
         $connection = [
             'UID'                  => empty($this->username) ? '' : $this->username,
@@ -366,7 +366,7 @@ class Connection extends BaseConnection
         $query  = $query->getResultObject();
         $retVal = [];
 
-        for ($i = 0, $c = count($query); $i < $c; $i++) {
+        for ($i = 0, $c = \count($query); $i < $c; $i++) {
             $retVal[$i] = new stdClass();
 
             $retVal[$i]->name    = $query[$i]->COLUMN_NAME;
@@ -427,7 +427,7 @@ class Connection extends BaseConnection
 
         $sqlsrvErrors = sqlsrv_errors(SQLSRV_ERR_ERRORS);
 
-        if (! is_array($sqlsrvErrors)) {
+        if (! \is_array($sqlsrvErrors)) {
             return $error;
         }
 
@@ -521,7 +521,7 @@ class Connection extends BaseConnection
 
         $sqlsrvErrors = sqlsrv_errors(SQLSRV_ERR_ERRORS);
 
-        if (! is_array($sqlsrvErrors)) {
+        if (! \is_array($sqlsrvErrors)) {
             return $error;
         }
 

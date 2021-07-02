@@ -110,7 +110,7 @@ class Events extends BaseCollector
         foreach (\CodeIgniter\Events\Events::getPerformanceLogs() as $row) {
             $key = $row['event'];
 
-            if (! array_key_exists($key, $data['events'])) {
+            if (! \array_key_exists($key, $data['events'])) {
                 $data['events'][$key] = [
                     'event'    => $key,
                     'duration' => ($row['end'] - $row['start']) * 1000,
@@ -140,7 +140,7 @@ class Events extends BaseCollector
      */
     public function getBadgeValue(): int
     {
-        return count(\CodeIgniter\Events\Events::getPerformanceLogs());
+        return \count(\CodeIgniter\Events\Events::getPerformanceLogs());
     }
 
     //--------------------------------------------------------------------

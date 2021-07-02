@@ -114,7 +114,7 @@ class Connection extends BaseConnection
             }
         }
 
-        if (is_array($this->encrypt)) {
+        if (\is_array($this->encrypt)) {
             $ssl = [];
 
             if (! empty($this->encrypt['ssl_key'])) {
@@ -136,7 +136,7 @@ class Connection extends BaseConnection
             if (! empty($ssl)) {
                 if (isset($this->encrypt['ssl_verify'])) {
                     if ($this->encrypt['ssl_verify']) {
-                        defined('MYSQLI_OPT_SSL_VERIFY_SERVER_CERT') &&
+                        \defined('MYSQLI_OPT_SSL_VERIFY_SERVER_CERT') &&
                         $this->mysqli->options(MYSQLI_OPT_SSL_VERIFY_SERVER_CERT, 1);
                     }
                     // Apparently (when it exists), setting MYSQLI_OPT_SSL_VERIFY_SERVER_CERT
@@ -145,7 +145,7 @@ class Connection extends BaseConnection
                     //
                     // https://secure.php.net/ChangeLog-5.php#5.6.16
                     // https://bugs.php.net/bug.php?id=68344
-                    elseif (defined('MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT') && version_compare($this->mysqli->client_info, 'mysqlnd 5.6', '>=')) {
+                    elseif (\defined('MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT') && version_compare($this->mysqli->client_info, 'mysqlnd 5.6', '>=')) {
                         $clientFlags += MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT;
                     }
                 }
@@ -384,7 +384,7 @@ class Connection extends BaseConnection
      */
     public function escapeLikeStringDirect($str)
     {
-        if (is_array($str)) {
+        if (\is_array($str)) {
             foreach ($str as $key => $val) {
                 $str[$key] = $this->escapeLikeStringDirect($val);
             }
@@ -459,7 +459,7 @@ class Connection extends BaseConnection
 
         $retVal = [];
 
-        for ($i = 0, $c = count($query); $i < $c; $i++) {
+        for ($i = 0, $c = \count($query); $i < $c; $i++) {
             $retVal[$i]       = new stdClass();
             $retVal[$i]->name = $query[$i]->Field;
 
