@@ -124,7 +124,7 @@ class History extends BaseCollector
      */
     public function getBadgeValue(): int
     {
-        return count($this->files);
+        return \count($this->files);
     }
 
     /**

@@ -49,7 +49,7 @@ class Files extends BaseCollector
      */
     public function getTitleDetails(): string
     {
-        return '( ' . (int) count(get_included_files()) . ' )';
+        return '( ' . (int) \count(get_included_files()) . ' )';
     }
 
     //--------------------------------------------------------------------
@@ -99,7 +99,7 @@ class Files extends BaseCollector
      */
     public function getBadgeValue(): int
     {
-        return count(get_included_files());
+        return \count(get_included_files());
     }
 
     //--------------------------------------------------------------------

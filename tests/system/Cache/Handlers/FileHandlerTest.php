@@ -33,7 +33,7 @@ final class FileHandlerTest extends CIUnitTestCase
     {
         parent::setUp();
 
-        if (! function_exists('octal_permissions')) {
+        if (! \function_exists('octal_permissions')) {
             helper('filesystem');
         }
 
@@ -57,9 +57,9 @@ final class FileHandlerTest extends CIUnitTestCase
             chmod($this->config->file['storePath'], 0777);
 
             foreach (self::getKeyArray() as $key) {
-                if (is_file($this->config->file['storePath'] . DIRECTORY_SEPARATOR . $key)) {
-                    chmod($this->config->file['storePath'] . DIRECTORY_SEPARATOR . $key, 0777);
-                    unlink($this->config->file['storePath'] . DIRECTORY_SEPARATOR . $key);
+                if (is_file($this->config->file['storePath'] . \DIRECTORY_SEPARATOR . $key)) {
+                    chmod($this->config->file['storePath'] . \DIRECTORY_SEPARATOR . $key, 0777);
+                    unlink($this->config->file['storePath'] . \DIRECTORY_SEPARATOR . $key);
                 }
             }
 
@@ -139,7 +139,7 @@ final class FileHandlerTest extends CIUnitTestCase
     public function testSaveExcessiveKeyLength()
     {
         $key  = str_repeat('a', 260);
-        $file = $this->config->file['storePath'] . DIRECTORY_SEPARATOR . md5($key);
+        $file = $this->config->file['storePath'] . \DIRECTORY_SEPARATOR . md5($key);
 
         $this->assertTrue($this->fileHandler->save($key, 'value'));
         $this->assertFileExists($file);
@@ -273,7 +273,7 @@ final class FileHandlerTest extends CIUnitTestCase
 
         $this->fileHandler->save(self::$key1, 'value');
 
-        $file = $config->file['storePath'] . DIRECTORY_SEPARATOR . self::$key1;
+        $file = $config->file['storePath'] . \DIRECTORY_SEPARATOR . self::$key1;
         $mode = octal_permissions(fileperms($file));
 
         $this->assertSame($string, $mode);

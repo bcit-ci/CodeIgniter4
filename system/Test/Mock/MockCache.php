@@ -71,7 +71,7 @@ class MockCache extends BaseHandler implements CacheInterface
     {
         $value = $this->get($key);
 
-        if (! is_null($value)) {
+        if (! \is_null($value)) {
             return $value;
         }
 
@@ -167,7 +167,7 @@ class MockCache extends BaseHandler implements CacheInterface
 
         if (empty($data)) {
             $data = 0;
-        } elseif (! is_int($data)) {
+        } elseif (! \is_int($data)) {
             return false;
         }
 
@@ -192,7 +192,7 @@ class MockCache extends BaseHandler implements CacheInterface
 
         if (empty($data)) {
             $data = 0;
-        } elseif (! is_int($data)) {
+        } elseif (! \is_int($data)) {
             return false;
         }
 
@@ -243,12 +243,12 @@ class MockCache extends BaseHandler implements CacheInterface
     public function getMetaData(string $key)
     {
         // Misses return null
-        if (! array_key_exists($key, $this->expirations)) {
+        if (! \array_key_exists($key, $this->expirations)) {
             return null;
         }
 
         // Count expired items as a miss
-        if (is_int($this->expirations[$key]) && $this->expirations[$key] > time()) {
+        if (\is_int($this->expirations[$key]) && $this->expirations[$key] > time()) {
             return null;
         }
 

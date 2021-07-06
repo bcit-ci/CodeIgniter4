@@ -275,7 +275,7 @@ abstract class CIUnitTestCase extends TestCase
      */
     private function callTraitMethods(string $stage): void
     {
-        if (is_null($this->traits)) {
+        if (\is_null($this->traits)) {
             $this->traits = class_uses_recursive($this);
         }
 
@@ -407,7 +407,7 @@ abstract class CIUnitTestCase extends TestCase
     {
         $found = false;
 
-        if (! function_exists('xdebug_get_headers')) {
+        if (! \function_exists('xdebug_get_headers')) {
             $this->markTestSkipped('XDebug not found.');
         }
 
@@ -436,7 +436,7 @@ abstract class CIUnitTestCase extends TestCase
     {
         $found = false;
 
-        if (! function_exists('xdebug_get_headers')) {
+        if (! \function_exists('xdebug_get_headers')) {
             $this->markTestSkipped('XDebug not found.');
         }
 
@@ -492,7 +492,7 @@ abstract class CIUnitTestCase extends TestCase
     {
         $expected = (string) $expected;
         $actual   = (string) $actual;
-        if (strlen($expected) !== strlen($actual)) {
+        if (\strlen($expected) !== \strlen($actual)) {
             return false;
         }
 
@@ -538,7 +538,7 @@ abstract class CIUnitTestCase extends TestCase
      */
     protected function getHeaderEmitted(string $header, bool $ignoreCase = false): ?string
     {
-        if (! function_exists('xdebug_get_headers')) {
+        if (! \function_exists('xdebug_get_headers')) {
             $this->markTestSkipped('XDebug not found.');
         }
 

@@ -135,7 +135,7 @@ trait GeneratorTrait
         }
 
         // Check if the directory to save the file is existing.
-        $dir = dirname($path);
+        $dir = \dirname($path);
 
         if (! is_dir($dir)) {
             mkdir($dir, 0755, true);
@@ -201,7 +201,7 @@ trait GeneratorTrait
         // Gets the class name from input.
         $class = $this->params[0] ?? CLI::getSegment(2);
 
-        if (is_null($class) && $this->hasClassName) {
+        if (\is_null($class) && $this->hasClassName) {
             // @codeCoverageIgnoreStart
             $nameLang = $this->classNameLang ?: 'CLI.generator.className.default';
             $class    = CLI::prompt(lang($nameLang), null, 'required');
@@ -232,7 +232,7 @@ trait GeneratorTrait
         // Gets the namespace from input.
         $namespace = trim(str_replace('/', '\\', $this->getOption('namespace') ?? APP_NAMESPACE), '\\');
 
-        if (strncmp($class, $namespace, strlen($namespace)) === 0) {
+        if (strncmp($class, $namespace, \strlen($namespace)) === 0) {
             return $class; // @codeCoverageIgnore
         }
 
@@ -271,7 +271,7 @@ trait GeneratorTrait
     protected function parseTemplate(string $class, array $search = [], array $replace = [], array $data = []): string
     {
         // Retrieves the namespace part from the fully qualified class name.
-        $namespace = trim(implode('\\', array_slice(explode('\\', $class), 0, -1)), '\\');
+        $namespace = trim(implode('\\', \array_slice(explode('\\', $class), 0, -1)), '\\');
         $search[]  = '<@php';
         $search[]  = '{namespace}';
         $search[]  = '{class}';
@@ -327,9 +327,9 @@ trait GeneratorTrait
         }
 
         $base = realpath($base) ?: $base;
-        $file = $base . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, trim(str_replace($namespace . '\\', '', $class), '\\')) . '.php';
+        $file = $base . \DIRECTORY_SEPARATOR . str_replace('\\', \DIRECTORY_SEPARATOR, trim(str_replace($namespace . '\\', '', $class), '\\')) . '.php';
 
-        return implode(DIRECTORY_SEPARATOR, array_slice(explode(DIRECTORY_SEPARATOR, $file), 0, -1)) . DIRECTORY_SEPARATOR . $this->basename($file);
+        return implode(\DIRECTORY_SEPARATOR, \array_slice(explode(\DIRECTORY_SEPARATOR, $file), 0, -1)) . \DIRECTORY_SEPARATOR . $this->basename($file);
     }
 
     /**
@@ -384,10 +384,10 @@ trait GeneratorTrait
      */
     protected function getOption(string $name)
     {
-        if (! array_key_exists($name, $this->params)) {
+        if (! \array_key_exists($name, $this->params)) {
             return CLI::getOption($name);
         }
 
-        return is_null($this->params[$name]) ? true : $this->params[$name];
+        return \is_null($this->params[$name]) ? true : $this->params[$name];
     }
 }

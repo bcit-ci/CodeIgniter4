@@ -241,7 +241,7 @@ class URI
      */
     public function __construct(string $uri = null)
     {
-        if (! is_null($uri)) {
+        if (! \is_null($uri)) {
             $this->setURI($uri);
         }
     }
@@ -291,7 +291,7 @@ class URI
      */
     public function setURI(string $uri = null)
     {
-        if (! is_null($uri)) {
+        if (! \is_null($uri)) {
             $parts = parse_url($uri);
 
             if ($parts === false) {
@@ -513,23 +513,23 @@ class URI
     {
         $vars = $this->query;
 
-        if (array_key_exists('except', $options)) {
-            if (! is_array($options['except'])) {
+        if (\array_key_exists('except', $options)) {
+            if (! \is_array($options['except'])) {
                 $options['except'] = [$options['except']];
             }
 
             foreach ($options['except'] as $var) {
                 unset($vars[$var]);
             }
-        } elseif (array_key_exists('only', $options)) {
+        } elseif (\array_key_exists('only', $options)) {
             $temp = [];
 
-            if (! is_array($options['only'])) {
+            if (! \is_array($options['only'])) {
                 $options['only'] = [$options['only']];
             }
 
             foreach ($options['only'] as $var) {
-                if (array_key_exists($var, $vars)) {
+                if (\array_key_exists($var, $vars)) {
                     $temp[$var] = $vars[$var];
                 }
             }
@@ -581,7 +581,7 @@ class URI
         // but we still have to deal with a zero-based array.
         $number--;
 
-        if ($number > count($this->segments) && ! $this->silent) {
+        if ($number > \count($this->segments) && ! $this->silent) {
             throw HTTPException::forURISegmentOutOfRange($number);
         }
 
@@ -603,7 +603,7 @@ class URI
         // but we still have to deal with a zero-based array.
         $number--;
 
-        if ($number > count($this->segments) + 1) {
+        if ($number > \count($this->segments) + 1) {
             if ($this->silent) {
                 return $this;
             }
@@ -626,7 +626,7 @@ class URI
      */
     public function getTotalSegments(): int
     {
-        return count($this->segments);
+        return \count($this->segments);
     }
 
     //--------------------------------------------------------------------
@@ -771,7 +771,7 @@ class URI
      */
     public function setPort(int $port = null)
     {
-        if (is_null($port)) {
+        if (\is_null($port)) {
             return $this;
         }
 
@@ -925,7 +925,7 @@ class URI
         $temp = [];
 
         foreach ($this->query as $key => $value) {
-            if (! in_array($key, $params, true)) {
+            if (! \in_array($key, $params, true)) {
                 continue;
             }
 
@@ -1030,7 +1030,7 @@ class URI
         }
 
         // Port
-        if (isset($parts['port']) && ! is_null($parts['port'])) {
+        if (isset($parts['port']) && ! \is_null($parts['port'])) {
             // Valid port numbers are enforced by earlier parse_url or setPort()
             $port       = $parts['port'];
             $this->port = $port;

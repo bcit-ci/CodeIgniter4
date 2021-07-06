@@ -199,11 +199,11 @@ class Connection extends BaseConnection
             $this->initialize();
         }
 
-        if (is_string($str) || (is_object($str) && method_exists($str, '__toString'))) {
+        if (\is_string($str) || (\is_object($str) && method_exists($str, '__toString'))) {
             return pg_escape_literal($this->connID, $str);
         }
 
-        if (is_bool($str)) {
+        if (\is_bool($str)) {
             return $str ? 'TRUE' : 'FALSE';
         }
 
@@ -294,7 +294,7 @@ class Connection extends BaseConnection
 
         $retVal = [];
 
-        for ($i = 0, $c = count($query); $i < $c; $i++) {
+        for ($i = 0, $c = \count($query); $i < $c; $i++) {
             $retVal[$i] = new stdClass();
 
             $retVal[$i]->name       = $query[$i]->column_name;
@@ -452,8 +452,8 @@ class Connection extends BaseConnection
         // 'server' key is only available since PostgreSQL 7.4
         $v = explode(' ', $v['server'])[0] ?? 0;
 
-        $table  = func_num_args() > 0 ? func_get_arg(0) : null;
-        $column = func_num_args() > 1 ? func_get_arg(1) : null;
+        $table  = \func_num_args() > 0 ? func_get_arg(0) : null;
+        $column = \func_num_args() > 1 ? func_get_arg(1) : null;
 
         if ($table === null && $v >= '8.1') {
             $sql = 'SELECT LASTVAL() AS ins_id';
@@ -525,7 +525,7 @@ class Connection extends BaseConnection
         //
         // Postgre://username:password@localhost:5432/database?connect_timeout=5&sslmode=1
         foreach (['connect_timeout', 'options', 'sslmode', 'service'] as $key) {
-            if (isset($this->{$key}) && is_string($this->{$key}) && $this->{$key} !== '') {
+            if (isset($this->{$key}) && \is_string($this->{$key}) && $this->{$key} !== '') {
                 $this->DSN .= "{$key}='{$this->{$key}}' ";
             }
         }

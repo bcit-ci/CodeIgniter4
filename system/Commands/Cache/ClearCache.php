@@ -67,7 +67,7 @@ class ClearCache extends BaseCommand
         $config  = config('Cache');
         $handler = $params[0] ?? $config->handler;
 
-        if (! array_key_exists($handler, $config->validHandlers)) {
+        if (! \array_key_exists($handler, $config->validHandlers)) {
             CLI::error($handler . ' is not a valid cache handler.');
 
             return;

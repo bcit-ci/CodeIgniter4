@@ -103,7 +103,7 @@ trait FilterTestTrait
         $this->filtersConfig = $this->filtersConfig ?? config('Filters');
         $this->filters       = $this->filters ?? new Filters($this->filtersConfig, $this->request, $this->response);
 
-        if (is_null($this->collection)) {
+        if (\is_null($this->collection)) {
             // Load the RouteCollection from Config to gather App route info
             // (creates $routes using the Service as a starting point)
             require APPPATH . 'Config/Routes.php';
@@ -130,11 +130,11 @@ trait FilterTestTrait
      */
     protected function getFilterCaller($filter, string $position): Closure
     {
-        if (! in_array($position, ['before', 'after'], true)) {
+        if (! \in_array($position, ['before', 'after'], true)) {
             throw new InvalidArgumentException('Invalid filter position passed: ' . $position);
         }
 
-        if (is_string($filter)) {
+        if (\is_string($filter)) {
             // Check for an alias (no namespace)
             if (strpos($filter, '\\') === false) {
                 if (! isset($this->filtersConfig->aliases[$filter])) {
@@ -149,7 +149,7 @@ trait FilterTestTrait
         }
 
         if (! $filter instanceof FilterInterface) {
-            throw FilterException::forIncorrectInterface(get_class($filter));
+            throw FilterException::forIncorrectInterface(\get_class($filter));
         }
 
         $request = clone $this->request;
@@ -178,7 +178,7 @@ trait FilterTestTrait
      */
     protected function getFiltersForRoute(string $route, string $position): array
     {
-        if (! in_array($position, ['before', 'after'], true)) {
+        if (! \in_array($position, ['before', 'after'], true)) {
             throw new InvalidArgumentException('Invalid filter position passed:' . $position);
         }
 

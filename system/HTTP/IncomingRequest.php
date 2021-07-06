@@ -340,7 +340,7 @@ class IncomingRequest extends Request
      */
     public function negotiate(string $type, array $supported, bool $strictMatch = false): string
     {
-        if (is_null($this->negotiator)) {
+        if (\is_null($this->negotiator)) {
             $this->negotiator = Services::negotiator($this, true);
         }
 
@@ -457,7 +457,7 @@ class IncomingRequest extends Request
      */
     public function getPath(): string
     {
-        if (is_null($this->path)) {
+        if (\is_null($this->path)) {
             $this->detectPath($this->config->uriProtocol);
         }
 
@@ -477,7 +477,7 @@ class IncomingRequest extends Request
     {
         // If it's not a valid locale, set it
         // to the default locale for the site.
-        if (! in_array($locale, $this->validLocales, true)) {
+        if (! \in_array($locale, $this->validLocales, true)) {
             $locale = $this->defaultLocale;
         }
 
@@ -523,12 +523,12 @@ class IncomingRequest extends Request
      */
     public function getVar($index = null, $filter = null, $flags = null)
     {
-        if (strpos($this->getHeaderLine('Content-Type'), 'application/json') !== false && ! is_null($this->body)) {
-            if (is_null($index)) {
+        if (strpos($this->getHeaderLine('Content-Type'), 'application/json') !== false && ! \is_null($this->body)) {
+            if (\is_null($index)) {
                 return $this->getJSON();
             }
 
-            if (is_array($index)) {
+            if (\is_array($index)) {
                 $output = [];
 
                 foreach ($index as $key) {
@@ -582,9 +582,9 @@ class IncomingRequest extends Request
 
         $data = dot_array_search($index, $this->getJSON(true));
 
-        if (! is_array($data)) {
+        if (! \is_array($data)) {
             $filter = $filter ?? FILTER_DEFAULT;
-            $flags  = is_array($flags) ? $flags : (is_numeric($flags) ? (int) $flags : 0);
+            $flags  = \is_array($flags) ? $flags : (is_numeric($flags) ? (int) $flags : 0);
 
             return filter_var($data, $filter, $flags);
         }
@@ -743,7 +743,7 @@ class IncomingRequest extends Request
         // Check for an array value in POST.
         if (isset($_SESSION['_ci_old_input']['post'])) {
             $value = dot_array_search($key, $_SESSION['_ci_old_input']['post']);
-            if (! is_null($value)) {
+            if (! \is_null($value)) {
                 return $value;
             }
         }
@@ -751,7 +751,7 @@ class IncomingRequest extends Request
         // Check for an array value in GET.
         if (isset($_SESSION['_ci_old_input']['get'])) {
             $value = dot_array_search($key, $_SESSION['_ci_old_input']['get']);
-            if (! is_null($value)) {
+            if (! \is_null($value)) {
                 return $value;
             }
         }
@@ -770,7 +770,7 @@ class IncomingRequest extends Request
      */
     public function getFiles(): array
     {
-        if (is_null($this->files)) {
+        if (\is_null($this->files)) {
             $this->files = new FileCollection();
         }
 
@@ -787,7 +787,7 @@ class IncomingRequest extends Request
      */
     public function getFileMultiple(string $fileID)
     {
-        if (is_null($this->files)) {
+        if (\is_null($this->files)) {
             $this->files = new FileCollection();
         }
 
@@ -804,7 +804,7 @@ class IncomingRequest extends Request
      */
     public function getFile(string $fileID)
     {
-        if (is_null($this->files)) {
+        if (\is_null($this->files)) {
             $this->files = new FileCollection();
         }
 

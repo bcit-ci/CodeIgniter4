@@ -91,7 +91,7 @@ abstract class BaseUtils
             return $this->db->dataCache['db_names'];
         }
 
-        for ($i = 0, $query = $query->getResultArray(), $c = count($query); $i < $c; $i++) {
+        for ($i = 0, $query = $query->getResultArray(), $c = \count($query); $i < $c; $i++) {
             $this->db->dataCache['db_names'][] = current($query[$i]);
         }
 
@@ -109,7 +109,7 @@ abstract class BaseUtils
      */
     public function databaseExists(string $databaseName): bool
     {
-        return in_array($databaseName, $this->listDatabases(), true);
+        return \in_array($databaseName, $this->listDatabases(), true);
     }
 
     //--------------------------------------------------------------------
@@ -161,7 +161,7 @@ abstract class BaseUtils
 
         foreach ($this->db->listTables() as $tableName) {
             $res = $this->db->query(sprintf($this->optimizeTable, $this->db->escapeIdentifiers($tableName)));
-            if (is_bool($res)) {
+            if (\is_bool($res)) {
                 return $res;
             }
 
@@ -207,7 +207,7 @@ abstract class BaseUtils
         }
 
         $query = $this->db->query(sprintf($this->repairTable, $this->db->escapeIdentifiers($tableName)));
-        if (is_bool($query)) {
+        if (\is_bool($query)) {
             return $query;
         }
 
@@ -236,7 +236,7 @@ abstract class BaseUtils
             $out .= $enclosure . str_replace($enclosure, $enclosure . $enclosure, $name) . $enclosure . $delim;
         }
 
-        $out = substr($out, 0, -strlen($delim)) . $newline;
+        $out = substr($out, 0, -\strlen($delim)) . $newline;
 
         // Next blast through the result array and build out the rows
         while ($row = $query->getUnbufferedRow('array')) {
@@ -313,7 +313,7 @@ abstract class BaseUtils
         // If the parameters have not been submitted as an
         // array then we know that it is simply the table
         // name, which is a valid short cut.
-        if (is_string($params)) {
+        if (\is_string($params)) {
             $params = ['tables' => $params];
         }
 
@@ -345,13 +345,13 @@ abstract class BaseUtils
         }
 
         // Validate the format
-        if (! in_array($prefs['format'], ['gzip', 'txt'], true)) {
+        if (! \in_array($prefs['format'], ['gzip', 'txt'], true)) {
             $prefs['format'] = 'txt';
         }
 
         // Is the encoder supported? If not, we'll either issue an
         // error or use plain text depending on the debug settings
-        if ($prefs['format'] === 'gzip' && ! function_exists('gzencode')) {
+        if ($prefs['format'] === 'gzip' && ! \function_exists('gzencode')) {
             if ($this->db->DBDebug) {
                 throw new DatabaseException('The file compression format you chose is not supported by your server.');
             }

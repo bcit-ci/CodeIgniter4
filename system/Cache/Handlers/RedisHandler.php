@@ -162,7 +162,7 @@ class RedisHandler extends BaseHandler
     {
         $key = static::validateKey($key, $this->prefix);
 
-        switch ($dataType = gettype($value)) {
+        switch ($dataType = \gettype($value)) {
             case 'array':
             case 'object':
                 $value = serialize($value);
@@ -336,6 +336,6 @@ class RedisHandler extends BaseHandler
      */
     public function isSupported(): bool
     {
-        return extension_loaded('redis');
+        return \extension_loaded('redis');
     }
 }

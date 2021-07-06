@@ -95,7 +95,7 @@ class Routes extends BaseCommand
 
             foreach ($routes as $route => $handler) {
                 // filter for strings, as callbacks aren't displayable
-                if (is_string($handler)) {
+                if (\is_string($handler)) {
                     $tbody[] = [
                         strtoupper($method),
                         $route,

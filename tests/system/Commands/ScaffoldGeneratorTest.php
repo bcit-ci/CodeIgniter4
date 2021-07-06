@@ -38,10 +38,10 @@ final class ScaffoldGeneratorTest extends CIUnitTestCase
     {
         command('make:scaffold people');
 
-        $dir       = '\\' . DIRECTORY_SEPARATOR;
+        $dir       = '\\' . \DIRECTORY_SEPARATOR;
         $migration = "APPPATH{$dir}Database{$dir}Migrations{$dir}(.*)\\.php";
         preg_match('/' . $migration . '/u', CITestStreamFilter::$buffer, $matches);
-        $matches[0] = str_replace('APPPATH' . DIRECTORY_SEPARATOR, APPPATH, $matches[0]);
+        $matches[0] = str_replace('APPPATH' . \DIRECTORY_SEPARATOR, APPPATH, $matches[0]);
 
         // Files check
         $this->assertStringContainsString('File created: ', CITestStreamFilter::$buffer);
@@ -61,10 +61,10 @@ final class ScaffoldGeneratorTest extends CIUnitTestCase
     {
         command('make:scaffold user -restful -return entity');
 
-        $dir       = '\\' . DIRECTORY_SEPARATOR;
+        $dir       = '\\' . \DIRECTORY_SEPARATOR;
         $migration = "APPPATH{$dir}Database{$dir}Migrations{$dir}(.*)\\.php";
         preg_match('/' . $migration . '/u', CITestStreamFilter::$buffer, $matches);
-        $matches[0] = str_replace('APPPATH' . DIRECTORY_SEPARATOR, APPPATH, $matches[0]);
+        $matches[0] = str_replace('APPPATH' . \DIRECTORY_SEPARATOR, APPPATH, $matches[0]);
 
         // Files check
         $this->assertStringContainsString('File created: ', CITestStreamFilter::$buffer);
@@ -90,10 +90,10 @@ final class ScaffoldGeneratorTest extends CIUnitTestCase
     {
         command('make:scaffold order -suffix');
 
-        $dir       = '\\' . DIRECTORY_SEPARATOR;
+        $dir       = '\\' . \DIRECTORY_SEPARATOR;
         $migration = "APPPATH{$dir}Database{$dir}Migrations{$dir}(.*)\\.php";
         preg_match('/' . $migration . '/u', CITestStreamFilter::$buffer, $matches);
-        $matches[0] = str_replace('APPPATH' . DIRECTORY_SEPARATOR, APPPATH, $matches[0]);
+        $matches[0] = str_replace('APPPATH' . \DIRECTORY_SEPARATOR, APPPATH, $matches[0]);
 
         // Files check
         $this->assertStringContainsString('File created: ', CITestStreamFilter::$buffer);
@@ -119,10 +119,10 @@ final class ScaffoldGeneratorTest extends CIUnitTestCase
 
         command('make:scaffold fixer -bare -force');
 
-        $dir       = '\\' . DIRECTORY_SEPARATOR;
+        $dir       = '\\' . \DIRECTORY_SEPARATOR;
         $migration = "APPPATH{$dir}Database{$dir}Migrations{$dir}(.*)\\.php";
         preg_match('/' . $migration . '/u', CITestStreamFilter::$buffer, $matches);
-        $matches[0] = str_replace('APPPATH' . DIRECTORY_SEPARATOR, APPPATH, $matches[0]);
+        $matches[0] = str_replace('APPPATH' . \DIRECTORY_SEPARATOR, APPPATH, $matches[0]);
 
         // Files check
         $this->assertStringContainsString('File created: ', CITestStreamFilter::$buffer);
@@ -146,10 +146,10 @@ final class ScaffoldGeneratorTest extends CIUnitTestCase
     {
         command('make:scaffold product -namespace App');
 
-        $dir       = '\\' . DIRECTORY_SEPARATOR;
+        $dir       = '\\' . \DIRECTORY_SEPARATOR;
         $migration = "APPPATH{$dir}Database{$dir}Migrations{$dir}(.*)\\.php";
         preg_match('/' . $migration . '/u', CITestStreamFilter::$buffer, $matches);
-        $matches[0] = str_replace('APPPATH' . DIRECTORY_SEPARATOR, APPPATH, $matches[0]);
+        $matches[0] = str_replace('APPPATH' . \DIRECTORY_SEPARATOR, APPPATH, $matches[0]);
 
         // Files check
         $this->assertStringContainsString('File created: ', CITestStreamFilter::$buffer);

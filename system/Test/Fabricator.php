@@ -102,19 +102,19 @@ class Fabricator
      */
     public function __construct($model, array $formatters = null, string $locale = null)
     {
-        if (is_string($model)) {
+        if (\is_string($model)) {
             // Create a new model instance
             $model = model($model, false);
         }
 
-        if (! is_object($model)) {
+        if (! \is_object($model)) {
             throw new InvalidArgumentException(lang('Fabricator.invalidModel'));
         }
 
         $this->model = $model;
 
         // If no locale was specified then use the App default
-        if (is_null($locale)) {
+        if (\is_null($locale)) {
             $locale = config('App')->defaultLocale;
         }
 
@@ -284,7 +284,7 @@ class Fabricator
      */
     public function setFormatters(array $formatters = null): self
     {
-        if (! is_null($formatters)) {
+        if (! \is_null($formatters)) {
             $this->formatters = $formatters;
         } elseif (method_exists($this->model, 'fake')) {
             $this->formatters = null;
@@ -332,7 +332,7 @@ class Fabricator
         }
 
         // Next look for known model fields
-        if (in_array($field, $this->dateFields, true)) {
+        if (\in_array($field, $this->dateFields, true)) {
             switch ($this->model->dateFormat) {
                 case 'datetime':
                 case 'date':
@@ -372,7 +372,7 @@ class Fabricator
     public function make(int $count = null)
     {
         // If a singleton was requested then go straight to it
-        if (is_null($count)) {
+        if (\is_null($count)) {
             return $this->model->returnType === 'array'
                 ? $this->makeArray()
                 : $this->makeObject();
@@ -398,7 +398,7 @@ class Fabricator
      */
     public function makeArray()
     {
-        if (! is_null($this->formatters)) {
+        if (! \is_null($this->formatters)) {
             $result = [];
 
             foreach ($this->formatters as $field => $formatter) {
@@ -409,7 +409,7 @@ class Fabricator
         elseif (method_exists($this->model, 'fake')) {
             $result = $this->model->fake($this->faker);
 
-            $result = is_object($result) && method_exists($result, 'toArray')
+            $result = \is_object($result) && method_exists($result, 'toArray')
                 // This should cover entities
                 ? $result->toArray()
                 // Try to cast it
@@ -435,7 +435,7 @@ class Fabricator
      */
     public function makeObject(string $className = null): object
     {
-        if (is_null($className)) {
+        if (\is_null($className)) {
             if ($this->model->returnType === 'object' || $this->model->returnType === 'array') {
                 $className = 'stdClass';
             } else {
@@ -444,7 +444,7 @@ class Fabricator
         }
 
         // If using the model's fake() method then check it for the correct return type
-        if (is_null($this->formatters) && method_exists($this->model, 'fake')) {
+        if (\is_null($this->formatters) && method_exists($this->model, 'fake')) {
             $result = $this->model->fake($this->faker);
 
             if ($result instanceof $className) {
@@ -511,7 +511,7 @@ class Fabricator
             $this->model->withDeleted();
         }
 
-        return $this->model->find(is_null($count) ? reset($ids) : $ids);
+        return $this->model->find(\is_null($count) ? reset($ids) : $ids);
     }
 
     /**
@@ -556,7 +556,7 @@ class Fabricator
             $fields[$this->model->primaryKey] = $i;
 
             // Merge fields
-            if (is_array($result)) {
+            if (\is_array($result)) {
                 $result = array_merge($result, $fields);
             } else {
                 foreach ($fields as $key => $value) {
@@ -567,6 +567,6 @@ class Fabricator
             $return[] = $result;
         }
 
-        return is_null($count) ? reset($return) : $return;
+        return \is_null($count) ? reset($return) : $return;
     }
 }

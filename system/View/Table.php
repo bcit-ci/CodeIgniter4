@@ -107,7 +107,7 @@ class Table
      */
     public function setTemplate($template)
     {
-        if (! is_array($template)) {
+        if (! \is_array($template)) {
             return false;
         }
 
@@ -125,7 +125,7 @@ class Table
      */
     public function setHeading()
     {
-        $this->heading = $this->_prepArgs(func_get_args());
+        $this->heading = $this->_prepArgs(\func_get_args());
 
         return $this;
     }
@@ -139,7 +139,7 @@ class Table
      */
     public function setFooting()
     {
-        $this->footing = $this->_prepArgs(func_get_args());
+        $this->footing = $this->_prepArgs(\func_get_args());
 
         return $this;
     }
@@ -157,7 +157,7 @@ class Table
      */
     public function makeColumns($array = [], $columnLimit = 0)
     {
-        if (! is_array($array) || $array === [] || ! is_int($columnLimit)) {
+        if (! \is_array($array) || $array === [] || ! \is_int($columnLimit)) {
             return false;
         }
 
@@ -174,14 +174,14 @@ class Table
         do {
             $temp = array_splice($array, 0, $columnLimit);
 
-            if (count($temp) < $columnLimit) {
-                for ($i = count($temp); $i < $columnLimit; $i++) {
+            if (\count($temp) < $columnLimit) {
+                for ($i = \count($temp); $i < $columnLimit; $i++) {
                     $temp[] = '&nbsp;';
                 }
             }
 
             $new[] = $temp;
-        } while (count($array) > 0);
+        } while (\count($array) > 0);
 
         // @phpstan-ignore-next-line
         return $new;
@@ -212,7 +212,7 @@ class Table
      */
     public function addRow()
     {
-        $this->rows[] = $this->_prepArgs(func_get_args());
+        $this->rows[] = $this->_prepArgs(\func_get_args());
 
         return $this;
     }
@@ -231,12 +231,12 @@ class Table
         // If there is no $args[0], skip this and treat as an associative array
         // This can happen if there is only a single key, for example this is passed to table->generate
         // array(array('foo'=>'bar'))
-        if (isset($args[0]) && count($args) === 1 && is_array($args[0]) && ! isset($args[0]['data'])) {
+        if (isset($args[0]) && \count($args) === 1 && \is_array($args[0]) && ! isset($args[0]['data'])) {
             $args = $args[0];
         }
 
         foreach ($args as $key => $val) {
-            if (! is_array($val)) {
+            if (! \is_array($val)) {
                 $args[$key] = ['data' => $val];
             }
         }
@@ -272,7 +272,7 @@ class Table
         if (! empty($tableData)) {
             if ($tableData instanceof BaseResult) {
                 $this->_setFromDBResult($tableData);
-            } elseif (is_array($tableData)) {
+            } elseif (\is_array($tableData)) {
                 $this->_setFromArray($tableData);
             }
         }
@@ -286,7 +286,7 @@ class Table
         $this->_compileTemplate();
 
         // Validate a possibly existing custom cell manipulation function
-        if (isset($this->function) && ! is_callable($this->function)) {
+        if (isset($this->function) && ! \is_callable($this->function)) {
             $this->function = null;
         }
 
@@ -344,7 +344,7 @@ class Table
                     if ($cell === '' || $cell === null) {
                         $out .= $this->emptyCells;
                     } elseif (isset($this->function)) {
-                        $out .= call_user_func($this->function, $cell);
+                        $out .= \call_user_func($this->function, $cell);
                     } else {
                         $out .= $cell;
                     }

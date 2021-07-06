@@ -115,7 +115,7 @@ class Builder extends BaseBuilder
         if ($type !== '') {
             $type = strtoupper(trim($type));
 
-            if (! in_array($type, $this->joinTypes, true)) {
+            if (! \in_array($type, $this->joinTypes, true)) {
                 $type = '';
             } else {
                 $type .= ' ';
@@ -126,7 +126,7 @@ class Builder extends BaseBuilder
         // in the protectIdentifiers to know whether to add a table prefix
         $this->trackAliases($table);
 
-        if (! is_bool($escape)) {
+        if (! \is_bool($escape)) {
             $escape = $this->db->protectIdentifiers;
         }
 
@@ -141,10 +141,10 @@ class Builder extends BaseBuilder
                 $joints     = $joints[0];
                 array_unshift($joints, ['', 0]);
 
-                for ($i = count($joints) - 1, $pos = strlen($cond); $i >= 0; $i--) {
-                    $joints[$i][1] += strlen($joints[$i][0]); // offset
+                for ($i = \count($joints) - 1, $pos = \strlen($cond); $i >= 0; $i--) {
+                    $joints[$i][1] += \strlen($joints[$i][0]); // offset
                     $conditions[$i] = substr($cond, $joints[$i][1], $pos - $joints[$i][1]);
-                    $pos            = $joints[$i][1] - strlen($joints[$i][0]);
+                    $pos            = $joints[$i][1] - \strlen($joints[$i][0]);
                     $joints[$i]     = $joints[$i][0];
                 }
 
@@ -323,7 +323,7 @@ class Builder extends BaseBuilder
         if ($offsetIgnore) {
             $sql .= ' OFFSET 0 ';
         } else {
-            $sql .= is_int($this->QBOffset) ? ' OFFSET ' . $this->QBOffset : ' OFFSET 0 ';
+            $sql .= \is_int($this->QBOffset) ? ' OFFSET ' . $this->QBOffset : ' OFFSET 0 ';
         }
 
         return $sql . ' ROWS FETCH NEXT ' . $this->QBLimit . ' ROWS ONLY ';
@@ -555,9 +555,9 @@ class Builder extends BaseBuilder
             $sql = (! $this->QBDistinct) ? 'SELECT ' : 'SELECT DISTINCT ';
 
             // SQL Server can't work with select * if group by is specified
-            if (empty($this->QBSelect) && ! empty($this->QBGroupBy) && is_array($this->QBGroupBy)) {
+            if (empty($this->QBSelect) && ! empty($this->QBGroupBy) && \is_array($this->QBGroupBy)) {
                 foreach ($this->QBGroupBy as $field) {
-                    $this->QBSelect[] = is_array($field) ? $field['field'] : $field;
+                    $this->QBSelect[] = \is_array($field) ? $field['field'] : $field;
                 }
             }
 
@@ -611,12 +611,12 @@ class Builder extends BaseBuilder
      */
     protected function whereHaving(string $qbKey, $key, $value = null, string $type = 'AND ', bool $escape = null)
     {
-        if (! is_array($key)) {
+        if (! \is_array($key)) {
             $key = [$key => $value];
         }
 
         // If the escape value was not set will base it on the global setting
-        if (! is_bool($escape)) {
+        if (! \is_bool($escape)) {
             $escape = $this->db->protectIdentifiers;
         }
 
@@ -633,7 +633,7 @@ class Builder extends BaseBuilder
 
                     $op = trim(current($op));
 
-                    if (substr($k, -1 * strlen($op)) === $op) {
+                    if (substr($k, -1 * \strlen($op)) === $op) {
                         $k = rtrim(strrev(preg_replace(strrev('/' . $op . '/'), strrev(''), strrev($k), 1)));
                     }
                 }
@@ -682,7 +682,7 @@ class Builder extends BaseBuilder
      */
     public function get(int $limit = null, int $offset = 0, bool $reset = true)
     {
-        if (! is_null($limit)) {
+        if (! \is_null($limit)) {
             $this->limit($limit, $offset);
         }
 

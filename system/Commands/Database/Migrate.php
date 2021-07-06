@@ -80,7 +80,7 @@ class Migrate extends BaseCommand
 
         try {
             // Check for 'all' namespaces
-            if (array_key_exists('all', $params) || CLI::getOption('all')) {
+            if (\array_key_exists('all', $params) || CLI::getOption('all')) {
                 $runner->setNamespace(null);
             }
             // Check for a specified namespace

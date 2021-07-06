@@ -93,7 +93,7 @@ class Result extends BaseResult
      */
     public function freeResult()
     {
-        if (is_object($this->resultID)) {
+        if (\is_object($this->resultID)) {
             $this->resultID->finalize();
             $this->resultID = false;
         }

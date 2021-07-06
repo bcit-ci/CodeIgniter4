@@ -35,7 +35,7 @@ class DotEnv
      */
     public function __construct(string $path, string $file = '.env')
     {
-        $this->path = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $file;
+        $this->path = rtrim($path, \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR . $file;
     }
 
     //--------------------------------------------------------------------
@@ -230,7 +230,7 @@ class DotEnv
                 function ($matchedPatterns) {
                     $nestedVariable = $this->getVariable($matchedPatterns[1]);
 
-                    if (is_null($nestedVariable)) {
+                    if (\is_null($nestedVariable)) {
                         return $matchedPatterns[0];
                     }
 
@@ -258,10 +258,10 @@ class DotEnv
     protected function getVariable(string $name)
     {
         switch (true) {
-            case array_key_exists($name, $_ENV):
+            case \array_key_exists($name, $_ENV):
                 return $_ENV[$name];
 
-            case array_key_exists($name, $_SERVER):
+            case \array_key_exists($name, $_SERVER):
                 return $_SERVER[$name];
 
             default:

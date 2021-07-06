@@ -55,7 +55,7 @@ class Connection extends BaseConnection
         }
 
         try {
-            if ($this->database !== ':memory:' && strpos($this->database, DIRECTORY_SEPARATOR) === false) {
+            if ($this->database !== ':memory:' && strpos($this->database, \DIRECTORY_SEPARATOR) === false) {
                 $this->database = WRITEPATH . $this->database;
             }
 
@@ -279,7 +279,7 @@ class Connection extends BaseConnection
 
         $retVal = [];
 
-        for ($i = 0, $c = count($query); $i < $c; $i++) {
+        for ($i = 0, $c = \count($query); $i < $c; $i++) {
             $retVal[$i] = new stdClass();
 
             $retVal[$i]->name        = $query[$i]->name;

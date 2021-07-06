@@ -78,8 +78,8 @@ final class CLITest extends CIUnitTestCase
 
     public function testIsWindows()
     {
-        $this->assertSame(('\\' === DIRECTORY_SEPARATOR), CLI::isWindows());
-        $this->assertSame(defined('PHP_WINDOWS_VERSION_MAJOR'), CLI::isWindows());
+        $this->assertSame(('\\' === \DIRECTORY_SEPARATOR), CLI::isWindows());
+        $this->assertSame(\defined('PHP_WINDOWS_VERSION_MAJOR'), CLI::isWindows());
     }
 
     public function testNewLine()

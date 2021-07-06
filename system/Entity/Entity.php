@@ -132,7 +132,7 @@ class Entity implements JsonSerializable
      */
     public function fill(array $data = null)
     {
-        if (! is_array($data)) {
+        if (! \is_array($data)) {
             return $this;
         }
 
@@ -162,7 +162,7 @@ class Entity implements JsonSerializable
             return strpos($key, '_') !== 0;
         });
 
-        if (is_array($this->datamap)) {
+        if (\is_array($this->datamap)) {
             $keys = array_unique(
                 array_merge(array_diff($keys, $this->datamap), array_keys($this->datamap))
             );
@@ -181,7 +181,7 @@ class Entity implements JsonSerializable
             if ($recursive) {
                 if ($return[$key] instanceof Entity) {
                     $return[$key] = $return[$key]->toArray($onlyChanged, $cast, $recursive);
-                } elseif (is_callable([$return[$key], 'toArray'])) {
+                } elseif (\is_callable([$return[$key], 'toArray'])) {
                     $return[$key] = $return[$key]->toArray();
                 }
             }
@@ -209,7 +209,7 @@ class Entity implements JsonSerializable
                 return array_map(static function ($value) use ($onlyChanged, $recursive) {
                     if ($value instanceof Entity) {
                         $value = $value->toRawArray($onlyChanged, $recursive);
-                    } elseif (is_callable([$value, 'toRawArray'])) {
+                    } elseif (\is_callable([$value, 'toRawArray'])) {
                         $value = $value->toRawArray();
                     }
 
@@ -228,7 +228,7 @@ class Entity implements JsonSerializable
             if ($recursive) {
                 if ($value instanceof Entity) {
                     $value = $value->toRawArray($onlyChanged, $recursive);
-                } elseif (is_callable([$value, 'toRawArray'])) {
+                } elseif (\is_callable([$value, 'toRawArray'])) {
                     $value = $value->toRawArray();
                 }
             }
@@ -263,17 +263,17 @@ class Entity implements JsonSerializable
     public function hasChanged(string $key = null): bool
     {
         // If no parameter was given then check all attributes
-        if (is_null($key)) {
+        if (\is_null($key)) {
             return $this->original !== $this->attributes;
         }
 
         // Key doesn't exist in either
-        if (! array_key_exists($key, $this->original) && ! array_key_exists($key, $this->attributes)) {
+        if (! \array_key_exists($key, $this->original) && ! \array_key_exists($key, $this->attributes)) {
             return false;
         }
 
         // It's a new element
-        if (! array_key_exists($key, $this->original) && array_key_exists($key, $this->attributes)) {
+        if (! \array_key_exists($key, $this->original) && \array_key_exists($key, $this->attributes)) {
             return true;
         }
 
@@ -358,7 +358,7 @@ class Entity implements JsonSerializable
         if (strpos($type, '?') === 0) {
             $isNullable = true;
 
-            if (is_null($value)) {
+            if (\is_null($value)) {
                 return null;
             }
 
@@ -369,7 +369,7 @@ class Entity implements JsonSerializable
         // json-array type, we transform the required one.
         $type = $type === 'json-array' ? 'json[array]' : $type;
 
-        if (! in_array($method, ['get', 'set'], true)) {
+        if (! \in_array($method, ['get', 'set'], true)) {
             throw CastException::forInvalidMethod($method);
         }
 
@@ -435,7 +435,7 @@ class Entity implements JsonSerializable
      */
     public function cast(bool $cast = null)
     {
-        if (is_null($cast)) {
+        if (\is_null($cast)) {
             return $this->_cast;
         }
 
@@ -465,7 +465,7 @@ class Entity implements JsonSerializable
         $key = $this->mapProperty($key);
 
         // Check if the field should be mutated into a date
-        if (in_array($key, $this->dates, true)) {
+        if (\in_array($key, $this->dates, true)) {
             $value = $this->mutateDate($value);
         }
 
@@ -522,12 +522,12 @@ class Entity implements JsonSerializable
 
         // Otherwise return the protected property
         // if it exists.
-        elseif (array_key_exists($key, $this->attributes)) {
+        elseif (\array_key_exists($key, $this->attributes)) {
             $result = $this->attributes[$key];
         }
 
         // Do we need to mutate this into a date?
-        if (in_array($key, $this->dates, true)) {
+        if (\in_array($key, $this->dates, true)) {
             $result = $this->mutateDate($result);
         }
         // Or cast it as something?

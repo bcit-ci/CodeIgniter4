@@ -25,8 +25,8 @@ final class ValidationGeneratorTest extends CIUnitTestCase
         stream_filter_remove($this->streamFilter);
 
         $result = str_replace(["\033[0;32m", "\033[0m", "\n"], '', CITestStreamFilter::$buffer);
-        $file   = str_replace('APPPATH' . DIRECTORY_SEPARATOR, APPPATH, trim(substr($result, 14)));
-        $dir    = dirname($file);
+        $file   = str_replace('APPPATH' . \DIRECTORY_SEPARATOR, APPPATH, trim(substr($result, 14)));
+        $dir    = \dirname($file);
         is_file($file) && unlink($file);
         is_dir($dir) && rmdir($dir);
     }

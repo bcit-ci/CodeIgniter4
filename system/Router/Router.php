@@ -220,7 +220,7 @@ class Router implements RouterInterface
     {
         $route = $this->collection->get404Override();
 
-        if (is_string($route)) {
+        if (\is_string($route)) {
             $routeArray = explode('::', $route);
 
             return [
@@ -229,7 +229,7 @@ class Router implements RouterInterface
             ];
         }
 
-        if (is_callable($route)) {
+        if (\is_callable($route)) {
             return $route;
         }
 
@@ -402,7 +402,7 @@ class Router implements RouterInterface
             if (preg_match('#^' . $key . '$#u', $uri, $matches)) {
                 // Is this route supposed to redirect to another?
                 if ($this->collection->isRedirect($key)) {
-                    throw new RedirectException(is_array($val) ? key($val) : $val, $this->collection->getRedirectCode($key));
+                    throw new RedirectException(\is_array($val) ? key($val) : $val, $this->collection->getRedirectCode($key));
                 }
                 // Store our locale so CodeIgniter object can
                 // assign it to the Request.
@@ -415,7 +415,7 @@ class Router implements RouterInterface
                 // Are we using Closures? If so, then we need
                 // to collect the params into an array
                 // so it can be passed to the controller method later.
-                if (! is_string($val) && is_callable($val)) {
+                if (! \is_string($val) && \is_callable($val)) {
                     $this->controller = $val;
 
                     // Remove the original string from the matches array
@@ -521,7 +521,7 @@ class Router implements RouterInterface
             $methodName = strtolower($this->methodName());
 
             foreach ($this->collection->getRoutes('cli') as $route) {
-                if (is_string($route)) {
+                if (\is_string($route)) {
                     $route = strtolower($route);
                     if (strpos($route, $controller . '::' . $methodName) === 0) {
                         throw new PageNotFoundException();
@@ -542,7 +542,7 @@ class Router implements RouterInterface
 
         // Ensure the controller stores the fully-qualified class name
         // We have to check for a length over 1, since by default it will be '\'
-        if (strpos($this->controller, '\\') === false && strlen($defaultNamespace) > 1) {
+        if (strpos($this->controller, '\\') === false && \strlen($defaultNamespace) > 1) {
             $this->controller = '\\' . ltrim(str_replace('/', '\\', $defaultNamespace . $this->directory . $controllerName), '\\');
         }
     }
@@ -589,7 +589,7 @@ class Router implements RouterInterface
 
         // Loop through our segments and return as soon as a controller
         // is found or when such a directory doesn't exist
-        $c = count($segments);
+        $c = \count($segments);
 
         while ($c-- > 0) {
             $segmentConvert = ucfirst($this->translateURIDashes === true ? str_replace('-', '_', $segments[0]) : $segments[0]);

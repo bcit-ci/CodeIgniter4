@@ -17,7 +17,6 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\Response;
 use Config\Exceptions as ExceptionsConfig;
 use Config\Paths;
-use function error_reporting;
 use ErrorException;
 use Throwable;
 
@@ -77,7 +76,7 @@ class Exceptions
     {
         $this->ob_level = ob_get_level();
 
-        $this->viewPath = rtrim($config->errorViewPath, '\\/ ') . DIRECTORY_SEPARATOR;
+        $this->viewPath = rtrim($config->errorViewPath, '\\/ ') . \DIRECTORY_SEPARATOR;
 
         $this->config = $config;
 
@@ -123,7 +122,7 @@ class Exceptions
         ] = $this->determineCodes($exception);
 
         // Log it
-        if ($this->config->log === true && ! in_array($statusCode, $this->config->ignoreCodes, true)) {
+        if ($this->config->log === true && ! \in_array($statusCode, $this->config->ignoreCodes, true)) {
             log_message('critical', $exception->getMessage() . "\n{trace}", [
                 'trace' => $exception->getTraceAsString(),
             ]);
@@ -164,7 +163,7 @@ class Exceptions
      */
     public function errorHandler(int $severity, string $message, string $file = null, int $line = null)
     {
-        if (! (error_reporting() & $severity)) {
+        if (! (\error_reporting() & $severity)) {
             return;
         }
 
@@ -186,7 +185,7 @@ class Exceptions
         // it to an Exception and use the Exception handler to display it
         // to the user.
         // Fatal Error?
-        if (! is_null($error) && in_array($error['type'], [E_ERROR, E_CORE_ERROR, E_COMPILE_ERROR, E_PARSE], true)) {
+        if (! \is_null($error) && \in_array($error['type'], [E_ERROR, E_CORE_ERROR, E_COMPILE_ERROR, E_PARSE], true)) {
             $this->exceptionHandler(new ErrorException($error['message'], $error['type'], 0, $error['file'], $error['line']));
         }
     }
@@ -206,7 +205,7 @@ class Exceptions
     {
         // Production environments should have a custom exception file.
         $view         = 'production.php';
-        $templatePath = rtrim($templatePath, '\\/ ') . DIRECTORY_SEPARATOR;
+        $templatePath = rtrim($templatePath, '\\/ ') . \DIRECTORY_SEPARATOR;
 
         if (str_ireplace(['off', 'none', 'no', 'false', 'null'], '', ini_get('display_errors'))) {
             $view = 'error_exception.php';
@@ -237,10 +236,10 @@ class Exceptions
     {
         // Determine possible directories of error views
         $path    = $this->viewPath;
-        $altPath = rtrim((new Paths())->viewDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'errors' . DIRECTORY_SEPARATOR;
+        $altPath = rtrim((new Paths())->viewDirectory, '\\/ ') . \DIRECTORY_SEPARATOR . 'errors' . \DIRECTORY_SEPARATOR;
 
-        $path    .= (is_cli() ? 'cli' : 'html') . DIRECTORY_SEPARATOR;
-        $altPath .= (is_cli() ? 'cli' : 'html') . DIRECTORY_SEPARATOR;
+        $path    .= (is_cli() ? 'cli' : 'html') . \DIRECTORY_SEPARATOR;
+        $altPath .= (is_cli() ? 'cli' : 'html') . \DIRECTORY_SEPARATOR;
 
         // Determine the views
         $view    = $this->determineView($exception, $path);
@@ -287,8 +286,8 @@ class Exceptions
         }
 
         return [
-            'title'   => get_class($exception),
-            'type'    => get_class($exception),
+            'title'   => \get_class($exception),
+            'type'    => \get_class($exception),
             'code'    => $statusCode,
             'message' => $exception->getMessage() ?? '(null)',
             'file'    => $exception->getFile(),
@@ -311,15 +310,15 @@ class Exceptions
             $index   = end($explode);
 
             if (strpos(strrev($path . '/' . $index), strrev($keyToMask)) === 0) {
-                if (is_array($trace) && array_key_exists($index, $trace)) {
+                if (\is_array($trace) && \array_key_exists($index, $trace)) {
                     $trace[$index] = '******************';
-                } elseif (is_object($trace) && property_exists($trace, $index) && isset($trace->{$index})) {
+                } elseif (\is_object($trace) && property_exists($trace, $index) && isset($trace->{$index})) {
                     $trace->{$index} = '******************';
                 }
             }
         }
 
-        if (! is_iterable($trace) && is_object($trace)) {
+        if (! is_iterable($trace) && \is_object($trace)) {
             $trace = get_object_vars($trace);
         }
 
@@ -375,19 +374,19 @@ class Exceptions
     {
         switch (true) {
             case strpos($file, APPPATH) === 0:
-                $file = 'APPPATH' . DIRECTORY_SEPARATOR . substr($file, strlen(APPPATH));
+                $file = 'APPPATH' . \DIRECTORY_SEPARATOR . substr($file, \strlen(APPPATH));
                 break;
 
             case strpos($file, SYSTEMPATH) === 0:
-                $file = 'SYSTEMPATH' . DIRECTORY_SEPARATOR . substr($file, strlen(SYSTEMPATH));
+                $file = 'SYSTEMPATH' . \DIRECTORY_SEPARATOR . substr($file, \strlen(SYSTEMPATH));
                 break;
 
             case strpos($file, FCPATH) === 0:
-                $file = 'FCPATH' . DIRECTORY_SEPARATOR . substr($file, strlen(FCPATH));
+                $file = 'FCPATH' . \DIRECTORY_SEPARATOR . substr($file, \strlen(FCPATH));
                 break;
 
-            case defined('VENDORPATH') && strpos($file, VENDORPATH) === 0:
-                $file = 'VENDORPATH' . DIRECTORY_SEPARATOR . substr($file, strlen(VENDORPATH));
+            case \defined('VENDORPATH') && strpos($file, VENDORPATH) === 0:
+                $file = 'VENDORPATH' . \DIRECTORY_SEPARATOR . substr($file, \strlen(VENDORPATH));
                 break;
         }
 
@@ -434,7 +433,7 @@ class Exceptions
         }
 
         // Set our highlight colors:
-        if (function_exists('ini_set')) {
+        if (\function_exists('ini_set')) {
             ini_set('highlight.comment', '#767a7e; font-style: italic');
             ini_set('highlight.default', '#c7c7c7');
             ini_set('highlight.html', '#06B');
@@ -462,7 +461,7 @@ class Exceptions
         $source = array_splice($source, $start, $lines, true); // @phpstan-ignore-line
 
         // Used to format the line number in the source
-        $format = '% ' . strlen(sprintf('%s', $start + $lines)) . 'd';
+        $format = '% ' . \strlen(sprintf('%s', $start + $lines)) . 'd';
 
         $out = '';
         // Because the highlighting may have an uneven number

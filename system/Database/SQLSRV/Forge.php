@@ -131,7 +131,7 @@ class Forge extends BaseForge
             $indexData = $this->db->getIndexData($table);
 
             foreach ($indexData as $index) {
-                if (is_string($field)) {
+                if (\is_string($field)) {
                     $field = explode(',', $field);
                 }
 
@@ -260,11 +260,11 @@ class Forge extends BaseForge
                         . ' FOREIGN KEY (' . $this->db->escapeIdentifiers($field) . ') '
                         . ' REFERENCES ' . $this->db->escapeIdentifiers($this->db->getPrefix() . $fkey['table']) . ' (' . $this->db->escapeIdentifiers($fkey['field']) . ')';
 
-                if ($fkey['onDelete'] !== false && in_array($fkey['onDelete'], $allowActions, true)) {
+                if ($fkey['onDelete'] !== false && \in_array($fkey['onDelete'], $allowActions, true)) {
                     $sql .= ' ON DELETE ' . $fkey['onDelete'];
                 }
 
-                if ($fkey['onUpdate'] !== false && in_array($fkey['onUpdate'], $allowActions, true)) {
+                if ($fkey['onUpdate'] !== false && \in_array($fkey['onUpdate'], $allowActions, true)) {
                     $sql .= ' ON UPDATE ' . $fkey['onUpdate'];
                 }
             }
@@ -282,7 +282,7 @@ class Forge extends BaseForge
      */
     protected function _processPrimaryKeys(string $table): string
     {
-        for ($i = 0, $c = count($this->primaryKeys); $i < $c; $i++) {
+        for ($i = 0, $c = \count($this->primaryKeys); $i < $c; $i++) {
             if (! isset($this->fields[$this->primaryKeys[$i]])) {
                 unset($this->primaryKeys[$i]);
             }
