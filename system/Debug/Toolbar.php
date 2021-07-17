@@ -53,8 +53,6 @@ class Toolbar
 
     /**
      * Constructor
-     *
-     * @param ToolbarConfig $config
      */
     public function __construct(ToolbarConfig $config)
     {
@@ -77,10 +75,7 @@ class Toolbar
     /**
      * Returns all the data required by Debug Bar
      *
-     * @param float             $startTime App start time
-     * @param float             $totalTime
-     * @param RequestInterface  $request
-     * @param ResponseInterface $response
+     * @param float $startTime App start time
      *
      * @return string JSON encoded data
      */
@@ -184,14 +179,6 @@ class Toolbar
 
     /**
      * Called within the view to display the timeline itself.
-     *
-     * @param array $collectors
-     * @param float $startTime
-     * @param int   $segmentCount
-     * @param int   $segmentDuration
-     * @param array $styles
-     *
-     * @return string
      */
     protected function renderTimeline(array $collectors, float $startTime, int $segmentCount, int $segmentDuration, array &$styles): string
     {
@@ -228,8 +215,6 @@ class Toolbar
      * Returns a sorted array of timeline data arrays from the collectors.
      *
      * @param array $collectors
-     *
-     * @return array
      */
     protected function collectTimelineData($collectors): array
     {
@@ -254,8 +239,6 @@ class Toolbar
     /**
      * Returns an array of data from all of the modules
      * that should be displayed in the 'Vars' tab.
-     *
-     * @return array
      */
     protected function collectVarData(): array
     {
@@ -276,11 +259,6 @@ class Toolbar
 
     /**
      * Rounds a number to the nearest incremental value.
-     *
-     * @param float $number
-     * @param int   $increments
-     *
-     * @return float
      */
     protected function roundTo(float $number, int $increments = 5): float
     {
@@ -440,8 +418,6 @@ class Toolbar
      *
      * @param string $data   JSON encoded Toolbar data
      * @param string $format html, json, xml
-     *
-     * @return string
      */
     protected function format(string $data, string $format = 'html'): string
     {

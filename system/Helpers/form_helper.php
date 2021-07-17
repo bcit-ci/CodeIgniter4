@@ -28,8 +28,6 @@ if (! function_exists('form_open')) {
      * @param string       $action     the URI segments of the form destination
      * @param array|string $attributes a key/value pair of attributes, or string representation
      * @param array        $hidden     a key/value pair hidden data
-     *
-     * @return string
      */
     function form_open(string $action = '', $attributes = [], array $hidden = []): string
     {
@@ -91,8 +89,6 @@ if (! function_exists('form_open_multipart')) {
      * @param string       $action     The URI segments of the form destination
      * @param array|string $attributes A key/value pair of attributes, or the same as a string
      * @param array        $hidden     A key/value pair hidden data
-     *
-     * @return string
      */
     function form_open_multipart(string $action = '', $attributes = [], array $hidden = []): string
     {
@@ -115,11 +111,8 @@ if (! function_exists('form_hidden')) {
      * Generates hidden fields. You can pass a simple key/value string or
      * an associative array with multiple values.
      *
-     * @param array|string $name      Field name or associative array to create multiple fields
-     * @param array|string $value     Field value
-     * @param bool         $recursing
-     *
-     * @return string
+     * @param array|string $name  Field name or associative array to create multiple fields
+     * @param array|string $value Field value
      */
     function form_hidden($name, $value = '', bool $recursing = false): string
     {
@@ -157,12 +150,8 @@ if (! function_exists('form_input')) {
      * Text Input Field. If 'type' is passed in the $type field, it will be
      * used as the input type, for making 'email', 'phone', etc input fields.
      *
-     * @param mixed  $data
-     * @param string $value
-     * @param mixed  $extra
-     * @param string $type
-     *
-     * @return string
+     * @param mixed $data
+     * @param mixed $extra
      */
     function form_input($data = '', string $value = '', $extra = '', string $type = 'text'): string
     {
@@ -184,11 +173,8 @@ if (! function_exists('form_password')) {
      *
      * Identical to the input function but adds the "password" type
      *
-     * @param mixed  $data
-     * @param string $value
-     * @param mixed  $extra
-     *
-     * @return string
+     * @param mixed $data
+     * @param mixed $extra
      */
     function form_password($data = '', string $value = '', $extra = ''): string
     {
@@ -209,11 +195,8 @@ if (! function_exists('form_upload')) {
      *
      * Identical to the input function but adds the "file" type
      *
-     * @param mixed  $data
-     * @param string $value
-     * @param mixed  $extra
-     *
-     * @return string
+     * @param mixed $data
+     * @param mixed $extra
      */
     function form_upload($data = '', string $value = '', $extra = ''): string
     {
@@ -238,11 +221,8 @@ if (! function_exists('form_textarea')) {
     /**
      * Textarea field
      *
-     * @param mixed  $data
-     * @param string $value
-     * @param mixed  $extra
-     *
-     * @return string
+     * @param mixed $data
+     * @param mixed $extra
      */
     function form_textarea($data = '', string $value = '', $extra = ''): string
     {
@@ -280,11 +260,7 @@ if (! function_exists('form_multiselect')) {
      * Multi-select menu
      *
      * @param mixed $name
-     * @param array $options
-     * @param array $selected
      * @param mixed $extra
-     *
-     * @return string
      */
     function form_multiselect($name = '', array $options = [], array $selected = [], $extra = ''): string
     {
@@ -308,8 +284,6 @@ if (! function_exists('form_dropdown')) {
      * @param mixed $options
      * @param mixed $selected
      * @param mixed $extra
-     *
-     * @return string
      */
     function form_dropdown($data = '', $options = [], $selected = [], $extra = ''): string
     {
@@ -387,12 +361,8 @@ if (! function_exists('form_checkbox')) {
     /**
      * Checkbox Field
      *
-     * @param mixed  $data
-     * @param string $value
-     * @param bool   $checked
-     * @param mixed  $extra
-     *
-     * @return string
+     * @param mixed $data
+     * @param mixed $extra
      */
     function form_checkbox($data = '', string $value = '', bool $checked = false, $extra = ''): string
     {
@@ -427,12 +397,8 @@ if (! function_exists('form_radio')) {
     /**
      * Radio Button
      *
-     * @param mixed  $data
-     * @param string $value
-     * @param bool   $checked
-     * @param mixed  $extra
-     *
-     * @return string
+     * @param mixed $data
+     * @param mixed $extra
      */
     function form_radio($data = '', string $value = '', bool $checked = false, $extra = ''): string
     {
@@ -451,11 +417,8 @@ if (! function_exists('form_submit')) {
     /**
      * Submit Button
      *
-     * @param mixed  $data
-     * @param string $value
-     * @param mixed  $extra
-     *
-     * @return string
+     * @param mixed $data
+     * @param mixed $extra
      */
     function form_submit($data = '', string $value = '', $extra = ''): string
     {
@@ -469,11 +432,8 @@ if (! function_exists('form_reset')) {
     /**
      * Reset Button
      *
-     * @param mixed  $data
-     * @param string $value
-     * @param mixed  $extra
-     *
-     * @return string
+     * @param mixed $data
+     * @param mixed $extra
      */
     function form_reset($data = '', string $value = '', $extra = ''): string
     {
@@ -487,11 +447,8 @@ if (! function_exists('form_button')) {
     /**
      * Form Button
      *
-     * @param mixed  $data
-     * @param string $content
-     * @param mixed  $extra
-     *
-     * @return string
+     * @param mixed $data
+     * @param mixed $extra
      */
     function form_button($data = '', string $content = '', $extra = ''): string
     {
@@ -520,8 +477,6 @@ if (! function_exists('form_label')) {
      * @param string $labelText  The text to appear onscreen
      * @param string $id         The id the label applies to
      * @param array  $attributes Additional attributes
-     *
-     * @return string
      */
     function form_label(string $labelText = '', string $id = '', array $attributes = []): string
     {
@@ -550,12 +505,6 @@ if (! function_exists('form_datalist')) {
      * The <datalist> element specifies a list of pre-defined options for an <input> element.
      * Users will see a drop-down list of pre-defined options as they input data.
      * The list attribute of the <input> element, must refer to the id attribute of the <datalist> element.
-     *
-     * @param string $name
-     * @param string $value
-     * @param array  $options
-     *
-     * @return string
      */
     function form_datalist(string $name, string $value, array $options): string
     {
@@ -589,8 +538,6 @@ if (! function_exists('form_fieldset')) {
      *
      * @param string $legendText The legend text
      * @param array  $attributes Additional attributes
-     *
-     * @return string
      */
     function form_fieldset(string $legendText = '', array $attributes = []): string
     {
@@ -609,10 +556,6 @@ if (! function_exists('form_fieldset')) {
 if (! function_exists('form_fieldset_close')) {
     /**
      * Fieldset Close Tag
-     *
-     * @param string $extra
-     *
-     * @return string
      */
     function form_fieldset_close(string $extra = ''): string
     {
@@ -625,10 +568,6 @@ if (! function_exists('form_fieldset_close')) {
 if (! function_exists('form_close')) {
     /**
      * Form Close Tag
-     *
-     * @param string $extra
-     *
-     * @return string
      */
     function form_close(string $extra = ''): string
     {
@@ -674,12 +613,6 @@ if (! function_exists('set_select')) {
      *
      * Let's you set the selected value of a <select> menu via data in the POST array.
      * If Form Validation is active it retrieves the info from the validation class
-     *
-     * @param string $field
-     * @param string $value
-     * @param bool   $default
-     *
-     * @return string
      */
     function set_select(string $field, string $value = '', bool $default = false): string
     {
@@ -719,12 +652,6 @@ if (! function_exists('set_checkbox')) {
      *
      * Let's you set the selected value of a checkbox via the value in the POST array.
      * If Form Validation is active it retrieves the info from the validation class
-     *
-     * @param string $field
-     * @param string $value
-     * @param bool   $default
-     *
-     * @return string
      */
     function set_checkbox(string $field, string $value = '', bool $default = false): string
     {
@@ -765,12 +692,6 @@ if (! function_exists('set_radio')) {
      *
      * Let's you set the selected value of a radio field via info in the POST array.
      * If Form Validation is active it retrieves the info from the validation class
-     *
-     * @param string $field
-     * @param string $value
-     * @param bool   $default
-     *
-     * @return string
      */
     function set_radio(string $field, string $value = '', bool $default = false): string
     {
@@ -817,8 +738,6 @@ if (! function_exists('parse_form_attributes')) {
      *
      * @param array|string $attributes List of attributes
      * @param array        $default    Default values
-     *
-     * @return string
      */
     function parse_form_attributes($attributes, array $default): string
     {

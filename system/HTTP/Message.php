@@ -73,8 +73,6 @@ class Message implements MessageInterface
      * Returns a single header object. If multiple headers with the same
      * name exist, then will return an array of header objects.
      *
-     * @param string $name
-     *
      * @return array|Header|null
      *
      * @deprecated Use Message::header() to make room for PSR-7
@@ -88,10 +86,6 @@ class Message implements MessageInterface
 
     /**
      * Determines whether a header exists.
-     *
-     * @param string $name
-     *
-     * @return bool
      */
     public function hasHeader(string $name): bool
     {
@@ -110,10 +104,6 @@ class Message implements MessageInterface
      * NOTE: Not all header values may be appropriately represented using
      * comma concatenation. For such headers, use getHeader() instead
      * and supply your own delimiter when concatenating.
-     *
-     * @param string $name
-     *
-     * @return string
      */
     public function getHeaderLine(string $name): string
     {
@@ -128,8 +118,6 @@ class Message implements MessageInterface
 
     /**
      * Returns the HTTP Protocol Version.
-     *
-     * @return string
      */
     public function getProtocolVersion(): string
     {

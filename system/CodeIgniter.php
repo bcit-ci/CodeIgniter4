@@ -142,8 +142,6 @@ class CodeIgniter
 
     /**
      * Constructor.
-     *
-     * @param App $config
      */
     public function __construct(App $config)
     {
@@ -286,9 +284,6 @@ class CodeIgniter
      * tries to route the response, loads the controller and generally
      * makes all of the pieces work together.
      *
-     * @param RouteCollectionInterface|null $routes
-     * @param bool                          $returnResponse
-     *
      * @throws Exception
      * @throws RedirectException
      *
@@ -348,8 +343,6 @@ class CodeIgniter
      * cookies and headers are not actually sent, allowing PHP 7.2+ to
      * not complain when ini_set() function is used.
      *
-     * @param bool $safe
-     *
      * @return $this
      */
     public function useSafeOutput(bool $safe = true)
@@ -363,10 +356,6 @@ class CodeIgniter
 
     /**
      * Handles the main request logic and fires the controller.
-     *
-     * @param RouteCollectionInterface|null $routes
-     * @param Cache                         $cacheConfig
-     * @param bool                          $returnResponse
      *
      * @throws RedirectException
      *
@@ -530,8 +519,6 @@ class CodeIgniter
      * Sets a Request object to be used for this request.
      * Used when running certain tests.
      *
-     * @param Request $request
-     *
      * @return $this
      */
     public function setRequest(Request $request)
@@ -610,8 +597,6 @@ class CodeIgniter
     /**
      * Determines if a response has been cached for the given URI.
      *
-     * @param Cache $config
-     *
      * @throws Exception
      *
      * @return bool|ResponseInterface
@@ -651,8 +636,6 @@ class CodeIgniter
     /**
      * Tells the app that the final output should be cached.
      *
-     * @param int $time
-     *
      * @return void
      */
     public static function cache(int $time)
@@ -665,8 +648,6 @@ class CodeIgniter
     /**
      * Caches the full response from the current request. Used for
      * full-page caching for very high performance.
-     *
-     * @param Cache $config
      *
      * @return mixed
      */
@@ -685,8 +666,6 @@ class CodeIgniter
 
     /**
      * Returns an array with our basic performance stats collected.
-     *
-     * @return array
      */
     public function getPerformanceStats(): array
     {
@@ -700,10 +679,6 @@ class CodeIgniter
 
     /**
      * Generates the cache name to use for our full-page caching.
-     *
-     * @param Cache $config
-     *
-     * @return string
      */
     protected function generateCacheName(Cache $config): string
     {
@@ -726,10 +701,6 @@ class CodeIgniter
 
     /**
      * Replaces the elapsed_time tag.
-     *
-     * @param string $output
-     *
-     * @return string
      */
     public function displayPerformanceMetrics(string $output): string
     {
@@ -804,8 +775,6 @@ class CodeIgniter
      * instead of relying on CLIRequest or IncomingRequest for the path.
      *
      * This is primarily used by the Console.
-     *
-     * @param string $path
      *
      * @return $this
      */
@@ -893,8 +862,6 @@ class CodeIgniter
     /**
      * Displays a 404 Page Not Found error. If set, will try to
      * call the 404Override controller/method that was set in routing config.
-     *
-     * @param PageNotFoundException $e
      */
     protected function display404errors(PageNotFoundException $e)
     {
@@ -946,7 +913,6 @@ class CodeIgniter
      * Gathers the script output from the buffer, replaces some execution
      * time tag in the output and displays the debug toolbar, if required.
      *
-     * @param Cache|null $cacheConfig
      * @param mixed|null $returned
      */
     protected function gatherOutput(?Cache $cacheConfig = null, $returned = null)

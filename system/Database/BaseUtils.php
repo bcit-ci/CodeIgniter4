@@ -52,8 +52,6 @@ abstract class BaseUtils
 
     /**
      * Class constructor
-     *
-     * @param ConnectionInterface $db
      */
     public function __construct(ConnectionInterface &$db)
     {
@@ -102,10 +100,6 @@ abstract class BaseUtils
 
     /**
      * Determine if a particular database exists
-     *
-     * @param string $databaseName
-     *
-     * @return bool
      */
     public function databaseExists(string $databaseName): bool
     {
@@ -116,8 +110,6 @@ abstract class BaseUtils
 
     /**
      * Optimize Table
-     *
-     * @param string $tableName
      *
      * @throws DatabaseException
      *
@@ -190,8 +182,6 @@ abstract class BaseUtils
     /**
      * Repair Table
      *
-     * @param string $tableName
-     *
      * @throws DatabaseException
      *
      * @return mixed
@@ -259,8 +249,6 @@ abstract class BaseUtils
      *
      * @param ResultInterface $query  Query result object
      * @param array           $params Any preferences
-     *
-     * @return string
      */
     public function getXMLFromResult(ResultInterface $query, array $params = []): string
     {
@@ -370,8 +358,6 @@ abstract class BaseUtils
 
     /**
      * Platform dependent version of the backup function.
-     *
-     * @param array|null $prefs
      *
      * @return mixed
      */

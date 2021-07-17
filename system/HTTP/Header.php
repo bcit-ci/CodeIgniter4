@@ -38,7 +38,6 @@ class Header
     /**
      * Header constructor. name is mandatory, if a value is provided, it will be set.
      *
-     * @param string            $name
      * @param array|string|null $value
      */
     public function __construct(string $name, $value = null)
@@ -51,8 +50,6 @@ class Header
 
     /**
      * Returns the name of the header, in the same case it was set.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -76,8 +73,6 @@ class Header
 
     /**
      * Sets the name of the header, overwriting any previous value.
-     *
-     * @param string $name
      *
      * @return $this
      */
@@ -197,8 +192,6 @@ class Header
     /**
      * Returns a representation of the entire header string, including
      * the header name and all values converted to the proper format.
-     *
-     * @return string
      */
     public function __toString(): string
     {

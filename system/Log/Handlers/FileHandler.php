@@ -44,8 +44,6 @@ class FileHandler extends BaseHandler
 
     /**
      * Constructor
-     *
-     * @param array $config
      */
     public function __construct(array $config = [])
     {
@@ -71,8 +69,6 @@ class FileHandler extends BaseHandler
      * @param string $message
      *
      * @throws Exception
-     *
-     * @return bool
      */
     public function handle($level, $message): bool
     {

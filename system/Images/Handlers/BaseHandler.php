@@ -140,8 +140,6 @@ abstract class BaseHandler implements ImageHandlerInterface
      * Sets another image for this handler to work on.
      * Keeps us from needing to continually instantiate the handler.
      *
-     * @param string $path
-     *
      * @return $this
      */
     public function withFile(string $path)
@@ -250,10 +248,7 @@ abstract class BaseHandler implements ImageHandlerInterface
     /**
      * Resize the image
      *
-     * @param int    $width
-     * @param int    $height
-     * @param bool   $maintainRatio If true, will get the closest match possible while keeping aspect ratio true.
-     * @param string $masterDim
+     * @param bool $maintainRatio If true, will get the closest match possible while keeping aspect ratio true.
      *
      * @return BaseHandler
      */
@@ -282,12 +277,8 @@ abstract class BaseHandler implements ImageHandlerInterface
      * is not provided, that value will be set the appropriate value based on offsets and
      * image dimensions.
      *
-     * @param int|null $width
-     * @param int|null $height
-     * @param int|null $x             X-axis coord to start cropping from the left of image
-     * @param int|null $y             Y-axis coord to start cropping from the top of image
-     * @param bool     $maintainRatio
-     * @param string   $masterDim
+     * @param int|null $x X-axis coord to start cropping from the left of image
+     * @param int|null $y Y-axis coord to start cropping from the top of image
      *
      * @return $this
      */
@@ -333,8 +324,6 @@ abstract class BaseHandler implements ImageHandlerInterface
     /**
      * Rotates the image on the current canvas.
      *
-     * @param float $angle
-     *
      * @return $this
      */
     public function rotate(float $angle)
@@ -371,10 +360,6 @@ abstract class BaseHandler implements ImageHandlerInterface
     /**
      * Flattens transparencies, default white background
      *
-     * @param int $red
-     * @param int $green
-     * @param int $blue
-     *
      * @return $this
      */
     public function flatten(int $red = 255, int $green = 255, int $blue = 255)
@@ -390,10 +375,6 @@ abstract class BaseHandler implements ImageHandlerInterface
     /**
      * Handler-specific method to flattening an image's transparencies.
      *
-     * @param int $red
-     * @param int $green
-     * @param int $blue
-     *
      * @return $this
      *
      * @internal
@@ -404,8 +385,6 @@ abstract class BaseHandler implements ImageHandlerInterface
 
     /**
      * Handler-specific method to handle rotating an image in 90 degree increments.
-     *
-     * @param int $angle
      *
      * @return mixed
      */
@@ -437,8 +416,6 @@ abstract class BaseHandler implements ImageHandlerInterface
      * Handler-specific method to handle flipping an image along its
      * horizontal or vertical axis.
      *
-     * @param string $direction
-     *
      * @return $this
      */
     abstract protected function _flip(string $direction);
@@ -460,9 +437,6 @@ abstract class BaseHandler implements ImageHandlerInterface
      *  - fontSize
      *  - shadowOffset
      *
-     * @param string $text
-     * @param array  $options
-     *
      * @return $this
      */
     public function text(string $text, array $options = [])
@@ -480,9 +454,6 @@ abstract class BaseHandler implements ImageHandlerInterface
 
     /**
      * Handler-specific method for overlaying text on an image.
-     *
-     * @param string $text
-     * @param array  $options
      */
     abstract protected function _text(string $text, array $options = []);
 
@@ -490,8 +461,6 @@ abstract class BaseHandler implements ImageHandlerInterface
 
     /**
      * Handles the actual resizing of the image.
-     *
-     * @param bool $maintainRatio
      *
      * @return $this
      */
@@ -622,9 +591,7 @@ abstract class BaseHandler implements ImageHandlerInterface
      *  - bottom
      *  - bottom-right
      *
-     * @param int    $width
-     * @param int    $height
-     * @param string $position
+     * @param int $height
      *
      * @return BaseHandler
      */
@@ -653,8 +620,6 @@ abstract class BaseHandler implements ImageHandlerInterface
      * @param float|int|null $height
      * @param float|int      $origWidth
      * @param float|int      $origHeight
-     *
-     * @return array
      */
     protected function calcAspectRatio($width, $height = null, $origWidth = 0, $origHeight = 0): array
     {
@@ -700,8 +665,6 @@ abstract class BaseHandler implements ImageHandlerInterface
      * @param float|int $origWidth
      * @param float|int $origHeight
      * @param string    $position
-     *
-     * @return array
      */
     protected function calcCropCoords($width, $height, $origWidth, $origHeight, $position): array
     {
@@ -780,9 +743,6 @@ abstract class BaseHandler implements ImageHandlerInterface
      *    $image->resize(100, 200, true)
      *          ->save($target);
      *
-     * @param string|null $target
-     * @param int         $quality
-     *
      * @return bool
      */
     abstract public function save(?string $target = null, int $quality = 90);
@@ -791,8 +751,6 @@ abstract class BaseHandler implements ImageHandlerInterface
 
     /**
      * Does the driver-specific processing of the image.
-     *
-     * @param string $action
      *
      * @return mixed
      */
@@ -803,9 +761,6 @@ abstract class BaseHandler implements ImageHandlerInterface
     /**
      * Provide access to the Image class' methods if they don't exist
      * on the handler itself.
-     *
-     * @param string $name
-     * @param array  $args
      *
      * @return mixed
      */

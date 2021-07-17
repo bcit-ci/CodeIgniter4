@@ -77,8 +77,6 @@ class Database extends BaseCollector
      * The static method used during Events to collect
      * data.
      *
-     * @param Query $query
-     *
      * @internal param $ array \CodeIgniter\Database\Query
      */
     public static function collect(Query $query)
@@ -130,8 +128,6 @@ class Database extends BaseCollector
 
     /**
      * Returns the data of this collector to be formatted in the toolbar
-     *
-     * @return array
      */
     public function display(): array
     {
@@ -149,8 +145,6 @@ class Database extends BaseCollector
 
     /**
      * Gets the "badge" value for the button.
-     *
-     * @return int
      */
     public function getBadgeValue(): int
     {
@@ -174,8 +168,6 @@ class Database extends BaseCollector
 
     /**
      * Does this collector have any data collected?
-     *
-     * @return bool
      */
     public function isEmpty(): bool
     {
@@ -188,8 +180,6 @@ class Database extends BaseCollector
      * Display the icon.
      *
      * Icon from https://icons8.com - 1em package
-     *
-     * @return string
      */
     public function icon(): string
     {

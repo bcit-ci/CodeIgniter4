@@ -25,9 +25,6 @@ class TestLogger extends Logger
      *
      * @param string $level
      * @param string $message
-     * @param array  $context
-     *
-     * @return bool
      */
     public function log($level, $message, array $context = []): bool
     {
@@ -62,7 +59,6 @@ class TestLogger extends Logger
     /**
      * Used by CIUnitTestCase class to provide ->assertLogged() methods.
      *
-     * @param string $level
      * @param string $message
      *
      * @return bool

@@ -71,8 +71,6 @@ class ListCommands extends BaseCommand
 
     /**
      * Displays the help for the spark cli script itself.
-     *
-     * @param array $params
      */
     public function run(array $params)
     {
@@ -87,8 +85,6 @@ class ListCommands extends BaseCommand
 
     /**
      * Lists the commands with accompanying info.
-     *
-     * @param array $commands
      */
     protected function listFull(array $commands)
     {
@@ -130,8 +126,6 @@ class ListCommands extends BaseCommand
 
     /**
      * Lists the commands only.
-     *
-     * @param array $commands
      */
     protected function listSimple(array $commands)
     {

@@ -67,8 +67,6 @@ class Connection extends BaseConnection
     /**
      * Connect to the database.
      *
-     * @param bool $persistent
-     *
      * @throws DatabaseException
      *
      * @return mixed
@@ -244,10 +242,6 @@ class Connection extends BaseConnection
 
     /**
      * Select a specific database table to use.
-     *
-     * @param string $databaseName
-     *
-     * @return bool
      */
     public function setDatabase(string $databaseName): bool
     {
@@ -272,8 +266,6 @@ class Connection extends BaseConnection
 
     /**
      * Returns a string containing the version of the database being used.
-     *
-     * @return string
      */
     public function getVersion(): string
     {
@@ -292,8 +284,6 @@ class Connection extends BaseConnection
 
     /**
      * Executes the query against the database.
-     *
-     * @param string $sql
      *
      * @return mixed
      */
@@ -327,8 +317,6 @@ class Connection extends BaseConnection
      * If needed, each database adapter can prep the query string
      *
      * @param string $sql an SQL query
-     *
-     * @return string
      */
     protected function prepQuery(string $sql): string
     {
@@ -345,8 +333,6 @@ class Connection extends BaseConnection
 
     /**
      * Returns the total number of rows affected by this query.
-     *
-     * @return int
      */
     public function affectedRows(): int
     {
@@ -357,10 +343,6 @@ class Connection extends BaseConnection
 
     /**
      * Platform-dependant string escape
-     *
-     * @param string $str
-     *
-     * @return string
      */
     protected function _escapeString(string $str): string
     {
@@ -408,10 +390,6 @@ class Connection extends BaseConnection
     /**
      * Generates the SQL for listing tables in a platform-dependent manner.
      * Uses escapeLikeStringDirect().
-     *
-     * @param bool $prefixLimit
-     *
-     * @return string
      */
     protected function _listTables(bool $prefixLimit = false): string
     {
@@ -428,10 +406,6 @@ class Connection extends BaseConnection
 
     /**
      * Generates a platform-specific query string so that the column names can be fetched.
-     *
-     * @param string $table
-     *
-     * @return string
      */
     protected function _listColumns(string $table = ''): string
     {
@@ -442,8 +416,6 @@ class Connection extends BaseConnection
 
     /**
      * Returns an array of objects with field data
-     *
-     * @param string $table
      *
      * @throws DatabaseException
      *
@@ -478,8 +450,6 @@ class Connection extends BaseConnection
 
     /**
      * Returns an array of objects with index data
-     *
-     * @param string $table
      *
      * @throws DatabaseException
      * @throws LogicException
@@ -528,8 +498,6 @@ class Connection extends BaseConnection
 
     /**
      * Returns an array of objects with Foreign key data
-     *
-     * @param string $table
      *
      * @throws DatabaseException
      *
@@ -627,8 +595,6 @@ class Connection extends BaseConnection
 
     /**
      * Insert ID
-     *
-     * @return int
      */
     public function insertID(): int
     {
@@ -639,8 +605,6 @@ class Connection extends BaseConnection
 
     /**
      * Begin Transaction
-     *
-     * @return bool
      */
     protected function _transBegin(): bool
     {
@@ -653,8 +617,6 @@ class Connection extends BaseConnection
 
     /**
      * Commit Transaction
-     *
-     * @return bool
      */
     protected function _transCommit(): bool
     {
@@ -671,8 +633,6 @@ class Connection extends BaseConnection
 
     /**
      * Rollback Transaction
-     *
-     * @return bool
      */
     protected function _transRollback(): bool
     {

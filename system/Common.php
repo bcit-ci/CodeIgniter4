@@ -42,8 +42,6 @@ if (! function_exists('app_timezone')) {
      * dates in. This might be different than the timezone set
      * at the server level, as you often want to stores dates in UTC
      * and convert them on the fly for the user.
-     *
-     * @return string
      */
     function app_timezone(): string
     {
@@ -62,8 +60,6 @@ if (! function_exists('cache')) {
      * Examples:
      *    cache()->save('foo', 'bar');
      *    $foo = cache('bar');
-     *
-     * @param string|null $key
      *
      * @return CacheInterface|mixed
      */
@@ -86,10 +82,6 @@ if (! function_exists('clean_path')) {
      * A convenience method to clean paths for
      * a nicer looking output. Useful for exception
      * handling, error logging, etc.
-     *
-     * @param string $path
-     *
-     * @return string
      */
     function clean_path(string $path): string
     {
@@ -125,8 +117,6 @@ if (! function_exists('command')) {
      * be used on the command line itself:
      *
      *  > command('migrate:create SomeMigration');
-     *
-     * @param string $command
      *
      * @return false|string
      */
@@ -202,9 +192,6 @@ if (! function_exists('config')) {
     /**
      * More simple way of getting config instances from Factories
      *
-     * @param string $name
-     * @param bool   $getShared
-     *
      * @return mixed
      */
     function config(string $name, bool $getShared = true)
@@ -222,8 +209,6 @@ if (! function_exists('cookie')) {
      * @param array  $options Array of options to be passed to the cookie
      *
      * @throws CookieException
-     *
-     * @return Cookie
      */
     function cookie(string $name, string $value = '', array $options = []): Cookie
     {
@@ -237,8 +222,6 @@ if (! function_exists('cookies')) {
      *
      * @param Cookie[] $cookies   If `getGlobal` is false, this is passed to CookieStore's constructor
      * @param bool     $getGlobal If false, creates a new instance of CookieStore
-     *
-     * @return CookieStore
      */
     function cookies(array $cookies = [], bool $getGlobal = true): CookieStore
     {
@@ -255,8 +238,6 @@ if (! function_exists('csrf_token')) {
      * Returns the CSRF token name.
      * Can be used in Views when building hidden inputs manually,
      * or used in javascript vars when using APIs.
-     *
-     * @return string
      */
     function csrf_token(): string
     {
@@ -269,8 +250,6 @@ if (! function_exists('csrf_header')) {
      * Returns the CSRF header name.
      * Can be used in Views by adding it to the meta tag
      * or used in javascript to define a header name when using APIs.
-     *
-     * @return string
      */
     function csrf_header(): string
     {
@@ -283,8 +262,6 @@ if (! function_exists('csrf_hash')) {
      * Returns the current hash value for the CSRF protection.
      * Can be used in Views when building hidden inputs manually,
      * or used in javascript vars for API usage.
-     *
-     * @return string
      */
     function csrf_hash(): string
     {
@@ -295,10 +272,6 @@ if (! function_exists('csrf_hash')) {
 if (! function_exists('csrf_field')) {
     /**
      * Generates a hidden input field for use within manually generated forms.
-     *
-     * @param string|null $id
-     *
-     * @return string
      */
     function csrf_field(?string $id = null): string
     {
@@ -309,10 +282,6 @@ if (! function_exists('csrf_field')) {
 if (! function_exists('csrf_meta')) {
     /**
      * Generates a meta tag for use within javascript calls.
-     *
-     * @param string|null $id
-     *
-     * @return string
      */
     function csrf_meta(?string $id = null): string
     {
@@ -336,7 +305,6 @@ if (! function_exists('db_connect')) {
      * otherwise it will all calls will return the same instance.
      *
      * @param array|ConnectionInterface|string|null $db
-     * @param bool                                  $getShared
      *
      * @return BaseConnection
      */
@@ -372,7 +340,6 @@ if (! function_exists('env')) {
      * retrieving values set from the .env file for
      * use in config files.
      *
-     * @param string      $key
      * @param string|null $default
      *
      * @return mixed
@@ -417,7 +384,6 @@ if (! function_exists('esc')) {
      * Valid context values: html, js, css, url, attr, raw, null
      *
      * @param array|string $data
-     * @param string       $context
      * @param string       $encoding
      *
      * @throws InvalidArgumentException
@@ -684,8 +650,6 @@ if (! function_exists('is_cli')) {
     /**
      * Check if PHP was invoked from the command line.
      *
-     * @return bool
-     *
      * @codeCoverageIgnore Cannot be tested fully as PHPUnit always run in CLI
      */
     function is_cli(): bool
@@ -721,11 +685,7 @@ if (! function_exists('is_really_writable')) {
      *
      * @see https://bugs.php.net/bug.php?id=54709
      *
-     * @param string $file
-     *
      * @throws Exception
-     *
-     * @return bool
      *
      * @codeCoverageIgnore Not practical to test, as travis runs on linux
      */
@@ -767,10 +727,6 @@ if (! function_exists('lang')) {
      * A convenience method to translate a string or array of them and format
      * the result with the intl extension's MessageFormatter.
      *
-     * @param string      $line
-     * @param array       $args
-     * @param string|null $locale
-     *
      * @return string
      */
     function lang(string $line, array $args = [], ?string $locale = null)
@@ -794,10 +750,6 @@ if (! function_exists('log_message')) {
      *  - notice
      *  - info
      *  - debug
-     *
-     * @param string $level
-     * @param string $message
-     * @param array  $context
      *
      * @return mixed
      */
@@ -823,10 +775,6 @@ if (! function_exists('model')) {
     /**
      * More simple way of getting model instances from Factories
      *
-     * @param string                   $name
-     * @param bool                     $getShared
-     * @param ConnectionInterface|null $conn
-     *
      * @return mixed
      */
     function model(string $name, bool $getShared = true, ?ConnectionInterface &$conn = null)
@@ -840,7 +788,6 @@ if (! function_exists('old')) {
      * Provides access to "old input" that was set in the session
      * during a redirect()->withInput().
      *
-     * @param string      $key
      * @param null        $default
      * @param bool|string $escape
      *
@@ -885,8 +832,6 @@ if (! function_exists('redirect')) {
      * If more control is needed, you must use $response->redirect explicitly.
      *
      * @param string $route
-     *
-     * @return RedirectResponse
      */
     function redirect(?string $route = null): RedirectResponse
     {
@@ -906,11 +851,6 @@ if (! function_exists('remove_invisible_characters')) {
      *
      * This prevents sandwiching null characters
      * between ascii characters, like Java\0script.
-     *
-     * @param string $str
-     * @param bool   $urlEncoded
-     *
-     * @return string
      */
     function remove_invisible_characters(string $str, bool $urlEncoded = true): string
     {
@@ -942,8 +882,7 @@ if (! function_exists('route_to')) {
      * NOTE: This requires the controller/method to
      * have a route defined in the routes Config file.
      *
-     * @param string $method
-     * @param mixed  ...$params
+     * @param mixed ...$params
      *
      * @return false|string
      */
@@ -990,8 +929,7 @@ if (! function_exists('service')) {
      *  - $timer = service('timer')
      *  - $timer = \CodeIgniter\Config\Services::timer();
      *
-     * @param string $name
-     * @param mixed  ...$params
+     * @param mixed ...$params
      *
      * @return mixed
      */
@@ -1005,8 +943,7 @@ if (! function_exists('single_service')) {
     /**
      * Always returns a new instance of the class.
      *
-     * @param string $name
-     * @param mixed  ...$params
+     * @param mixed ...$params
      *
      * @return mixed
      */
@@ -1074,9 +1011,6 @@ if (! function_exists('stringify_attributes')) {
      * of attributes to a string.
      *
      * @param mixed $attributes string, array, object
-     * @param bool  $js
-     *
-     * @return string
      */
     function stringify_attributes($attributes, bool $js = false): string
     {
@@ -1105,8 +1039,6 @@ if (! function_exists('timer')) {
      * A convenience method for working with the timer.
      * If no parameter is passed, it will return the timer instance,
      * otherwise will start or stop the timer intelligently.
-     *
-     * @param string|null $name
      *
      * @return mixed|Timer
      */
@@ -1147,11 +1079,7 @@ if (! function_exists('view')) {
      * NOTE: Does not provide any escaping of the data, so that must
      * all be handled manually by the developer.
      *
-     * @param string $name
-     * @param array  $data
-     * @param array  $options Unused - reserved for third-party extensions.
-     *
-     * @return string
+     * @param array $options Unused - reserved for third-party extensions.
      */
     function view(string $name, array $data = [], array $options = []): string
     {
@@ -1176,14 +1104,9 @@ if (! function_exists('view_cell')) {
      * View cells are used within views to insert HTML chunks that are managed
      * by other classes.
      *
-     * @param string      $library
-     * @param null        $params
-     * @param int         $ttl
-     * @param string|null $cacheName
+     * @param null $params
      *
      * @throws ReflectionException
-     *
-     * @return string
      */
     function view_cell(string $library, $params = null, int $ttl = 0, ?string $cacheName = null): string
     {

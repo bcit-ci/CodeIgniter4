@@ -22,9 +22,7 @@ interface QueryInterface
     /**
      * Sets the raw query string to use for this statement.
      *
-     * @param string $sql
-     * @param mixed  $binds
-     * @param bool   $setEscape
+     * @param mixed $binds
      *
      * @return mixed
      */
@@ -47,7 +45,6 @@ interface QueryInterface
      * for it's start and end values. If no end value is present, will
      * use the current time to determine total duration.
      *
-     * @param float $start
      * @param float $end
      *
      * @return mixed
@@ -61,8 +58,6 @@ interface QueryInterface
      * the query has not been executed yet.
      *
      * @param int $decimals The accuracy of the returned time.
-     *
-     * @return string
      */
     public function getDuration(int $decimals = 6): string;
 
@@ -70,9 +65,6 @@ interface QueryInterface
 
     /**
      * Stores the error description that happened for this query.
-     *
-     * @param int    $code
-     * @param string $error
      */
     public function setError(int $code, string $error);
 
@@ -80,8 +72,6 @@ interface QueryInterface
 
     /**
      * Reports whether this statement created an error not.
-     *
-     * @return bool
      */
     public function hasError(): bool;
 
@@ -89,8 +79,6 @@ interface QueryInterface
 
     /**
      * Returns the error code created while executing this statement.
-     *
-     * @return int
      */
     public function getErrorCode(): int;
 
@@ -98,8 +86,6 @@ interface QueryInterface
 
     /**
      * Returns the error message created while executing this statement.
-     *
-     * @return string
      */
     public function getErrorMessage(): string;
 
@@ -107,8 +93,6 @@ interface QueryInterface
 
     /**
      * Determines if the statement is a write-type query or not.
-     *
-     * @return bool
      */
     public function isWriteType(): bool;
 
@@ -116,9 +100,6 @@ interface QueryInterface
 
     /**
      * Swaps out one table prefix for a new one.
-     *
-     * @param string $orig
-     * @param string $swap
      *
      * @return mixed
      */

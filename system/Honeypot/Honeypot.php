@@ -33,8 +33,6 @@ class Honeypot
     /**
      * Constructor.
      *
-     * @param HoneypotConfig $config
-     *
      * @throws HoneypotException
      */
     public function __construct(HoneypotConfig $config)
@@ -62,8 +60,6 @@ class Honeypot
 
     /**
      * Checks the request if honeypot field has data.
-     *
-     * @param RequestInterface $request
      */
     public function hasContent(RequestInterface $request)
     {
@@ -72,8 +68,6 @@ class Honeypot
 
     /**
      * Attaches Honeypot template to response.
-     *
-     * @param ResponseInterface $response
      */
     public function attachHoneypot(ResponseInterface $response)
     {
@@ -87,10 +81,6 @@ class Honeypot
     /**
      * Prepares the template by adding label
      * content and field name.
-     *
-     * @param string $template
-     *
-     * @return string
      */
     protected function prepareTemplate(string $template): string
     {

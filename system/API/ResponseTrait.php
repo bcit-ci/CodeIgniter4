@@ -89,7 +89,6 @@ trait ResponseTrait
      *
      * @param array|string|null $data
      * @param int               $status
-     * @param string            $message
      *
      * @return mixed
      */
@@ -129,9 +128,8 @@ trait ResponseTrait
      * Used for generic failures that no custom methods exist for.
      *
      * @param array|string $messages
-     * @param int          $status        HTTP status code
-     * @param string|null  $code          Custom, API-specific, error code
-     * @param string       $customMessage
+     * @param int          $status   HTTP status code
+     * @param string|null  $code     Custom, API-specific, error code
      *
      * @return mixed
      */
@@ -218,9 +216,7 @@ trait ResponseTrait
      * or had bad authorization credentials. User is encouraged to try again
      * with the proper information.
      *
-     * @param string $description
      * @param string $code
-     * @param string $message
      *
      * @return mixed
      */
@@ -235,9 +231,7 @@ trait ResponseTrait
      * Used when access is always denied to this resource and no amount
      * of trying again will help.
      *
-     * @param string $description
      * @param string $code
-     * @param string $message
      *
      * @return mixed
      */
@@ -251,9 +245,7 @@ trait ResponseTrait
     /**
      * Used when a specified resource cannot be found.
      *
-     * @param string $description
      * @param string $code
-     * @param string $message
      *
      * @return mixed
      */
@@ -267,9 +259,7 @@ trait ResponseTrait
     /**
      * Used when the data provided by the client cannot be validated.
      *
-     * @param string $description
      * @param string $code
-     * @param string $message
      *
      * @return mixed
      *
@@ -284,8 +274,6 @@ trait ResponseTrait
      * Used when the data provided by the client cannot be validated on one or more fields.
      *
      * @param string|string[] $errors
-     * @param string|null     $code
-     * @param string          $message
      *
      * @return mixed
      */
@@ -299,9 +287,7 @@ trait ResponseTrait
     /**
      * Use when trying to create a new resource and it already exists.
      *
-     * @param string $description
      * @param string $code
-     * @param string $message
      *
      * @return mixed
      */
@@ -317,9 +303,7 @@ trait ResponseTrait
      * Not Found, because here we know the data previously existed, but is now gone,
      * where Not Found means we simply cannot find any information about it.
      *
-     * @param string $description
      * @param string $code
-     * @param string $message
      *
      * @return mixed
      */
@@ -333,9 +317,7 @@ trait ResponseTrait
     /**
      * Used when the user has made too many requests for the resource recently.
      *
-     * @param string $description
      * @param string $code
-     * @param string $message
      *
      * @return mixed
      */

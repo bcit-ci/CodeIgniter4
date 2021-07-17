@@ -44,8 +44,6 @@ class Files extends BaseCollector
 
     /**
      * Returns any information that should be shown next to the title.
-     *
-     * @return string
      */
     public function getTitleDetails(): string
     {
@@ -56,8 +54,6 @@ class Files extends BaseCollector
 
     /**
      * Returns the data of this collector to be formatted in the toolbar
-     *
-     * @return array
      */
     public function display(): array
     {
@@ -94,8 +90,6 @@ class Files extends BaseCollector
 
     /**
      * Displays the number of included files as a badge in the tab button.
-     *
-     * @return int
      */
     public function getBadgeValue(): int
     {
@@ -108,8 +102,6 @@ class Files extends BaseCollector
      * Display the icon.
      *
      * Icon from https://icons8.com - 1em package
-     *
-     * @return string
      */
     public function icon(): string
     {

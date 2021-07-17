@@ -25,10 +25,7 @@ class Rules
      * The value does not match another field in $data.
      *
      * @param string $str
-     * @param string $field
-     * @param array  $data  Other field/value pairs
-     *
-     * @return bool
+     * @param array  $data Other field/value pairs
      */
     public function differs(?string $str, string $field, array $data): bool
     {
@@ -45,9 +42,6 @@ class Rules
      * Equals the static value provided.
      *
      * @param string $str
-     * @param string $val
-     *
-     * @return bool
      */
     public function equals(?string $str, string $val): bool
     {
@@ -61,9 +55,6 @@ class Rules
      * $val = "5" (one) | "5,8,12" (multiple values)
      *
      * @param string $str
-     * @param string $val
-     *
-     * @return bool
      */
     public function exact_length(?string $str, string $val): bool
     {
@@ -84,9 +75,6 @@ class Rules
      * Greater than
      *
      * @param string $str
-     * @param string $min
-     *
-     * @return bool
      */
     public function greater_than(?string $str, string $min): bool
     {
@@ -99,9 +87,6 @@ class Rules
      * Equal to or Greater than
      *
      * @param string $str
-     * @param string $min
-     *
-     * @return bool
      */
     public function greater_than_equal_to(?string $str, string $min): bool
     {
@@ -120,10 +105,6 @@ class Rules
      *    is_not_unique[menu.id,active,1]
      *
      * @param string $str
-     * @param string $field
-     * @param array  $data
-     *
-     * @return bool
      */
     public function is_not_unique(?string $str, string $field, array $data): bool
     {
@@ -153,9 +134,6 @@ class Rules
      * Value should be within an array of values
      *
      * @param string $value
-     * @param string $list
-     *
-     * @return bool
      */
     public function in_list(?string $value, string $list): bool
     {
@@ -176,10 +154,6 @@ class Rules
      *    is_unique[users.email,id,5]
      *
      * @param string $str
-     * @param string $field
-     * @param array  $data
-     *
-     * @return bool
      */
     public function is_unique(?string $str, string $field, array $data): bool
     {
@@ -209,9 +183,6 @@ class Rules
      * Less than
      *
      * @param string $str
-     * @param string $max
-     *
-     * @return bool
      */
     public function less_than(?string $str, string $max): bool
     {
@@ -224,9 +195,6 @@ class Rules
      * Equal to or Less than
      *
      * @param string $str
-     * @param string $max
-     *
-     * @return bool
      */
     public function less_than_equal_to(?string $str, string $max): bool
     {
@@ -239,10 +207,7 @@ class Rules
      * Matches the value of another field in $data.
      *
      * @param string $str
-     * @param string $field
-     * @param array  $data  Other field/value pairs
-     *
-     * @return bool
+     * @param array  $data Other field/value pairs
      */
     public function matches(?string $str, string $field, array $data): bool
     {
@@ -259,9 +224,6 @@ class Rules
      * Returns true if $str is $val or fewer characters in length.
      *
      * @param string $str
-     * @param string $val
-     *
-     * @return bool
      */
     public function max_length(?string $str, string $val): bool
     {
@@ -274,9 +236,6 @@ class Rules
      * Returns true if $str is at least $val length.
      *
      * @param string $str
-     * @param string $val
-     *
-     * @return bool
      */
     public function min_length(?string $str, string $val): bool
     {
@@ -289,9 +248,6 @@ class Rules
      * Does not equal the static value provided.
      *
      * @param string $str
-     * @param string $val
-     *
-     * @return bool
      */
     public function not_equals(?string $str, string $val): bool
     {
@@ -304,9 +260,6 @@ class Rules
      * Value should not be within an array of values.
      *
      * @param string $value
-     * @param string $list
-     *
-     * @return bool
      */
     public function not_in_list(?string $value, string $list): bool
     {
@@ -344,8 +297,6 @@ class Rules
      * @param string|null $str
      * @param string|null $fields List of fields that we should check if present
      * @param array       $data   Complete list of fields from the form
-     *
-     * @return bool
      */
     public function required_with($str = null, ?string $fields = null, array $data = []): bool
     {
@@ -389,10 +340,6 @@ class Rules
      *     required_without[id,email]
      *
      * @param string|null $str
-     * @param string|null $fields
-     * @param array       $data
-     *
-     * @return bool
      */
     public function required_without($str = null, ?string $fields = null, array $data = []): bool
     {

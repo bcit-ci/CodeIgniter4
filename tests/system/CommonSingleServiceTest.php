@@ -14,10 +14,6 @@ final class CommonSingleServiceTest extends CIUnitTestCase
 {
     /**
      * @dataProvider serviceNamesProvider
-     *
-     * @param string $service
-     *
-     * @return void
      */
     public function testSingleServiceWithNoParamsSupplied(string $service): void
     {
@@ -30,10 +26,6 @@ final class CommonSingleServiceTest extends CIUnitTestCase
 
     /**
      * @dataProvider serviceNamesProvider
-     *
-     * @param string $service
-     *
-     * @return void
      */
     public function testSingleServiceWithAtLeastOneParamSupplied(string $service): void
     {

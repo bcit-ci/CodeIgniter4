@@ -192,8 +192,6 @@ class Response extends Message implements MessageInterface, ResponseInterface
      * Note that this is not a part of the interface so
      * should not be relied on outside of internal testing.
      *
-     * @param bool $pretend
-     *
      * @return $this
      */
     public function pretend(bool $pretend = true)
@@ -225,9 +223,6 @@ class Response extends Message implements MessageInterface, ResponseInterface
      *
      * @see http://tools.ietf.org/html/rfc7231#section-6
      * @see http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
-     *
-     * @return string
-     *
      * @deprecated Use getReasonPhrase()
      *
      * @codeCoverageIgnore

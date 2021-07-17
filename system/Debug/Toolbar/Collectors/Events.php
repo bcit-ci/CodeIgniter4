@@ -73,8 +73,6 @@ class Events extends BaseCollector
     /**
      * Child classes should implement this to return the timeline data
      * formatted for correct usage.
-     *
-     * @return array
      */
     protected function formatTimelineData(): array
     {
@@ -98,8 +96,6 @@ class Events extends BaseCollector
 
     /**
      * Returns the data of this collector to be formatted in the toolbar
-     *
-     * @return array
      */
     public function display(): array
     {
@@ -135,8 +131,6 @@ class Events extends BaseCollector
 
     /**
      * Gets the "badge" value for the button.
-     *
-     * @return int
      */
     public function getBadgeValue(): int
     {
@@ -149,8 +143,6 @@ class Events extends BaseCollector
      * Display the icon.
      *
      * Icon from https://icons8.com - 1em package
-     *
-     * @return string
      */
     public function icon(): string
     {

@@ -82,8 +82,6 @@ class PagerRenderer
 
     /**
      * Constructor.
-     *
-     * @param array $details
      */
     public function __construct(array $details)
     {
@@ -104,8 +102,6 @@ class PagerRenderer
      * side of the current page. Adjusts the first and last counts
      * to reflect it.
      *
-     * @param int|null $count
-     *
      * @return PagerRenderer
      */
     public function setSurroundCount(?int $count = null)
@@ -119,8 +115,6 @@ class PagerRenderer
 
     /**
      * Checks to see if there is a "previous" page before our "first" page.
-     *
-     * @return bool
      */
     public function hasPrevious(): bool
     {
@@ -159,8 +153,6 @@ class PagerRenderer
 
     /**
      * Checks to see if there is a "next" page after our "last" page.
-     *
-     * @return bool
      */
     public function hasNext(): bool
     {
@@ -199,8 +191,6 @@ class PagerRenderer
 
     /**
      * Returns the URI of the first page.
-     *
-     * @return string
      */
     public function getFirst(): string
     {
@@ -219,8 +209,6 @@ class PagerRenderer
 
     /**
      * Returns the URI of the last page.
-     *
-     * @return string
      */
     public function getLast(): string
     {
@@ -239,8 +227,6 @@ class PagerRenderer
 
     /**
      * Returns the URI of the current page.
-     *
-     * @return string
      */
     public function getCurrent(): string
     {
@@ -262,8 +248,6 @@ class PagerRenderer
      * is represented by another array containing of the URI the link
      * should go to, the title (number) of the link, and a boolean
      * value representing whether this link is active or not.
-     *
-     * @return array
      */
     public function links(): array
     {
@@ -306,8 +290,6 @@ class PagerRenderer
 
     /**
      * Checks to see if there is a "previous" page before our "first" page.
-     *
-     * @return bool
      */
     public function hasPreviousPage(): bool
     {
@@ -344,8 +326,6 @@ class PagerRenderer
 
     /**
      * Checks to see if there is a "next" page after our "last" page.
-     *
-     * @return bool
      */
     public function hasNextPage(): bool
     {
@@ -380,8 +360,6 @@ class PagerRenderer
 
     /**
      * Returns the page number of the first page.
-     *
-     * @return int
      */
     public function getFirstPageNumber(): int
     {
@@ -390,8 +368,6 @@ class PagerRenderer
 
     /**
      * Returns the page number of the current page.
-     *
-     * @return int
      */
     public function getCurrentPageNumber(): int
     {
@@ -400,8 +376,6 @@ class PagerRenderer
 
     /**
      * Returns the page number of the last page.
-     *
-     * @return int
      */
     public function getLastPageNumber(): int
     {
@@ -410,8 +384,6 @@ class PagerRenderer
 
     /**
      * Returns total number of pages.
-     *
-     * @return int
      */
     public function getPageCount(): int
     {
@@ -420,8 +392,6 @@ class PagerRenderer
 
     /**
      * Returns the previous page number.
-     *
-     * @return int|null
      */
     public function getPreviousPageNumber(): ?int
     {
@@ -430,8 +400,6 @@ class PagerRenderer
 
     /**
      * Returns the next page number.
-     *
-     * @return int|null
      */
     public function getNextPageNumber(): ?int
     {

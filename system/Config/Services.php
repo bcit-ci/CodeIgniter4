@@ -93,9 +93,6 @@ class Services extends BaseService
      * The cache class provides a simple way to store and retrieve
      * complex data for later.
      *
-     * @param Cache|null $config
-     * @param bool       $getShared
-     *
      * @return CacheInterface
      */
     public static function cache(?Cache $config = null, bool $getShared = true)
@@ -115,9 +112,6 @@ class Services extends BaseService
      * The CLI Request class provides for ways to interact with
      * a command line request.
      *
-     * @param App|null $config
-     * @param bool     $getShared
-     *
      * @return CLIRequest
      */
     public static function clirequest(?App $config = null, bool $getShared = true)
@@ -136,9 +130,6 @@ class Services extends BaseService
     /**
      * CodeIgniter, the core of the framework.
      *
-     * @param App|null $config
-     * @param bool     $getShared
-     *
      * @return CodeIgniter
      */
     public static function codeigniter(?App $config = null, bool $getShared = true)
@@ -155,8 +146,6 @@ class Services extends BaseService
     /**
      * The commands utility for running and working with CLI commands.
      *
-     * @param bool $getShared
-     *
      * @return Commands
      */
     public static function commands(bool $getShared = true)
@@ -171,11 +160,6 @@ class Services extends BaseService
     /**
      * The CURL Request class acts as a simple HTTP client for interacting
      * with other servers, typically through APIs.
-     *
-     * @param array                  $options
-     * @param ResponseInterface|null $response
-     * @param App|null               $config
-     * @param bool                   $getShared
      *
      * @return CURLRequest
      */
@@ -202,7 +186,6 @@ class Services extends BaseService
      * The Email class allows you to send email via mail, sendmail, SMTP.
      *
      * @param array|EmailConfig|null $config
-     * @param bool                   $getShared
      *
      * @return Email
      */
@@ -222,8 +205,7 @@ class Services extends BaseService
     /**
      * The Encryption class provides two-way encryption.
      *
-     * @param EncryptionConfig|null $config
-     * @param bool                  $getShared
+     * @param bool $getShared
      *
      * @return EncrypterInterface Encryption handler
      */
@@ -247,11 +229,6 @@ class Services extends BaseService
      *  - set_exception_handler
      *  - set_error_handler
      *  - register_shutdown_function
-     *
-     * @param ExceptionsConfig|null $config
-     * @param IncomingRequest|null  $request
-     * @param Response|null         $response
-     * @param bool                  $getShared
      *
      * @return Exceptions
      */
@@ -280,9 +257,6 @@ class Services extends BaseService
      * and actions taken based on the request, while after filters can
      * act on or modify the response itself before it is sent to the client.
      *
-     * @param FiltersConfig|null $config
-     * @param bool               $getShared
-     *
      * @return Filters
      */
     public static function filters(?FiltersConfig $config = null, bool $getShared = true)
@@ -300,9 +274,6 @@ class Services extends BaseService
 
     /**
      * The Format class is a convenient place to create Formatters.
-     *
-     * @param FormatConfig|null $config
-     * @param bool              $getShared
      *
      * @return Format
      */
@@ -323,9 +294,6 @@ class Services extends BaseService
      * The Honeypot provides a secret input on forms that bots should NOT
      * fill in, providing an additional safeguard when accepting user input.
      *
-     * @param HoneypotConfig|null $config
-     * @param bool                $getShared
-     *
      * @return Honeypot
      */
     public static function honeypot(?HoneypotConfig $config = null, bool $getShared = true)
@@ -344,10 +312,6 @@ class Services extends BaseService
     /**
      * Acts as a factory for ImageHandler classes and returns an instance
      * of the handler. Used like Services::image()->withFile($path)->rotate(90)->save();
-     *
-     * @param string|null $handler
-     * @param Images|null $config
-     * @param bool        $getShared
      *
      * @return BaseHandler
      */
@@ -371,8 +335,6 @@ class Services extends BaseService
      * and timing the results and memory usage. Used when debugging and
      * optimizing applications.
      *
-     * @param bool $getShared
-     *
      * @return Iterator
      */
     public static function iterator(bool $getShared = true)
@@ -388,9 +350,6 @@ class Services extends BaseService
 
     /**
      * Responsible for loading the language string translations.
-     *
-     * @param string|null $locale
-     * @param bool        $getShared
      *
      * @return Language
      */
@@ -412,8 +371,6 @@ class Services extends BaseService
      * The Logger class is a PSR-3 compatible Logging class that supports
      * multiple handlers that process the actual logging.
      *
-     * @param bool $getShared
-     *
      * @return Logger
      */
     public static function logger(bool $getShared = true)
@@ -429,10 +386,6 @@ class Services extends BaseService
 
     /**
      * Return the appropriate Migration runner.
-     *
-     * @param Migrations|null          $config
-     * @param ConnectionInterface|null $db
-     * @param bool                     $getShared
      *
      * @return MigrationRunner
      */
@@ -454,9 +407,6 @@ class Services extends BaseService
      * working the request to determine correct language, encoding, charset,
      * and more.
      *
-     * @param RequestInterface|null $request
-     * @param bool                  $getShared
-     *
      * @return Negotiate
      */
     public static function negotiator(?RequestInterface $request = null, bool $getShared = true)
@@ -474,10 +424,6 @@ class Services extends BaseService
 
     /**
      * Return the appropriate pagination handler.
-     *
-     * @param PagerConfig|null       $config
-     * @param RendererInterface|null $view
-     * @param bool                   $getShared
      *
      * @return Pager
      */
@@ -497,10 +443,6 @@ class Services extends BaseService
 
     /**
      * The Parser is a simple template parser.
-     *
-     * @param string|null     $viewPath
-     * @param ViewConfig|null $config
-     * @param bool            $getShared
      *
      * @return Parser
      */
@@ -523,10 +465,6 @@ class Services extends BaseService
      * The default View class within CodeIgniter is intentionally simple, but this
      * service could easily be replaced by a template engine if the user needed to.
      *
-     * @param string|null     $viewPath
-     * @param ViewConfig|null $config
-     * @param bool            $getShared
-     *
      * @return View
      */
     public static function renderer(?string $viewPath = null, ?ViewConfig $config = null, bool $getShared = true)
@@ -545,9 +483,6 @@ class Services extends BaseService
 
     /**
      * The Request class models an HTTP request.
-     *
-     * @param App|null $config
-     * @param bool     $getShared
      *
      * @return IncomingRequest
      */
@@ -572,9 +507,6 @@ class Services extends BaseService
     /**
      * The Response class models an HTTP response.
      *
-     * @param App|null $config
-     * @param bool     $getShared
-     *
      * @return Response
      */
     public static function response(?App $config = null, bool $getShared = true)
@@ -592,9 +524,6 @@ class Services extends BaseService
 
     /**
      * The Redirect class provides nice way of working with redirects.
-     *
-     * @param App|null $config
-     * @param bool     $getShared
      *
      * @return RedirectResponse
      */
@@ -617,8 +546,6 @@ class Services extends BaseService
      * The Routes service is a class that allows for easily building
      * a collection of routes.
      *
-     * @param bool $getShared
-     *
      * @return RouteCollection
      */
     public static function routes(bool $getShared = true)
@@ -635,10 +562,6 @@ class Services extends BaseService
     /**
      * The Router class uses a RouteCollection's array of routes, and determines
      * the correct Controller and Method to execute.
-     *
-     * @param RouteCollectionInterface|null $routes
-     * @param Request|null                  $request
-     * @param bool                          $getShared
      *
      * @return Router
      */
@@ -660,9 +583,6 @@ class Services extends BaseService
      * The Security class provides a few handy tools for keeping the site
      * secure, most notably the CSRF protection tools.
      *
-     * @param App|null $config
-     * @param bool     $getShared
-     *
      * @return Security
      */
     public static function security(?App $config = null, bool $getShared = true)
@@ -680,9 +600,6 @@ class Services extends BaseService
 
     /**
      * Return the session manager.
-     *
-     * @param App|null $config
-     * @param bool     $getShared
      *
      * @return Session
      */
@@ -715,8 +632,6 @@ class Services extends BaseService
      * The Throttler class provides a simple method for implementing
      * rate limiting in your applications.
      *
-     * @param bool $getShared
-     *
      * @return Throttler
      */
     public static function throttler(bool $getShared = true)
@@ -734,8 +649,6 @@ class Services extends BaseService
      * The Timer class provides a simple way to Benchmark portions of your
      * application.
      *
-     * @param bool $getShared
-     *
      * @return Timer
      */
     public static function timer(bool $getShared = true)
@@ -751,9 +664,6 @@ class Services extends BaseService
 
     /**
      * Return the debug toolbar.
-     *
-     * @param ToolbarConfig|null $config
-     * @param bool               $getShared
      *
      * @return Toolbar
      */
@@ -774,7 +684,6 @@ class Services extends BaseService
      * The URI class provides a way to model and manipulate URIs.
      *
      * @param string $uri
-     * @param bool   $getShared
      *
      * @return URI
      */
@@ -791,9 +700,6 @@ class Services extends BaseService
 
     /**
      * The Validation class provides tools for validating input data.
-     *
-     * @param ValidationConfig|null $config
-     * @param bool                  $getShared
      *
      * @return Validation
      */
@@ -814,8 +720,6 @@ class Services extends BaseService
      * View cells are intended to let you insert HTML into view
      * that has been generated by any callable in the system.
      *
-     * @param bool $getShared
-     *
      * @return Cell
      */
     public static function viewcell(bool $getShared = true)
@@ -831,8 +735,6 @@ class Services extends BaseService
 
     /**
      * The Typography class provides a way to format text in semantically relevant ways.
-     *
-     * @param bool $getShared
      *
      * @return Typography
      */

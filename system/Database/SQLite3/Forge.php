@@ -40,8 +40,6 @@ class Forge extends BaseForge
 
     /**
      * Constructor.
-     *
-     * @param BaseConnection $db
      */
     public function __construct(BaseConnection $db)
     {
@@ -58,10 +56,7 @@ class Forge extends BaseForge
     /**
      * Create database
      *
-     * @param string $dbName
-     * @param bool   $ifNotExists Whether to add IF NOT EXISTS condition
-     *
-     * @return bool
+     * @param bool $ifNotExists Whether to add IF NOT EXISTS condition
      */
     public function createDatabase(string $dbName, bool $ifNotExists = false): bool
     {
@@ -75,11 +70,7 @@ class Forge extends BaseForge
     /**
      * Drop database
      *
-     * @param string $dbName
-     *
      * @throws DatabaseException
-     *
-     * @return bool
      */
     public function dropDatabase(string $dbName): bool
     {
@@ -152,10 +143,6 @@ class Forge extends BaseForge
 
     /**
      * Process column
-     *
-     * @param array $field
-     *
-     * @return string
      */
     protected function _processColumn(array $field): string
     {
@@ -176,10 +163,6 @@ class Forge extends BaseForge
 
     /**
      * Process indexes
-     *
-     * @param string $table
-     *
-     * @return array
      */
     protected function _processIndexes(string $table): array
     {
@@ -220,8 +203,6 @@ class Forge extends BaseForge
      *
      * Performs a data type mapping between different databases.
      *
-     * @param array $attributes
-     *
      * @return void
      */
     protected function _attributeType(array &$attributes)
@@ -241,9 +222,6 @@ class Forge extends BaseForge
 
     /**
      * Field attribute AUTO_INCREMENT
-     *
-     * @param array $attributes
-     * @param array $field
      *
      * @return void
      */
@@ -270,8 +248,6 @@ class Forge extends BaseForge
      * @param string $foreignName Foreign name
      *
      * @throws DatabaseException
-     *
-     * @return bool
      */
     public function dropForeignKey(string $table, string $foreignName): bool
     {

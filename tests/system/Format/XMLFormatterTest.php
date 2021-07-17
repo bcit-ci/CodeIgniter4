@@ -91,9 +91,6 @@ final class XMLFormatterTest extends CIUnitTestCase
     }
 
     /**
-     * @param string $expected
-     * @param array  $input
-     *
      * @dataProvider invalidTagsProvider
      */
     public function testValidatingInvalidTags(string $expected, array $input)

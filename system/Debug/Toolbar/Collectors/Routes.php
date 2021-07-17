@@ -51,8 +51,6 @@ class Routes extends BaseCollector
      * Returns the data of this collector to be formatted in the toolbar
      *
      * @throws ReflectionException
-     *
-     * @return array
      */
     public function display(): array
     {
@@ -139,8 +137,6 @@ class Routes extends BaseCollector
 
     /**
      * Returns a count of all the routes in the system.
-     *
-     * @return int
      */
     public function getBadgeValue(): int
     {
@@ -155,8 +151,6 @@ class Routes extends BaseCollector
      * Display the icon.
      *
      * Icon from https://icons8.com - 1em package
-     *
-     * @return string
      */
     public function icon(): string
     {
