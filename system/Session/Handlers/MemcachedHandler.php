@@ -53,9 +53,6 @@ class MemcachedHandler extends BaseHandler
     /**
      * Constructor
      *
-     * @param AppConfig $config
-     * @param string    $ipAddress
-     *
      * @throws SessionException
      */
     public function __construct(AppConfig $config, string $ipAddress)
@@ -86,8 +83,6 @@ class MemcachedHandler extends BaseHandler
      *
      * @param string $savePath Server path(s)
      * @param string $name     Session cookie name, unused
-     *
-     * @return bool
      */
     public function open($savePath, $name): bool
     {
@@ -169,8 +164,6 @@ class MemcachedHandler extends BaseHandler
      *
      * @param string $sessionID   Session ID
      * @param string $sessionData Serialized session data
-     *
-     * @return bool
      */
     public function write($sessionID, $sessionData): bool
     {
@@ -213,8 +206,6 @@ class MemcachedHandler extends BaseHandler
      * Close
      *
      * Releases locks and closes connection.
-     *
-     * @return bool
      */
     public function close(): bool
     {
@@ -243,8 +234,6 @@ class MemcachedHandler extends BaseHandler
      * Destroys the current session.
      *
      * @param string $sessionId Session ID
-     *
-     * @return bool
      */
     public function destroy($sessionId): bool
     {
@@ -265,8 +254,6 @@ class MemcachedHandler extends BaseHandler
      * Deletes expired sessions
      *
      * @param int $maxlifetime Maximum lifetime of sessions
-     *
-     * @return bool
      */
     public function gc($maxlifetime): bool
     {
@@ -282,8 +269,6 @@ class MemcachedHandler extends BaseHandler
      * Acquires an (emulated) lock.
      *
      * @param string $sessionID Session ID
-     *
-     * @return bool
      */
     protected function lockSession(string $sessionID): bool
     {
@@ -329,8 +314,6 @@ class MemcachedHandler extends BaseHandler
      * Release lock
      *
      * Releases a previously acquired lock
-     *
-     * @return bool
      */
     protected function releaseLock(): bool
     {

@@ -24,8 +24,6 @@ class Result extends BaseResult
 {
     /**
      * Gets the number of fields in the result set.
-     *
-     * @return int
      */
     public function getFieldCount(): int
     {
@@ -36,8 +34,6 @@ class Result extends BaseResult
 
     /**
      * Generates an array of column names in the result set.
-     *
-     * @return array
      */
     public function getFieldNames(): array
     {
@@ -54,8 +50,6 @@ class Result extends BaseResult
 
     /**
      * Generates an array of objects representing field meta-data.
-     *
-     * @return array
      */
     public function getFieldData(): array
     {
@@ -106,8 +100,6 @@ class Result extends BaseResult
      * internally before fetching results to make sure the result set
      * starts at zero.
      *
-     * @param int $n
-     *
      * @throws DatabaseException
      *
      * @return mixed
@@ -141,8 +133,6 @@ class Result extends BaseResult
      * Returns the result set as an object.
      *
      * Overridden by child classes.
-     *
-     * @param string $className
      *
      * @return bool|object
      */

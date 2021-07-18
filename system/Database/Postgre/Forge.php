@@ -64,8 +64,6 @@ class Forge extends BaseForge
      * CREATE TABLE attributes
      *
      * @param array $attributes Associative array of table attributes
-     *
-     * @return string
      */
     protected function _createTableAttributes(array $attributes): string
     {
@@ -131,10 +129,6 @@ class Forge extends BaseForge
 
     /**
      * Process column
-     *
-     * @param array $field
-     *
-     * @return string
      */
     protected function _processColumn(array $field): string
     {
@@ -152,8 +146,6 @@ class Forge extends BaseForge
      * Field attribute TYPE
      *
      * Performs a data type mapping between different databases.
-     *
-     * @param array $attributes
      *
      * @return void
      */
@@ -189,9 +181,6 @@ class Forge extends BaseForge
     /**
      * Field attribute AUTO_INCREMENT
      *
-     * @param array $attributes
-     * @param array $field
-     *
      * @return void
      */
     protected function _attributeAutoIncrement(array &$attributes, array &$field)
@@ -210,9 +199,6 @@ class Forge extends BaseForge
      *
      * @param string $table    Table name
      * @param bool   $ifExists Whether to add an IF EXISTS condition
-     * @param bool   $cascade
-     *
-     * @return string
      */
     protected function _dropTable(string $table, bool $ifExists, bool $cascade): string
     {

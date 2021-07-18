@@ -29,9 +29,6 @@ class SeeInDatabase extends Constraint
 
     /**
      * SeeInDatabase constructor.
-     *
-     * @param ConnectionInterface $db
-     * @param array               $data
      */
     public function __construct(ConnectionInterface $db, array $data)
     {
@@ -43,8 +40,6 @@ class SeeInDatabase extends Constraint
      * Check if data is found in the table
      *
      * @param mixed $table
-     *
-     * @return bool
      */
     public function matches($table): bool
     {
@@ -55,8 +50,6 @@ class SeeInDatabase extends Constraint
      * Get the description of the failure
      *
      * @param mixed $table
-     *
-     * @return string
      */
     public function failureDescription($table): string
     {
@@ -70,10 +63,6 @@ class SeeInDatabase extends Constraint
 
     /**
      * Gets additional records similar to $data.
-     *
-     * @param string $table
-     *
-     * @return string
      */
     protected function getAdditionalInfo(string $table): string
     {
@@ -112,8 +101,6 @@ class SeeInDatabase extends Constraint
      * Gets a string representation of the constraint
      *
      * @param int $options
-     *
-     * @return string
      */
     public function toString($options = 0): string
     {

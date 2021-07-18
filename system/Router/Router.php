@@ -107,8 +107,7 @@ class Router implements RouterInterface
     /**
      * Stores a reference to the RouteCollection object.
      *
-     * @param RouteCollectionInterface $routes
-     * @param Request                  $request
+     * @param Request $request
      */
     public function __construct(RouteCollectionInterface $routes, ?Request $request = null)
     {
@@ -124,8 +123,6 @@ class Router implements RouterInterface
     //--------------------------------------------------------------------
 
     /**
-     * @param string|null $uri
-     *
      * @throws PageNotFoundException
      * @throws RedirectException
      *
@@ -200,8 +197,6 @@ class Router implements RouterInterface
     /**
      * Returns the name of the method to run in the
      * chosen container.
-     *
-     * @return string
      */
     public function methodName(): string
     {
@@ -242,8 +237,6 @@ class Router implements RouterInterface
      * Returns the binds that have been matched and collected
      * during the parsing process as an array, ready to send to
      * instance->method(...$params).
-     *
-     * @return array
      */
     public function params(): array
     {
@@ -257,8 +250,6 @@ class Router implements RouterInterface
      * if any. Relative to APPPATH.'Controllers'.
      *
      * Only used when auto-routing is turned on.
-     *
-     * @return string
      */
     public function directory(): string
     {
@@ -475,8 +466,6 @@ class Router implements RouterInterface
     /**
      * Attempts to match a URI path against Controllers and directories
      * found in APPPATH/Controllers, to find a matching route.
-     *
-     * @param string $uri
      */
     public function autoRoute(string $uri)
     {
@@ -620,9 +609,7 @@ class Router implements RouterInterface
     /**
      * Sets the sub-directory that the controller is in.
      *
-     * @param string|null $dir
-     * @param bool        $append
-     * @param bool        $validate if true, checks to make sure $dir consists of only PSR4 compliant segments
+     * @param bool $validate if true, checks to make sure $dir consists of only PSR4 compliant segments
      */
     public function setDirectory(?string $dir = null, bool $append = false, bool $validate = true)
     {
@@ -653,10 +640,6 @@ class Router implements RouterInterface
      * Returns true if the supplied $segment string represents a valid PSR-4 compliant namespace/directory segment
      *
      * regex comes from https://www.php.net/manual/en/language.variables.basics.php
-     *
-     * @param string $segment
-     *
-     * @return bool
      */
     private function isValidSegment(string $segment): bool
     {

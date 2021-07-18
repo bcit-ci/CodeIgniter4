@@ -43,10 +43,6 @@ class GDHandler extends BaseHandler
     /**
      * Handles the rotation of an image resource.
      * Doesn't save the image, but replaces the current resource.
-     *
-     * @param int $angle
-     *
-     * @return bool
      */
     protected function _rotate(int $angle): bool
     {
@@ -75,10 +71,6 @@ class GDHandler extends BaseHandler
 
     /**
      * Flattens transparencies
-     *
-     * @param int $red
-     * @param int $green
-     * @param int $blue
      *
      * @return $this
      */
@@ -112,8 +104,6 @@ class GDHandler extends BaseHandler
 
     /**
      * Flips an image along it's vertical or horizontal axis.
-     *
-     * @param string $direction
      *
      * @return $this
      */
@@ -177,8 +167,6 @@ class GDHandler extends BaseHandler
     /**
      * Handles all of the grunt work of resizing, etc.
      *
-     * @param string $action
-     *
      * @return $this
      */
     protected function process(string $action)
@@ -235,11 +223,6 @@ class GDHandler extends BaseHandler
      * Example:
      *    $image->resize(100, 200, true)
      *          ->save();
-     *
-     * @param string|null $target
-     * @param int         $quality
-     *
-     * @return bool
      */
     public function save(?string $target = null, int $quality = 90): bool
     {
@@ -320,9 +303,6 @@ class GDHandler extends BaseHandler
      *
      * This simply creates an image resource handle
      * based on the type of image being processed
-     *
-     * @param string $path
-     * @param string $imageType
      *
      * @return bool|resource
      */
@@ -412,9 +392,6 @@ class GDHandler extends BaseHandler
     /**
      * Add text overlay to an image.
      *
-     * @param string $text
-     * @param array  $options
-     *
      * @return void
      */
     protected function _text(string $text, array $options = [])
@@ -494,9 +471,7 @@ class GDHandler extends BaseHandler
     /**
      * Handler-specific method for overlaying text on an image.
      *
-     * @param string $text
-     * @param array  $options
-     * @param bool   $isShadow Whether we are drawing the dropshadow or actual text
+     * @param bool $isShadow Whether we are drawing the dropshadow or actual text
      *
      * @return void
      */

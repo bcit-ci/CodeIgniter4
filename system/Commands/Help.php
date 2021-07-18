@@ -70,8 +70,6 @@ class Help extends BaseCommand
 
     /**
      * Displays the help for spark commands.
-     *
-     * @param array $params
      */
     public function run(array $params)
     {

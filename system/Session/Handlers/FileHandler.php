@@ -66,9 +66,6 @@ class FileHandler extends BaseHandler
 
     /**
      * Constructor
-     *
-     * @param AppConfig $config
-     * @param string    $ipAddress
      */
     public function __construct(AppConfig $config, string $ipAddress)
     {
@@ -103,8 +100,6 @@ class FileHandler extends BaseHandler
      * @param string $name     Session cookie name
      *
      * @throws Exception
-     *
-     * @return bool
      */
     public function open($savePath, $name): bool
     {
@@ -196,8 +191,6 @@ class FileHandler extends BaseHandler
      *
      * @param string $sessionID   Session ID
      * @param string $sessionData Serialized session data
-     *
-     * @return bool
      */
     public function write($sessionID, $sessionData): bool
     {
@@ -247,8 +240,6 @@ class FileHandler extends BaseHandler
      * Close
      *
      * Releases locks and closes file descriptor.
-     *
-     * @return bool
      */
     public function close(): bool
     {
@@ -273,8 +264,6 @@ class FileHandler extends BaseHandler
      * Destroys the current session.
      *
      * @param string $sessionId Session ID
-     *
-     * @return bool
      */
     public function destroy($sessionId): bool
     {
@@ -301,8 +290,6 @@ class FileHandler extends BaseHandler
      * Deletes expired sessions
      *
      * @param int $maxlifetime Maximum lifetime of sessions
-     *
-     * @return bool
      */
     public function gc($maxlifetime): bool
     {

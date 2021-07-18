@@ -53,8 +53,6 @@ class Logs extends BaseCollector
 
     /**
      * Returns the data of this collector to be formatted in the toolbar
-     *
-     * @return array
      */
     public function display(): array
     {
@@ -67,8 +65,6 @@ class Logs extends BaseCollector
 
     /**
      * Does this collector actually have any data to display?
-     *
-     * @return bool
      */
     public function isEmpty(): bool
     {
@@ -83,8 +79,6 @@ class Logs extends BaseCollector
      * Display the icon.
      *
      * Icon from https://icons8.com - 1em package
-     *
-     * @return string
      */
     public function icon(): string
     {

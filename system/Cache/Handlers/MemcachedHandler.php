@@ -45,8 +45,6 @@ class MemcachedHandler extends BaseHandler
 
     /**
      * Constructor.
-     *
-     * @param Cache $config
      */
     public function __construct(Cache $config)
     {
@@ -340,8 +338,6 @@ class MemcachedHandler extends BaseHandler
 
     /**
      * Determines if the driver is supported on this system.
-     *
-     * @return bool
      */
     public function isSupported(): bool
     {

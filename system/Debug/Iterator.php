@@ -40,9 +40,6 @@ class Iterator
      * Tests are simply closures that the user can define any sequence of
      * things to happen during the test.
      *
-     * @param string  $name
-     * @param Closure $closure
-     *
      * @return $this
      */
     public function add(string $name, Closure $closure)
@@ -60,9 +57,6 @@ class Iterator
      * Runs through all of the tests that have been added, recording
      * time to execute the desired number of iterations, and the approximate
      * memory usage used during those iterations.
-     *
-     * @param int  $iterations
-     * @param bool $output
      *
      * @return string|null
      */
@@ -100,8 +94,6 @@ class Iterator
 
     /**
      * Get results.
-     *
-     * @return string
      */
     public function getReport(): string
     {

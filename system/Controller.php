@@ -71,10 +71,6 @@ class Controller
     /**
      * Constructor.
      *
-     * @param RequestInterface  $request
-     * @param ResponseInterface $response
-     * @param LoggerInterface   $logger
-     *
      * @throws HTTPException
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
@@ -115,8 +111,6 @@ class Controller
     /**
      * Provides a simple way to tie into the main CodeIgniter class and
      * tell it how long to cache the current page for.
-     *
-     * @param int $time
      */
     protected function cachePage(int $time)
     {
@@ -149,8 +143,6 @@ class Controller
      *
      * @param array|string $rules
      * @param array        $messages An array of custom error messages
-     *
-     * @return bool
      */
     protected function validate($rules, array $messages = []): bool
     {

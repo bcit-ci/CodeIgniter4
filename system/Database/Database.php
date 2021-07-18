@@ -37,9 +37,6 @@ class Database
      * Parses the connection binds and returns an instance of the driver
      * ready to go.
      *
-     * @param array  $params
-     * @param string $alias
-     *
      * @throws InvalidArgumentException
      *
      * @return mixed
@@ -72,10 +69,6 @@ class Database
 
     /**
      * Creates a Forge instance for the current database type.
-     *
-     * @param ConnectionInterface $db
-     *
-     * @return object
      */
     public function loadForge(ConnectionInterface $db): object
     {
@@ -91,10 +84,6 @@ class Database
 
     /**
      * Creates a Utils instance for the current database type.
-     *
-     * @param ConnectionInterface $db
-     *
-     * @return object
      */
     public function loadUtils(ConnectionInterface $db): object
     {
@@ -111,11 +100,7 @@ class Database
     /**
      * Parse universal DSN string
      *
-     * @param array $params
-     *
      * @throws InvalidArgumentException
-     *
-     * @return array
      */
     protected function parseDSN(array $params): array
     {
@@ -159,8 +144,6 @@ class Database
      * @param string       $driver   Database driver name (e.g. 'MySQLi')
      * @param string       $class    Database class name (e.g. 'Forge')
      * @param array|object $argument
-     *
-     * @return object
      */
     protected function initDriver(string $driver, string $class, $argument): object
     {

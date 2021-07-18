@@ -171,11 +171,6 @@ class CreditCardRules
      *  $rules = [
      *      'cc_num' => 'valid_cc_number[visa]'
      *  ];
-     *
-     * @param string|null $ccNumber
-     * @param string      $type
-     *
-     * @return bool
      */
     public function valid_cc_number(?string $ccNumber, string $type): bool
     {
@@ -247,8 +242,6 @@ class CreditCardRules
      * Checks the given number to see if the number passing a Luhn check.
      *
      * @param string $number
-     *
-     * @return bool
      */
     protected function isValidLuhn(?string $number = null): bool
     {

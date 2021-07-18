@@ -69,8 +69,6 @@ interface SessionInterface
      * Returns whether an index exists in the session array.
      *
      * @param string $key Identifier of the session property we are interested in.
-     *
-     * @return bool
      */
     public function has(string $key): bool;
 
@@ -215,8 +213,6 @@ interface SessionInterface
 
     /**
      * Retrieve the keys of all session data that have been marked as temporary data.
-     *
-     * @return array
      */
     public function getTempKeys(): array;
 

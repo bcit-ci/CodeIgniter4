@@ -34,8 +34,6 @@ abstract class BaseHandler implements HandlerInterface
 
     /**
      * Constructor
-     *
-     * @param array $config
      */
     public function __construct(array $config)
     {
@@ -47,10 +45,6 @@ abstract class BaseHandler implements HandlerInterface
     /**
      * Checks whether the Handler will handle logging items of this
      * log Level.
-     *
-     * @param string $level
-     *
-     * @return bool
      */
     public function canHandle(string $level): bool
     {
@@ -67,8 +61,6 @@ abstract class BaseHandler implements HandlerInterface
      *
      * @param string $level
      * @param string $message
-     *
-     * @return bool
      */
     abstract public function handle($level, $message): bool;
 
@@ -76,10 +68,6 @@ abstract class BaseHandler implements HandlerInterface
 
     /**
      * Stores the date format to use while logging messages.
-     *
-     * @param string $format
-     *
-     * @return HandlerInterface
      */
     public function setDateFormat(string $format): HandlerInterface
     {

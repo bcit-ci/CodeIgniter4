@@ -23,10 +23,7 @@ if (! function_exists('ul')) {
      * Generates an HTML unordered list from an single or
      * multi-dimensional array.
      *
-     * @param array $list
      * @param mixed $attributes HTML attributes string, array, object
-     *
-     * @return string
      */
     function ul(array $list, $attributes = ''): string
     {
@@ -42,10 +39,7 @@ if (! function_exists('ol')) {
      *
      * Generates an HTML ordered list from an single or multi-dimensional array.
      *
-     * @param array $list
      * @param mixed $attributes HTML attributes string, array, object
-     *
-     * @return string
      */
     function ol(array $list, $attributes = ''): string
     {
@@ -61,12 +55,8 @@ if (! function_exists('_list')) {
      *
      * Generates an HTML ordered list from an single or multi-dimensional array.
      *
-     * @param string $type
-     * @param mixed  $list
-     * @param mixed  $attributes string, array, object
-     * @param int    $depth
-     *
-     * @return string
+     * @param mixed $list
+     * @param mixed $attributes string, array, object
      */
     function _list(string $type = 'ul', $list = [], $attributes = '', int $depth = 0): string
     {
@@ -109,8 +99,6 @@ if (! function_exists('img')) {
      * @param array|string        $src        Image source URI, or array of attributes and values
      * @param bool                $indexPage  Whether to treat $src as a routed URI string
      * @param array|object|string $attributes Additional HTML attributes
-     *
-     * @return string
      */
     function img($src = '', bool $indexPage = false, $attributes = ''): string
     {
@@ -159,8 +147,6 @@ if (! function_exists('img_data')) {
      *
      * @param string      $path Image source path
      * @param string|null $mime MIME type to use, or null to guess
-     *
-     * @return string
      */
     function img_data(string $path, ?string $mime = null): string
     {
@@ -196,8 +182,6 @@ if (! function_exists('doctype')) {
      * All values are saved in the doctypes config file.
      *
      * @param string $type The doctype to be generated
-     *
-     * @return string
      */
     function doctype(string $type = 'html5'): string
     {
@@ -218,8 +202,6 @@ if (! function_exists('script_tag')) {
      *
      * @param mixed $src       Script source or an array
      * @param bool  $indexPage Should indexPage be added to the JS path
-     *
-     * @return string
      */
     function script_tag($src = '', bool $indexPage = false): string
     {
@@ -252,15 +234,8 @@ if (! function_exists('link_tag')) {
      *
      * Generates link to a CSS file
      *
-     * @param mixed  $href      Stylesheet href or an array
-     * @param string $rel
-     * @param string $type
-     * @param string $title
-     * @param string $media
-     * @param bool   $indexPage should indexPage be added to the CSS path.
-     * @param string $hreflang
-     *
-     * @return string
+     * @param mixed $href      Stylesheet href or an array
+     * @param bool  $indexPage should indexPage be added to the CSS path.
      */
     function link_tag($href = '', string $rel = 'stylesheet', string $type = 'text/css', string $title = '', string $media = '', bool $indexPage = false, string $hreflang = ''): string
     {
@@ -321,10 +296,6 @@ if (! function_exists('video')) {
      * @param mixed  $src                Either a source string or an array of sources
      * @param string $unsupportedMessage The message to display if the media tag is not supported by the browser
      * @param string $attributes         HTML attributes
-     * @param array  $tracks
-     * @param bool   $indexPage
-     *
-     * @return string
      */
     function video($src, string $unsupportedMessage = '', string $attributes = '', array $tracks = [], bool $indexPage = false): string
     {
@@ -375,10 +346,6 @@ if (! function_exists('audio')) {
      * @param mixed  $src                Either a source string or an array of sources
      * @param string $unsupportedMessage The message to display if the media tag is not supported by the browser.
      * @param string $attributes         HTML attributes
-     * @param array  $tracks
-     * @param bool   $indexPage
-     *
-     * @return string
      */
     function audio($src, string $unsupportedMessage = '', string $attributes = '', array $tracks = [], bool $indexPage = false): string
     {
@@ -422,13 +389,7 @@ if (! function_exists('_media')) {
     /**
      * Generate media based tag
      *
-     * @param string $name
-     * @param array  $types
      * @param string $unsupportedMessage The message to display if the media tag is not supported by the browser.
-     * @param string $attributes
-     * @param array  $tracks
-     *
-     * @return string
      */
     function _media(string $name, array $types = [], string $unsupportedMessage = '', string $attributes = '', array $tracks = []): string
     {
@@ -472,9 +433,6 @@ if (! function_exists('source')) {
      * @param string $src        The path of the media resource
      * @param string $type       The MIME-type of the resource with optional codecs parameters
      * @param string $attributes HTML attributes
-     * @param bool   $indexPage
-     *
-     * @return string
      */
     function source(string $src, string $type = 'unknown', string $attributes = '', bool $indexPage = false): string
     {
@@ -502,12 +460,7 @@ if (! function_exists('track')) {
      * Generates a track element to specify timed tracks. The tracks are
      * formatted in WebVTT format.
      *
-     * @param string $src         The path of the .VTT file
-     * @param string $kind
-     * @param string $srcLanguage
-     * @param string $label
-     *
-     * @return string
+     * @param string $src The path of the .VTT file
      */
     function track(string $src, string $kind, string $srcLanguage, string $label): string
     {
@@ -532,10 +485,6 @@ if (! function_exists('object')) {
      * @param string $data       A resource URL
      * @param string $type       Content-type of the resource
      * @param string $attributes HTML attributes
-     * @param array  $params
-     * @param bool   $indexPage
-     *
-     * @return string
      */
     function object(string $data, string $type = 'unknown', string $attributes = '', array $params = [], bool $indexPage = false): string
     {
@@ -571,8 +520,6 @@ if (! function_exists('param')) {
      * @param string $value      The value of the parameter
      * @param string $type       The MIME-type
      * @param string $attributes HTML attributes
-     *
-     * @return string
      */
     function param(string $name, string $value, string $type = 'ref', string $attributes = ''): string
     {
@@ -594,9 +541,6 @@ if (! function_exists('embed')) {
      * @param string $src        The path of the resource to embed
      * @param string $type       MIME-type
      * @param string $attributes HTML attributes
-     * @param bool   $indexPage
-     *
-     * @return string
      */
     function embed(string $src, string $type = 'unknown', string $attributes = '', bool $indexPage = false): string
     {
@@ -616,8 +560,6 @@ if (! function_exists('_has_protocol')) {
     /**
      * Test the protocol of a URI.
      *
-     * @param string $url
-     *
      * @return false|int
      */
     function _has_protocol(string $url)
@@ -631,10 +573,6 @@ if (! function_exists('_has_protocol')) {
 if (! function_exists('_space_indent')) {
     /**
      * Provide space indenting.
-     *
-     * @param int $depth
-     *
-     * @return string
      */
     function _space_indent(int $depth = 2): string
     {

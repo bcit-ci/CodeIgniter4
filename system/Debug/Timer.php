@@ -111,8 +111,6 @@ class Timer
      * Returns the array of timers, with the duration pre-calculated for you.
      *
      * @param int $decimals Number of decimal places
-     *
-     * @return array
      */
     public function getTimers(int $decimals = 4): array
     {
@@ -133,10 +131,6 @@ class Timer
 
     /**
      * Checks whether or not a timer with the specified name exists.
-     *
-     * @param string $name
-     *
-     * @return bool
      */
     public function has(string $name): bool
     {

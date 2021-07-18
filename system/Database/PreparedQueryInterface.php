@@ -32,8 +32,7 @@ interface PreparedQueryInterface
      * Prepares the query against the database, and saves the connection
      * info necessary to execute the query later.
      *
-     * @param string $sql
-     * @param array  $options Passed to the connection's prepare statement.
+     * @param array $options Passed to the connection's prepare statement.
      *
      * @return mixed
      */
@@ -50,8 +49,6 @@ interface PreparedQueryInterface
 
     /**
      * Returns the SQL that has been prepared.
-     *
-     * @return string
      */
     public function getQueryString(): string;
 
@@ -59,8 +56,6 @@ interface PreparedQueryInterface
 
     /**
      * Returns the error code created while executing this statement.
-     *
-     * @return int
      */
     public function getErrorCode(): int;
 
@@ -68,8 +63,6 @@ interface PreparedQueryInterface
 
     /**
      * Returns the error message created while executing this statement.
-     *
-     * @return string
      */
     public function getErrorMessage(): string;
 

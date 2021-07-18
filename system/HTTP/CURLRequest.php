@@ -81,10 +81,7 @@ class CURLRequest extends Request
      *  - timeout
      *  - any other request options to use as defaults.
      *
-     * @param App               $config
-     * @param URI               $uri
      * @param ResponseInterface $response
-     * @param array             $options
      */
     public function __construct(App $config, URI $uri, ?ResponseInterface $response = null, array $options = [])
     {
@@ -110,10 +107,6 @@ class CURLRequest extends Request
      * URL, it will be merged with $this->baseURI to form a complete URL.
      *
      * @param string $method
-     * @param string $url
-     * @param array  $options
-     *
-     * @return ResponseInterface
      */
     public function request($method, string $url, array $options = []): ResponseInterface
     {
@@ -132,11 +125,6 @@ class CURLRequest extends Request
 
     /**
      * Convenience method for sending a GET request.
-     *
-     * @param string $url
-     * @param array  $options
-     *
-     * @return ResponseInterface
      */
     public function get(string $url, array $options = []): ResponseInterface
     {
@@ -147,11 +135,6 @@ class CURLRequest extends Request
 
     /**
      * Convenience method for sending a DELETE request.
-     *
-     * @param string $url
-     * @param array  $options
-     *
-     * @return ResponseInterface
      */
     public function delete(string $url, array $options = []): ResponseInterface
     {
@@ -162,11 +145,6 @@ class CURLRequest extends Request
 
     /**
      * Convenience method for sending a HEAD request.
-     *
-     * @param string $url
-     * @param array  $options
-     *
-     * @return ResponseInterface
      */
     public function head(string $url, array $options = []): ResponseInterface
     {
@@ -177,11 +155,6 @@ class CURLRequest extends Request
 
     /**
      * Convenience method for sending an OPTIONS request.
-     *
-     * @param string $url
-     * @param array  $options
-     *
-     * @return ResponseInterface
      */
     public function options(string $url, array $options = []): ResponseInterface
     {
@@ -192,11 +165,6 @@ class CURLRequest extends Request
 
     /**
      * Convenience method for sending a PATCH request.
-     *
-     * @param string $url
-     * @param array  $options
-     *
-     * @return ResponseInterface
      */
     public function patch(string $url, array $options = []): ResponseInterface
     {
@@ -207,11 +175,6 @@ class CURLRequest extends Request
 
     /**
      * Convenience method for sending a POST request.
-     *
-     * @param string $url
-     * @param array  $options
-     *
-     * @return ResponseInterface
      */
     public function post(string $url, array $options = []): ResponseInterface
     {
@@ -222,11 +185,6 @@ class CURLRequest extends Request
 
     /**
      * Convenience method for sending a PUT request.
-     *
-     * @param string $url
-     * @param array  $options
-     *
-     * @return ResponseInterface
      */
     public function put(string $url, array $options = []): ResponseInterface
     {
@@ -238,9 +196,7 @@ class CURLRequest extends Request
     /**
      * Set the HTTP Authentication.
      *
-     * @param string $username
-     * @param string $password
-     * @param string $type     basic or digest
+     * @param string $type basic or digest
      *
      * @return $this
      */
@@ -260,8 +216,7 @@ class CURLRequest extends Request
     /**
      * Set form data to be sent.
      *
-     * @param array $params
-     * @param bool  $multipart Set TRUE if you are sending CURLFiles
+     * @param bool $multipart Set TRUE if you are sending CURLFiles
      *
      * @return $this
      */
@@ -297,8 +252,6 @@ class CURLRequest extends Request
     /**
      * Sets the correct settings based on the options array
      * passed in.
-     *
-     * @param array $options
      */
     protected function parseOptions(array $options)
     {
@@ -332,10 +285,6 @@ class CURLRequest extends Request
     /**
      * If the $url is a relative URL, will attempt to create
      * a full URL by prepending $this->baseURI to it.
-     *
-     * @param string $url
-     *
-     * @return string
      */
     protected function prepareURL(string $url): string
     {
@@ -357,8 +306,6 @@ class CURLRequest extends Request
      * since users expect a different answer here.
      *
      * @param bool|false $upper Whether to return in upper or lower case.
-     *
-     * @return string
      */
     public function getMethod(bool $upper = false): string
     {
@@ -369,9 +316,6 @@ class CURLRequest extends Request
 
     /**
      * Fires the actual cURL request.
-     *
-     * @param string $method
-     * @param string $url
      *
      * @return ResponseInterface
      */
@@ -442,10 +386,6 @@ class CURLRequest extends Request
     /**
      * Takes all headers current part of this request and adds them
      * to the cURL request.
-     *
-     * @param array $curlOptions
-     *
-     * @return array
      */
     protected function applyRequestHeaders(array $curlOptions = []): array
     {
@@ -477,11 +417,6 @@ class CURLRequest extends Request
 
     /**
      * Apply method
-     *
-     * @param string $method
-     * @param array  $curlOptions
-     *
-     * @return array
      */
     protected function applyMethod(string $method, array $curlOptions): array
     {
@@ -513,10 +448,6 @@ class CURLRequest extends Request
 
     /**
      * Apply body
-     *
-     * @param array $curlOptions
-     *
-     * @return array
      */
     protected function applyBody(array $curlOptions = []): array
     {
@@ -532,8 +463,6 @@ class CURLRequest extends Request
     /**
      * Parses the header retrieved from the cURL response into
      * our Response object.
-     *
-     * @param array $headers
      */
     protected function setResponseHeaders(array $headers = [])
     {
@@ -561,9 +490,6 @@ class CURLRequest extends Request
 
     /**
      * Set CURL options
-     *
-     * @param array $curlOptions
-     * @param array $config
      *
      * @throws InvalidArgumentException
      *
@@ -725,10 +651,6 @@ class CURLRequest extends Request
      * and grabbing the output.
      *
      * @codeCoverageIgnore
-     *
-     * @param array $curlOptions
-     *
-     * @return string
      */
     protected function sendRequest(array $curlOptions = []): string
     {

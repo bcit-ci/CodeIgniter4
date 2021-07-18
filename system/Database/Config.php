@@ -89,8 +89,6 @@ class Config extends BaseConfig
 
     /**
      * Returns an array of all db connections currently made.
-     *
-     * @return array
      */
     public static function getConnections(): array
     {
@@ -132,8 +130,6 @@ class Config extends BaseConfig
 
     /**
      * Returns a new instance of the Database Seeder.
-     *
-     * @param string|null $group
      *
      * @return Seeder
      */

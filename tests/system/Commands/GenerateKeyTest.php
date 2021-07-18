@@ -49,8 +49,6 @@ final class GenerateKeyTest extends CIUnitTestCase
 
     /**
      * Gets buffer contents then releases it.
-     *
-     * @return string
      */
     protected function getBuffer(): string
     {

@@ -84,9 +84,6 @@ class Language
 
     //--------------------------------------------------------------------
 
-    /**
-     * @return string
-     */
     public function getLocale(): string
     {
         return $this->locale;
@@ -172,11 +169,6 @@ class Language
     /**
      * Parses the language string which should include the
      * filename as the first segment (separated by period).
-     *
-     * @param string $line
-     * @param string $locale
-     *
-     * @return array
      */
     protected function parseLine(string $line, string $locale): array
     {
@@ -227,10 +219,6 @@ class Language
      * will return the file's contents, otherwise will merge with
      * the existing language lines.
      *
-     * @param string $file
-     * @param string $locale
-     * @param bool   $return
-     *
      * @return array|void
      */
     protected function load(string $file, string $locale, bool $return = false)
@@ -271,10 +259,6 @@ class Language
     /**
      * A simple method for including files that can be
      * overridden during testing.
-     *
-     * @param string $path
-     *
-     * @return array
      */
     protected function requireFile(string $path): array
     {

@@ -70,9 +70,7 @@ class Time extends DateTime
     /**
      * Time constructor.
      *
-     * @param string|null              $time
      * @param DateTimeZone|string|null $timezone
-     * @param string|null              $locale
      *
      * @throws Exception
      */
@@ -111,7 +109,6 @@ class Time extends DateTime
      * Returns a new Time instance with the timezone set.
      *
      * @param DateTimeZone|string|null $timezone
-     * @param string|null              $locale
      *
      * @throws Exception
      *
@@ -130,9 +127,7 @@ class Time extends DateTime
      * Example:
      *  $time = Time::parse('first day of December 2008');
      *
-     * @param string                   $datetime
      * @param DateTimeZone|string|null $timezone
-     * @param string|null              $locale
      *
      * @throws Exception
      *
@@ -149,7 +144,6 @@ class Time extends DateTime
      * Return a new time with the time set to midnight.
      *
      * @param DateTimeZone|string|null $timezone
-     * @param string|null              $locale
      *
      * @throws Exception
      *
@@ -166,7 +160,6 @@ class Time extends DateTime
      * Returns an instance set to midnight yesterday morning.
      *
      * @param DateTimeZone|string|null $timezone
-     * @param string|null              $locale
      *
      * @throws Exception
      *
@@ -183,7 +176,6 @@ class Time extends DateTime
      * Returns an instance set to midnight tomorrow morning.
      *
      * @param DateTimeZone|string|null $timezone
-     * @param string|null              $locale
      *
      * @throws Exception
      *
@@ -200,11 +192,7 @@ class Time extends DateTime
      * Returns a new instance based on the year, month and day. If any of those three
      * are left empty, will default to the current value.
      *
-     * @param int|null                 $year
-     * @param int|null                 $month
-     * @param int|null                 $day
      * @param DateTimeZone|string|null $timezone
-     * @param string|null              $locale
      *
      * @throws Exception
      *
@@ -220,11 +208,7 @@ class Time extends DateTime
     /**
      * Returns a new instance with the date set to today, and the time set to the values passed in.
      *
-     * @param int|null                 $hour
-     * @param int|null                 $minutes
-     * @param int|null                 $seconds
      * @param DateTimeZone|string|null $timezone
-     * @param string|null              $locale
      *
      * @throws Exception
      *
@@ -240,14 +224,7 @@ class Time extends DateTime
     /**
      * Returns a new instance with the date time values individually set.
      *
-     * @param int|null                 $year
-     * @param int|null                 $month
-     * @param int|null                 $day
-     * @param int|null                 $hour
-     * @param int|null                 $minutes
-     * @param int|null                 $seconds
      * @param DateTimeZone|string|null $timezone
-     * @param string|null              $locale
      *
      * @throws Exception
      *
@@ -293,9 +270,7 @@ class Time extends DateTime
     /**
      * Returns a new instance with the datetime set based on the provided UNIX timestamp.
      *
-     * @param int                      $timestamp
      * @param DateTimeZone|string|null $timezone
-     * @param string|null              $locale
      *
      * @throws Exception
      *
@@ -310,9 +285,6 @@ class Time extends DateTime
 
     /**
      * Takes an instance of DateTimeInterface and returns an instance of Time with it's same values.
-     *
-     * @param DateTimeInterface $dateTime
-     * @param string|null       $locale
      *
      * @throws Exception
      *
@@ -330,9 +302,6 @@ class Time extends DateTime
 
     /**
      * Takes an instance of DateTime and returns an instance of Time with it's same values.
-     *
-     * @param DateTime    $dateTime
-     * @param string|null $locale
      *
      * @throws Exception
      *
@@ -373,7 +342,6 @@ class Time extends DateTime
      *
      * @param DateTimeInterface|string|Time|null $datetime
      * @param DateTimeZone|string|null           $timezone
-     * @param string|null                        $locale
      *
      * @throws Exception
      */
@@ -400,8 +368,6 @@ class Time extends DateTime
 
     /**
      * Returns whether we have a testNow instance saved.
-     *
-     * @return bool
      */
     public static function hasTestNow(): bool
     {
@@ -417,8 +383,6 @@ class Time extends DateTime
      * Returns the localized Year
      *
      * @throws Exception
-     *
-     * @return string
      */
     public function getYear(): string
     {
@@ -431,8 +395,6 @@ class Time extends DateTime
      * Returns the localized Month
      *
      * @throws Exception
-     *
-     * @return string
      */
     public function getMonth(): string
     {
@@ -445,8 +407,6 @@ class Time extends DateTime
      * Return the localized day of the month.
      *
      * @throws Exception
-     *
-     * @return string
      */
     public function getDay(): string
     {
@@ -459,8 +419,6 @@ class Time extends DateTime
      * Return the localized hour (in 24-hour format).
      *
      * @throws Exception
-     *
-     * @return string
      */
     public function getHour(): string
     {
@@ -473,8 +431,6 @@ class Time extends DateTime
      * Return the localized minutes in the hour.
      *
      * @throws Exception
-     *
-     * @return string
      */
     public function getMinute(): string
     {
@@ -487,8 +443,6 @@ class Time extends DateTime
      * Return the localized seconds
      *
      * @throws Exception
-     *
-     * @return string
      */
     public function getSecond(): string
     {
@@ -501,8 +455,6 @@ class Time extends DateTime
      * Return the index of the day of the week
      *
      * @throws Exception
-     *
-     * @return string
      */
     public function getDayOfWeek(): string
     {
@@ -515,8 +467,6 @@ class Time extends DateTime
      * Return the index of the day of the year
      *
      * @throws Exception
-     *
-     * @return string
      */
     public function getDayOfYear(): string
     {
@@ -529,8 +479,6 @@ class Time extends DateTime
      * Return the index of the week in the month
      *
      * @throws Exception
-     *
-     * @return string
      */
     public function getWeekOfMonth(): string
     {
@@ -543,8 +491,6 @@ class Time extends DateTime
      * Return the index of the week in the year
      *
      * @throws Exception
-     *
-     * @return string
      */
     public function getWeekOfYear(): string
     {
@@ -575,8 +521,6 @@ class Time extends DateTime
      * Returns the number of the current quarter for the year.
      *
      * @throws Exception
-     *
-     * @return string
      */
     public function getQuarter(): string
     {
@@ -587,8 +531,6 @@ class Time extends DateTime
 
     /**
      * Are we in daylight savings time currently?
-     *
-     * @return bool
      */
     public function getDst(): bool
     {
@@ -614,8 +556,6 @@ class Time extends DateTime
     /**
      * Returns boolean whether the passed timezone is the same as
      * the local timezone.
-     *
-     * @return bool
      */
     public function getLocal(): bool
     {
@@ -628,8 +568,6 @@ class Time extends DateTime
 
     /**
      * Returns boolean whether object is in UTC.
-     *
-     * @return bool
      */
     public function getUtc(): bool
     {
@@ -638,8 +576,6 @@ class Time extends DateTime
 
     /**
      * Returns the name of the current timezone.
-     *
-     * @return string
      */
     public function getTimezoneName(): string
     {
@@ -767,8 +703,7 @@ class Time extends DateTime
     /**
      * Helper method to do the heavy lifting of the 'setX' methods.
      *
-     * @param string $name
-     * @param int    $value
+     * @param int $value
      *
      * @throws Exception
      *
@@ -831,8 +766,6 @@ class Time extends DateTime
     /**
      * Returns a new Time instance with $seconds added to the time.
      *
-     * @param int $seconds
-     *
      * @return static
      */
     public function addSeconds(int $seconds)
@@ -844,8 +777,6 @@ class Time extends DateTime
 
     /**
      * Returns a new Time instance with $minutes added to the time.
-     *
-     * @param int $minutes
      *
      * @return static
      */
@@ -859,8 +790,6 @@ class Time extends DateTime
     /**
      * Returns a new Time instance with $hours added to the time.
      *
-     * @param int $hours
-     *
      * @return static
      */
     public function addHours(int $hours)
@@ -872,8 +801,6 @@ class Time extends DateTime
 
     /**
      * Returns a new Time instance with $days added to the time.
-     *
-     * @param int $days
      *
      * @return static
      */
@@ -887,8 +814,6 @@ class Time extends DateTime
     /**
      * Returns a new Time instance with $months added to the time.
      *
-     * @param int $months
-     *
      * @return static
      */
     public function addMonths(int $months)
@@ -900,8 +825,6 @@ class Time extends DateTime
 
     /**
      * Returns a new Time instance with $years added to the time.
-     *
-     * @param int $years
      *
      * @return static
      */
@@ -915,8 +838,6 @@ class Time extends DateTime
     /**
      * Returns a new Time instance with $seconds subtracted from the time.
      *
-     * @param int $seconds
-     *
      * @return static
      */
     public function subSeconds(int $seconds)
@@ -928,8 +849,6 @@ class Time extends DateTime
 
     /**
      * Returns a new Time instance with $minutes subtracted from the time.
-     *
-     * @param int $minutes
      *
      * @return static
      */
@@ -943,8 +862,6 @@ class Time extends DateTime
     /**
      * Returns a new Time instance with $hours subtracted from the time.
      *
-     * @param int $hours
-     *
      * @return static
      */
     public function subHours(int $hours)
@@ -956,8 +873,6 @@ class Time extends DateTime
 
     /**
      * Returns a new Time instance with $days subtracted from the time.
-     *
-     * @param int $days
      *
      * @return static
      */
@@ -971,8 +886,6 @@ class Time extends DateTime
     /**
      * Returns a new Time instance with $months subtracted from the time.
      *
-     * @param int $months
-     *
      * @return static
      */
     public function subMonths(int $months)
@@ -984,8 +897,6 @@ class Time extends DateTime
 
     /**
      * Returns a new Time instance with $hours subtracted from the time.
-     *
-     * @param int $years
      *
      * @return static
      */
@@ -1061,8 +972,6 @@ class Time extends DateTime
     /**
      * Returns the localized value of this instance in $format.
      *
-     * @param string|null $format
-     *
      * @throws Exception
      *
      * @return bool|string
@@ -1086,11 +995,8 @@ class Time extends DateTime
      * converted to UTC and compared that way.
      *
      * @param DateTimeInterface|string|Time $testTime
-     * @param string|null                   $timezone
      *
      * @throws Exception
-     *
-     * @return bool
      */
     public function equals($testTime, ?string $timezone = null): bool
     {
@@ -1109,11 +1015,8 @@ class Time extends DateTime
      * Ensures that the times are identical, taking timezone into account.
      *
      * @param DateTimeInterface|string|Time $testTime
-     * @param string|null                   $timezone
      *
      * @throws Exception
-     *
-     * @return bool
      */
     public function sameAs($testTime, ?string $timezone = null): bool
     {
@@ -1137,12 +1040,9 @@ class Time extends DateTime
      * Determines if the current instance's time is before $testTime,
      * after converting to UTC.
      *
-     * @param mixed       $testTime
-     * @param string|null $timezone
+     * @param mixed $testTime
      *
      * @throws Exception
-     *
-     * @return bool
      */
     public function isBefore($testTime, ?string $timezone = null): bool
     {
@@ -1158,12 +1058,9 @@ class Time extends DateTime
      * Determines if the current instance's time is after $testTime,
      * after converting in UTC.
      *
-     * @param mixed       $testTime
-     * @param string|null $timezone
+     * @param mixed $testTime
      *
      * @throws Exception
-     *
-     * @return bool
      */
     public function isAfter($testTime, ?string $timezone = null): bool
     {
@@ -1236,8 +1133,7 @@ class Time extends DateTime
     }
 
     /**
-     * @param mixed       $testTime
-     * @param string|null $timezone
+     * @param mixed $testTime
      *
      * @throws Exception
      *
@@ -1258,8 +1154,7 @@ class Time extends DateTime
     /**
      * Returns a Time instance with the timezone converted to UTC.
      *
-     * @param mixed       $time
-     * @param string|null $timezone
+     * @param mixed $time
      *
      * @throws Exception
      *
@@ -1304,10 +1199,6 @@ class Time extends DateTime
 
     /**
      * Check a time string to see if it includes a relative date (like 'next Tuesday').
-     *
-     * @param string $time
-     *
-     * @return bool
      */
     protected static function hasRelativeKeywords(string $time): bool
     {
@@ -1325,8 +1216,6 @@ class Time extends DateTime
      * Outputs a short format version of the datetime.
      *
      * @throws Exception
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -1364,8 +1253,6 @@ class Time extends DateTime
      * Allow for property-type checking to any getX method...
      *
      * @param string $name
-     *
-     * @return bool
      */
     public function __isset($name): bool
     {

@@ -127,7 +127,6 @@ class MigrationRunner
      * - existing connection instance
      * - array of database configuration values
      *
-     * @param MigrationsConfig                      $config
      * @param array|ConnectionInterface|string|null $db
      *
      * @throws ConfigException
@@ -154,8 +153,6 @@ class MigrationRunner
 
     /**
      * Locate and run all new migrations
-     *
-     * @param string|null $group
      *
      * @throws ConfigException
      * @throws RuntimeException
@@ -233,8 +230,7 @@ class MigrationRunner
      *
      * Calls each migration step required to get to the provided batch
      *
-     * @param int         $targetBatch Target batch number, or negative for a relative batch, 0 for all
-     * @param string|null $group
+     * @param int $targetBatch Target batch number, or negative for a relative batch, 0 for all
      *
      * @throws ConfigException
      * @throws RuntimeException
@@ -357,9 +353,8 @@ class MigrationRunner
      * Method "up" or "down" determined by presence in history.
      * NOTE: This is not recommended and provided mostly for testing.
      *
-     * @param string      $path  Full path to a valid migration file
-     * @param string      $path  Namespace of the target migration
-     * @param string|null $group
+     * @param string $path Full path to a valid migration file
+     * @param string $path Namespace of the target migration
      */
     public function force(string $path, string $namespace, ?string $group = null)
     {
@@ -564,8 +559,6 @@ class MigrationRunner
      * Set database Group.
      * Allows other scripts to modify on the fly as needed.
      *
-     * @param string $group
-     *
      * @return MigrationRunner
      */
     public function setGroup(string $group)
@@ -579,8 +572,6 @@ class MigrationRunner
 
     /**
      * Set migration Name.
-     *
-     * @param string $name
      *
      * @return MigrationRunner
      */
@@ -597,8 +588,6 @@ class MigrationRunner
      * If $silent == true, then will not throw exceptions and will
      * attempt to continue gracefully.
      *
-     * @param bool $silent
-     *
      * @return MigrationRunner
      */
     public function setSilent(bool $silent)
@@ -613,8 +602,6 @@ class MigrationRunner
     /**
      * Extracts the migration number from a filename
      *
-     * @param string $migration
-     *
      * @return string Numeric portion of a migration filename
      */
     protected function getMigrationNumber(string $migration): string
@@ -628,8 +615,6 @@ class MigrationRunner
 
     /**
      * Extracts the migration class name from a filename
-     *
-     * @param string $migration
      *
      * @return string text portion of a migration filename
      */
@@ -648,8 +633,6 @@ class MigrationRunner
      * to create a sortable unique key
      *
      * @param object $object migration or $history
-     *
-     * @return string
      */
     public function getObjectUid($object): string
     {
@@ -702,7 +685,6 @@ class MigrationRunner
      * Add a history to the table.
      *
      * @param object $migration
-     * @param int    $batch
      *
      * @return void
      */
@@ -756,10 +738,6 @@ class MigrationRunner
 
     /**
      * Grabs the full migration history from the database for a group
-     *
-     * @param string $group
-     *
-     * @return array
      */
     public function getHistory(string $group = 'default'): array
     {
@@ -787,9 +765,7 @@ class MigrationRunner
     /**
      * Returns the migration history for a single batch.
      *
-     * @param int $batch
-     *
-     * @return array
+     * @param mixed $order
      */
     public function getBatchHistory(int $batch, $order = 'asc'): array
     {
@@ -807,8 +783,6 @@ class MigrationRunner
 
     /**
      * Returns all the batches from the database history in order
-     *
-     * @return array
      */
     public function getBatches(): array
     {
@@ -828,8 +802,6 @@ class MigrationRunner
 
     /**
      * Returns the value of the last batch in the database.
-     *
-     * @return int
      */
     public function getLastBatch(): int
     {
@@ -852,10 +824,6 @@ class MigrationRunner
     /**
      * Returns the version number of the first migration for a batch.
      * Mostly just for tests.
-     *
-     * @param int $batch
-     *
-     * @return string
      */
     public function getBatchStart(int $batch): string
     {
@@ -880,10 +848,6 @@ class MigrationRunner
     /**
      * Returns the version number of the last migration for a batch.
      * Mostly just for tests.
-     *
-     * @param int $batch
-     *
-     * @return string
      */
     public function getBatchEnd(int $batch): string
     {
@@ -968,8 +932,6 @@ class MigrationRunner
      *
      * @param string $direction "up" or "down"
      * @param object $migration The migration to run
-     *
-     * @return bool
      */
     protected function migrate($direction, $migration): bool
     {
