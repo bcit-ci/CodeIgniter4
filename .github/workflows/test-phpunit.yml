@@ -40,13 +40,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['7.3', '7.4', '8.0']
+        php-versions: ['7.3', '7.4', '8.0', '8.1']
         db-platforms: ['MySQLi', 'Postgre', 'SQLite3', 'SQLSRV']
         mysql-versions: ['5.7']
         include:
-          - php-versions: 7.4
+          - php-versions: '7.4'
             db-platforms: MySQLi
-            mysql-versions: 8.0
+            mysql-versions: '8.0'
+          - php-versions: '8.1'
+            composer-flag: '--ignore-platform-req=php'
 
     services:
       mysql:
@@ -121,17 +123,18 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer update --ansi --no-interaction
-          composer remove --ansi --dev --unused -W rector/rector phpstan/phpstan friendsofphp/php-cs-fixer nexusphp/cs-config
+          composer update --ansi --no-interaction ${{ matrix.composer-flag }}
+          composer remove --ansi --dev --unused -W ${{ matrix.composer-flag }} -- rector/rector phpstan/phpstan friendsofphp/php-cs-fixer nexusphp/cs-config
           php -r 'file_put_contents("vendor/laminas/laminas-zendframework-bridge/src/autoload.php", "");'
         env:
           COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
 
-      - name: Profile slow tests in PHP 7.4 MySQLi for now
-        if: matrix.php-versions == '7.4' && matrix.db-platforms == 'MySQLi'
+      - name: Profile slow tests in PHP 8.0 MySQLi for now
+        if: matrix.php-versions == '8.0' && matrix.db-platforms == 'MySQLi'
         run: echo "TACHYCARDIA_MONITOR_GA=enabled" >> $GITHUB_ENV
 
       - name: Test with PHPUnit
+        continue-on-error: ${{ matrix.php-versions == '8.1' }}
         run: script -e -c "vendor/bin/phpunit --color=always"
         env:
           DB: ${{ matrix.db-platforms }}
