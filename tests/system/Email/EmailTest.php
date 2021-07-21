@@ -39,6 +39,8 @@ final class EmailTest extends CIUnitTestCase
 
     /**
      * @dataProvider autoClearProvider
+     *
+     * @param bool $autoClear
      */
     public function testEmailSendWithClearance($autoClear)
     {

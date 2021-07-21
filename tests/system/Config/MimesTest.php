@@ -48,8 +48,8 @@ final class MimesTest extends CIUnitTestCase
     /**
      * @dataProvider extensionsList
      *
-     * @param $expected
-     * @param $ext
+     * @param string|null $expected
+     * @param string      $mime
      */
     public function testGuessExtensionFromType($expected, $mime)
     {
@@ -84,6 +84,9 @@ final class MimesTest extends CIUnitTestCase
 
     /**
      * @dataProvider mimesList
+     *
+     * @param string|null $expected
+     * @param string      $ext
      */
     public function testGuessTypeFromExtension($expected, $ext)
     {

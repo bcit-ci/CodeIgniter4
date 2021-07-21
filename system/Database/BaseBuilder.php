@@ -1053,6 +1053,7 @@ class BaseBuilder
      * @param string $match
      * @param string $side
      * @param bool   $escape
+     * @param bool   $insensitiveSearch
      *
      * @return $this
      */
@@ -1071,6 +1072,7 @@ class BaseBuilder
      * @param string $match
      * @param string $side
      * @param bool   $escape
+     * @param bool   $insensitiveSearch
      *
      * @return $this
      */
@@ -1089,6 +1091,7 @@ class BaseBuilder
      * @param string $match
      * @param string $side
      * @param bool   $escape
+     * @param bool   $insensitiveSearch
      *
      * @return $this
      */
@@ -1107,6 +1110,7 @@ class BaseBuilder
      * @param string $match
      * @param string $side
      * @param bool   $escape
+     * @param bool   $insensitiveSearch
      *
      * @return $this
      */
@@ -1537,7 +1541,8 @@ class BaseBuilder
      *
      * Generates a platform-specific LIMIT clause.
      *
-     * @param string $sql SQL Query
+     * @param string $sql          SQL Query
+     * @param bool   $offsetIgnore
      *
      * @return string
      */

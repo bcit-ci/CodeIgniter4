@@ -17,6 +17,10 @@ class SecondMockLanguage extends Language
 {
     /**
      * Expose the protected *load* method
+     *
+     * @param string $file
+     * @param string $locale
+     * @param bool   $return
      */
     public function loadem(string $file, string $locale = 'en', bool $return = false)
     {
@@ -25,6 +29,8 @@ class SecondMockLanguage extends Language
 
     /**
      * Expose the loaded language files
+     *
+     * @param string $locale
      */
     public function loaded(string $locale = 'en')
     {

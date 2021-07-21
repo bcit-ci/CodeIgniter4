@@ -33,7 +33,8 @@ final class CheckFrameworkExceptionInstantiationViaNamedConstructorRule implemen
     }
 
     /**
-     * @param New_ $node
+     * @param New_  $node
+     * @param Scope $scope
      */
     public function processNode(Node $node, Scope $scope): array
     {

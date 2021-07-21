@@ -351,8 +351,8 @@ class MigrationRunner
      * Method "up" or "down" determined by presence in history.
      * NOTE: This is not recommended and provided mostly for testing.
      *
-     * @param string      $path  Full path to a valid migration file
-     * @param string      $path  Namespace of the target migration
+     * @param string      $path      Full path to a valid migration file
+     * @param string      $namespace Namespace of the target migration
      * @param string|null $group
      */
     public function force(string $path, string $namespace, ?string $group = null)
@@ -494,8 +494,8 @@ class MigrationRunner
     /**
      * Create a migration object from a file path.
      *
-     * @param string $path The path to the file
-     * @param string $path The namespace of the target migration
+     * @param string $path      The path to the file
+     * @param string $namespace The namespace of the target migration
      *
      * @return false|object Returns the migration object, or false on failure
      */
@@ -747,7 +747,8 @@ class MigrationRunner
     /**
      * Returns the migration history for a single batch.
      *
-     * @param int $batch
+     * @param int    $batch
+     * @param string $order
      *
      * @return array
      */

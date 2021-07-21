@@ -186,6 +186,8 @@ final class FiltersTest extends CIUnitTestCase
 
     /**
      * @dataProvider provideExcept
+     *
+     * @param array $except
      */
     public function testProcessMethodProcessGlobalsWithExcept(array $except)
     {
